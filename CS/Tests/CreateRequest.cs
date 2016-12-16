@@ -20,7 +20,7 @@ namespace CS.Tests
 {
     /// <summary>
     /// This test is used to verify whether user can create a new request in CS
-    /// Author :Tharinda Liyanage
+    /// Author :Tharinda Liyanage.
     /// Date: 09.12.2016
     /// </summary>
     [TestClass]
