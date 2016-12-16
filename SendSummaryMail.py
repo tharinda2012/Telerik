@@ -1,6 +1,4 @@
 import utils
-import datetime
-
 
 def main():
     mail=utils.mailing();
