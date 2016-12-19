@@ -25,7 +25,7 @@ namespace CS.Tests
     /// Date: 09.12.2016
     /// </summary>
     [TestClass]
-    public class WarmUP : BaseTest
+    public class GetVersions : BaseTest
     {
 
         
