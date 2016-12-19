@@ -1,5 +1,5 @@
 @echo off
 
-"C:\GIT\Telerik\SendSummaryMail.py"
+"C:\GIT\Telerik\CS\SupportingScripts\SendSummaryMail.py"
 
 exit
