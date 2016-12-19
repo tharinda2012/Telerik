@@ -10,5 +10,5 @@ cd %location%
 "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe" "C:\GIT\Telerik\CS.sln" /p:configuration=debug
 
 cd "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE"
-echo Run %DATE% %TIME% > C:\GIT\Telerik\CS\TestResults\Summary.log
+echo %DATE% %TIME% > C:\GIT\Telerik\CS\TestResults\Summary.log
 "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" /testcontainer:"C:\GIT\Telerik\CS\bin\Debug\CS.dll" /testsettings:"C:\GIT\Telerik\Settings.testsettings" >>"C:\GIT\Telerik\CS\TestResults\Summary.log"
