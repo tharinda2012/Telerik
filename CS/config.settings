@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="DBProvidestringSQL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=CRM21693;Integrated Security=SSPI;User ID=superoffice_asa\xxxxxx;Password=xxxxxxxx</Value>
+      <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=CRM21693;Integrated Security=SSPI</Value>
     </Setting>
     <Setting Name="Username" Type="System.String" Scope="User">
       <Value Profile="(Default)">tharindal@superoffice.com</Value>

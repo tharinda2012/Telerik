@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.ObjectRepo.Company;
 using CS.CommonMethods;
 using System.Threading;
-
+using System.IO;
 namespace CS.Tests
 {
     /// <summary>
@@ -116,20 +116,43 @@ namespace CS.Tests
             //
             // Place any additional initialization here
             //
+           
 
         }
 
         [TestMethod]
-        public void TestMethod_00_WarmUP()
+        public void TestMethod_getVersions()
         {
             try
             {
 
 
-                // create a login object to invoke methods related to login/logout.    
-                //login.Login_To_CS_Onsite();
-                login.Login_To_CS();
-                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);
+                DBAccess con = new DBAccess();
+                con.Create_DBConnection(config.Default.DBProvidestringSQL);
+                con.Execute_SQLQuery("select comment from crm7.productversion where comment like '%Build%'");
+                string comment = con.Return_Data_In_Array()[0].ToString();
+                string filePath = @"C:\GIT\\Telerik\CS\TestResults\version.log";
+                //if (File.Exists(filePath))
+                //{
+                //    File.Delete(filePath);
+                //}
+                //File.Create(filePath).Dispose();
+                //TextWriter tw = new StreamWriter(filePath);
+                //tw.WriteLine(comment);
+                //tw.Close();
+
+                using (FileStream aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write))
+                using (StreamWriter sw = new StreamWriter(aFile))
+                {
+                    sw.WriteLine(comment);
+                }
+
+                con.Close_Connection();
+                
+                
+                
+                
+                
                 
             }
 
@@ -137,8 +160,7 @@ namespace CS.Tests
             {
 
                 //saving error and logging out       
-                Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, e, TestContext.TestName, login.myManager);
-                Assert.Fail();
+                
             }
 
         }
@@ -151,8 +173,7 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+            
             
             #region WebAii CleanUp
 

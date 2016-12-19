@@ -85,15 +85,20 @@
     <Compile Include="Tests\CreatePerson.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\CreateQuickRequest.cs" />
+    <Compile Include="Tests\CreateQuickRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\CreateRequest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\WarmUP.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TestResults\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SupportingScripts\SendSummaryMail.py" />
+    <Content Include="SupportingScripts\utils.py" />
     <Content Include="SupportingTools\ObjRepoAutoGen\auto_gen.py" />
     <Content Include="SupportingTools\ObjRepoAutoGen\ReadMe.txt" />
   </ItemGroup>
@@ -105,6 +110,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>config.Designer.cs</LastGenOutput>
     </None>
+    <None Include="SupportingScripts\build.bat" />
+    <None Include="SupportingScripts\DeleteResults.bat" />
+    <None Include="SupportingScripts\SendmailBat.bat" />
     <None Include="SupportingTools\ObjRepoAutoGen\element_file.xlsx" />
   </ItemGroup>
   <Choose>

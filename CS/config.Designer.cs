@@ -26,7 +26,7 @@ namespace CS {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=CRM21693;Integrated Secu" +
-            "rity=SSPI;User ID=superoffice_asa\\xxxxxx;Password=xxxxxxxx")]
+            "rity=SSPI")]
         public string DBProvidestringSQL {
             get {
                 return ((string)(this["DBProvidestringSQL"]));
