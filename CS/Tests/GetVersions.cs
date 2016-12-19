@@ -162,7 +162,8 @@ namespace CS.Tests
             catch (Exception e)
             {
 
-                //saving error and logging out       
+                //saving error and logging out   
+                Console.WriteLine(e.Message);
                 
             }
 
