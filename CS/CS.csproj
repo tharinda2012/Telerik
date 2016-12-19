@@ -91,7 +91,7 @@
     <Compile Include="Tests\CreateRequest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\WarmUP.cs" />
+    <Compile Include="Tests\GetVersions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TestResults\" />
