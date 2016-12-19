@@ -131,7 +131,8 @@ namespace CS.Tests
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select comment from crm7.productversion where comment like '%Build%'");
                 string comment = con.Return_Data_In_Array()[0].ToString();
-                string filePath = @"C:\GIT\\Telerik\CS\TestResults\version.log";
+                string filePath = @"C:\GIT\\Telerik\CS\TestResults\Version.log";
+                string url = config.Default.Base_Url;
                 //if (File.Exists(filePath))
                 //{
                 //    File.Delete(filePath);
@@ -144,7 +145,9 @@ namespace CS.Tests
                 using (FileStream aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write))
                 using (StreamWriter sw = new StreamWriter(aFile))
                 {
-                    sw.WriteLine(comment);
+                    sw.WriteLine("***Build Version: " +comment);
+                    sw.WriteLine("\n");
+                    sw.WriteLine("***Base Url: " + url);
                 }
 
                 con.Close_Connection();
