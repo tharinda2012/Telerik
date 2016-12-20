@@ -68,11 +68,11 @@ namespace CS.Tests
                     FileVersion = getBetween(result, "File version", "Netserver version");
                     
                 }
-                
-                else
 
+                if (FileVersion == null)
+                {
                     FileVersion = "Not retrieved";
-                    
+                }   
             }
         }
         
