@@ -158,7 +158,7 @@ namespace CS.Tests
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select title, category from crm7.ticket  where title ='" + title + "' ");         
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
-                Assert.AreEqual("2", con.Return_Data_In_Array()[1]); //checking request status is 'support'
+                Assert.AreEqual("1", con.Return_Data_In_Array()[1]); //checking request status is 'support'
                 con.Close_Connection();
                            
             }
