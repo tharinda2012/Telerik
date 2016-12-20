@@ -79,6 +79,11 @@
     <Compile Include="ObjectRepo\Webtools\WebTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommonMethods\Utilities.cs" />
+    <Compile Include="Tests\CreateCompany.cs" />
+    <Compile Include="Tests\CreateEmailMailing.cs" />
+    <Compile Include="Tests\CreatePerson.cs" />
+    <Compile Include="Tests\CreateQuickRequest.cs" />
+    <Compile Include="Tests\CreateRequest.cs" />
     <Compile Include="Tests\GetVersions.cs" />
   </ItemGroup>
   <ItemGroup>
