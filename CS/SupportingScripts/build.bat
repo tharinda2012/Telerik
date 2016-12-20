@@ -12,3 +12,4 @@ cd %location%
 cd "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE"
 echo %DATE% %TIME% > C:\GIT\Telerik\CS\TestResults\Summary.log
 "C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" /testcontainer:"C:\GIT\Telerik\CS\bin\Debug\CS.dll" /testsettings:"C:\GIT\Telerik\Settings.testsettings" >>"C:\GIT\Telerik\CS\TestResults\Summary.log"
+exit
