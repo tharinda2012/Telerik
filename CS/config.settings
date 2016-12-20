@@ -18,7 +18,7 @@
       <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="Base_Url" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://sod.superoffice.com/login/</Value>
+      <Value Profile="(Default)">https://sod.superoffice.com/Cust21693</Value>
     </Setting>
     <Setting Name="aboutURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://sod.superoffice.com/Cust21693/CS/scripts/ticket.fcgi?action=about</Value>

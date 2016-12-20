@@ -83,7 +83,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/login/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/Cust21693")]
         public string Base_Url {
             get {
                 return ((string)(this["Base_Url"]));
