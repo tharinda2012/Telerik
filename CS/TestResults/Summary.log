@@ -1,24 +1,21 @@
+Tue 12/20/2016 11:12:11.18 
 Microsoft (R) Test Execution Command Line Tool Version 12.0.21005.1
 Copyright (c) Microsoft Corporation. All rights reserved.
     
-Loading C:\Users\tharindal.SUPEROFFICE_ASA\OneDrive\Telerik\Settings.testsettings...
-Loading C:\Users\tharindal.SUPEROFFICE_ASA\OneDrive\Telerik\CS\bin\Debug\CS.dll...
+Loading C:\GIT\Telerik\Settings.testsettings...
+Loading C:\GIT\Telerik\CS\bin\Debug\CS.dll...
 Starting execution...
 
 Results               Top Level Tests
 -------               ---------------
-Passed                CS.Tests.CreateCompany.TestMethod_Create_NewCompany
-Passed                CS.Tests.CreateEmailMailing.TestMethod_Create_EmailMailing
-Passed                CS.Tests.CreatePerson.TestMethod_Create_Person
-Passed                CS.Tests.CreateQuickRequest.TestMethod_Create_QuickRequest
-Passed                CS.Tests.CreateRequest.TestMethod_Create_New_Request
-5/5 test(s) Passed
+Passed                CS.Tests.GetVersions.TestMethod_getVersions
+1/1 test(s) Passed
 
 Summary
 -------
 Test Run Completed.
-  Passed  5
+  Passed  1
   ---------
-  Total   5
-Results file:  C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\TestResults\tharindal_THARINDTEST 2016-12-16 09_40_28.trx
+  Total   1
+Results file:  C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\TestResults\tharindal_SRI-THARINDA 2016-12-20 11_12_13.trx
 Test Settings: Settings
