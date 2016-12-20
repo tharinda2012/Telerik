@@ -51,7 +51,7 @@ namespace CS.Tests
         static async void DownloadPageAsync()
         {
             // ... Target page.
-            string page = config.Default.aboutURL;
+            string page = config.Default.About_Url;
 
             // ... Use HttpClient.
             using (HttpClient client = new HttpClient())
@@ -177,11 +177,11 @@ namespace CS.Tests
 
                 DBAccess con = new DBAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select prefvalue from crm7.userpreference where prefkey='CRMBaseURL'");                
+                //con.Execute_SQLQuery("select prefvalue from crm7.userpreference where prefkey='CRMBaseURL'");                
                 string filePath = @"C:\GIT\Telerik\CS\TestResults\Version.log";
-                string url = con.Return_Data_In_Array()[0].ToString();
-               
-                
+                //string url = con.Return_Data_In_Array()[0].ToString();
+
+                string url = config.Default.Base_Url;
                 using (FileStream aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write))
                 using (StreamWriter sw = new StreamWriter(aFile))
                 {
