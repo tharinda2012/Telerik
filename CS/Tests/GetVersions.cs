@@ -65,7 +65,7 @@ namespace CS.Tests
                 if (result != null)
                 {
                     //FileVersion = result;
-                    FileVersion = getBetween(result, "File version", "expires in");
+                    FileVersion = getBetween(result, "File version", "bgcolor");
                     
                 }
                 
@@ -177,7 +177,7 @@ namespace CS.Tests
 
                 DBAccess con = new DBAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                //con.Execute_SQLQuery("select prefvalue from crm7.userpreference where prefkey='CRMBaseURL'");                
+                con.Execute_SQLQuery("select prefvalue from crm7.userpreference where prefkey='CRMBaseURL'");                
                 string filePath = @"C:\GIT\Telerik\CS\TestResults\Version.log";
                 //string url = con.Return_Data_In_Array()[0].ToString();
 

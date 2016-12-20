@@ -8,9 +8,6 @@
     <Setting Name="Base_Url" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://sod.superoffice.com/login</Value>
     </Setting>
-    <Setting Name="SleepingTime" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">1000</Value>
-    </Setting>
     <Setting Name="DBProvidestringSQL" Type="System.String" Scope="User">
       <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=CRM21693;Integrated Security=SSPI</Value>
     </Setting>
@@ -22,6 +19,9 @@
     </Setting>
     <Setting Name="About_Url" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://sod.superoffice.com/Cust21693/CS/scripts/ticket.fcgi?action=about</Value>
+    </Setting>
+    <Setting Name="SleepingTime" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1000</Value>
     </Setting>
   </Settings>
 </SettingsFile>
