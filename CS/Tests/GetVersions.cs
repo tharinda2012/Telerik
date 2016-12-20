@@ -65,7 +65,7 @@ namespace CS.Tests
                 if (result != null)
                 {
                     //FileVersion = result;
-                    FileVersion = getBetween(result, "File version", "bgcolor");
+                    FileVersion = getBetween(result, "File version", "Netserver version");
                     
                 }
                 
@@ -179,9 +179,9 @@ namespace CS.Tests
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select prefvalue from crm7.userpreference where prefkey='CRMBaseURL'");                
                 string filePath = @"C:\GIT\Telerik\CS\TestResults\Version.log";
-                //string url = con.Return_Data_In_Array()[0].ToString();
+                string url = con.Return_Data_In_Array()[0].ToString();
 
-                string url = config.Default.Base_Url;
+                //string url = config.Default.Base_Url;
                 using (FileStream aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write))
                 using (StreamWriter sw = new StreamWriter(aFile))
                 {
