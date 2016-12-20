@@ -92,17 +92,5 @@ namespace CS {
                 this["Base_Url"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/Cust21693/CS/scripts/ticket.fcgi?action=about")]
-        public string aboutURL {
-            get {
-                return ((string)(this["aboutURL"]));
-            }
-            set {
-                this["aboutURL"] = value;
-            }
-        }
     }
 }
