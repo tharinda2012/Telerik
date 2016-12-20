@@ -23,3 +23,9 @@ C:\Users\tharindal.SUPEROFFICE_ASA\OneDrive\Telerik\CS\bin\Debug\CS.pdb
 C:\Users\tharindal.SUPEROFFICE_ASA\OneDrive\Telerik\CS\obj\Debug\CS.csprojResolveAssemblyReference.cache
 C:\Users\tharindal.SUPEROFFICE_ASA\OneDrive\Telerik\CS\obj\Debug\CS.dll
 C:\Users\tharindal.SUPEROFFICE_ASA\OneDrive\Telerik\CS\obj\Debug\CS.pdb
+C:\GIT\Telerik\CS\bin\Debug\CS.dll.config
+C:\GIT\Telerik\CS\bin\Debug\CS.dll
+C:\GIT\Telerik\CS\bin\Debug\CS.pdb
+C:\GIT\Telerik\CS\obj\Debug\CS.csprojResolveAssemblyReference.cache
+C:\GIT\Telerik\CS\obj\Debug\CS.dll
+C:\GIT\Telerik\CS\obj\Debug\CS.pdb
