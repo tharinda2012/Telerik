@@ -64,11 +64,6 @@
     <Compile Include="CommonMethods\DBAccess.cs" />
     <Compile Include="CommonMethods\SessionManager.cs" />
     <Compile Include="CommonMethods\RandomDataGen.cs" />
-    <Compile Include="config.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>config.settings</DependentUpon>
-    </Compile>
     <Compile Include="ObjectRepo\Company\Company.cs" />
     <Compile Include="ObjectRepo\Company\Person.cs" />
     <Compile Include="ObjectRepo\Login\obj_login.cs" />
@@ -103,13 +98,6 @@
     <Content Include="SupportingTools\ObjRepoAutoGen\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="config.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>config.Designer.cs</LastGenOutput>
-    </None>
     <None Include="SupportingScripts\build.bat" />
     <None Include="SupportingScripts\DeleteResults.bat" />
     <None Include="SupportingScripts\SendmailBat.bat" />
