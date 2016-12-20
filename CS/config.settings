@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="DBProvidestringSQL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=CRM21693;Integrated Security=SSPI</Value>
+      <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=1;Initial Catalog=CRM;Integrated Security=SSPI</Value>
     </Setting>
     <Setting Name="Username" Type="System.String" Scope="User">
       <Value Profile="(Default)">tharindal@superoffice.com</Value>
@@ -18,10 +18,14 @@
       <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="Base_Url" Type="System.String" Scope="User">
+<<<<<<< HEAD
       <Value Profile="(Default)">https://sod.superoffice.com/Cust21693</Value>
     </Setting>
     <Setting Name="aboutURL" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://sod.superoffice.com/Cust21693/CS/scripts/ticket.fcgi?action=about</Value>
+=======
+      <Value Profile="(Default)">https://plogin/</Value>
+>>>>>>> bbbe3ebe361dd7c16c0cfe88d207204d94616f42
     </Setting>
   </Settings>
 </SettingsFile>
