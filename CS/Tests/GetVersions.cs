@@ -52,7 +52,6 @@ namespace CS.Tests
         {
             // ... Target page.
             string page = config.Default.About_Url;
-
             // ... Use HttpClient.
             using (HttpClient client = new HttpClient())
             using (HttpResponseMessage response = await client.GetAsync(page))
@@ -60,15 +59,11 @@ namespace CS.Tests
             {
                 // ... Read the string.
                 string result = await content.ReadAsStringAsync();
-
                 // ... Display the result.
                 if (result != null)
-                {
-                    //FileVersion = result;
-                    FileVersion = getBetween(result, "File version", "Netserver version");
-                    
+                {         
+                    FileVersion = getBetween(result, "File version", "Netserver version");                    
                 }
-
                 if (FileVersion == null)
                 {
                     FileVersion = "Not retrieved";
@@ -172,42 +167,35 @@ namespace CS.Tests
         {
             try
             {
+                //create an async task to download the html page
                 Task t = new Task(DownloadPageAsync);
                 t.Start();
-                Thread.Sleep(config.Default.SleepingTime* 10);
+                Thread.Sleep(config.Default.SleepingTime* 10);                
                 DBAccess con = new DBAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select prefvalue from crm7.userpreference where prefkey='CRMBaseURL'");                
-                string filePath = @"C:\GIT\Telerik\CS\TestResults\Version.log";
                 //string url = con.Return_Data_In_Array()[0].ToString();
-
                 string url = config.Default.Base_Url;
+
+                //write application version/url info to a file
+                string filePath = @"C:\GIT\Telerik\CS\TestResults\Version.log";
                 using (FileStream aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write))
                 using (StreamWriter sw = new StreamWriter(aFile))
-                {
-                    
+                {                    
                     sw.WriteLine("\n");
                     sw.WriteLine("***Base Url: " + url);
                     sw.WriteLine("\n");
-                    sw.WriteLine("***File Version: " + FileVersion);
-                    
+                    sw.WriteLine("***File Version: " + FileVersion);                   
 
                 }
-
-                con.Close_Connection();
-
-
-                
-                    
+                con.Close_Connection();             
 
             }
 
             catch (Exception e)
             {
-
                 //saving error and logging out   
-                Console.WriteLine(e.Message);
-                
+                Console.WriteLine(e.Message);                
             }
 
         }
