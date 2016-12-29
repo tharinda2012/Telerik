@@ -25,7 +25,7 @@ namespace CS.CommonMethods
         {
 
             mySettings = new Settings();
-            mySettings.Web.DefaultBrowser = BrowserType.Chrome;
+            mySettings.Web.DefaultBrowser = config.Default.BrowserType; ;
             myManager = new Manager(mySettings);
             myManager.Start();
             myManager.LaunchNewBrowser();

@@ -12,7 +12,7 @@ namespace CS {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class config : global::System.Configuration.ApplicationSettingsBase {
         
         private static config defaultInstance = ((config)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new config())));
@@ -37,7 +37,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/login")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.00000.com/login")]
         public string Base_Url {
             get {
                 return ((string)(this["Base_Url"]));
@@ -49,7 +49,28 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=CRM21693;Integrated Secu" +
+        [global::System.Configuration.DefaultSettingValueAttribute("0000")]
+        public string Password {
+            get {
+                return ((string)(this["Password"]));
+            }
+            set {
+                this["Password"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int SleepingTime {
+            get {
+                return ((int)(this["SleepingTime"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.00.8.00;Initial Catalog=00021693;Integrated Secu" +
             "rity=SSPI")]
         public string DBProvidestringSQL {
             get {
@@ -62,7 +83,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tharindal@superoffice.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("tharindal@0000000.com")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -74,19 +95,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("21693")]
-        public string Password {
-            get {
-                return ((string)(this["Password"]));
-            }
-            set {
-                this["Password"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/Cust21693/CS/scripts/ticket.fcgi?action=about")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.000000.com/Cust0000/CS/scripts/ticket.fcgi?action=about")]
         public string About_Url {
             get {
                 return ((string)(this["About_Url"]));
@@ -96,12 +105,15 @@ namespace CS {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public int SleepingTime {
+        [global::System.Configuration.DefaultSettingValueAttribute("Chrome")]
+        public global::ArtOfTest.WebAii.Core.BrowserType BrowserType {
             get {
-                return ((int)(this["SleepingTime"]));
+                return ((global::ArtOfTest.WebAii.Core.BrowserType)(this["BrowserType"]));
+            }
+            set {
+                this["BrowserType"] = value;
             }
         }
     }

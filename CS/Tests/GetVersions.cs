@@ -175,18 +175,18 @@ namespace CS.Tests
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select prefvalue from crm7.userpreference where prefkey='CRMBaseURL'");                
                 //string url = con.Return_Data_In_Array()[0].ToString();
-                string url = config.Default.Base_Url;
-
+                
                 //write application version/url info to a file
                 string filePath = @"C:\GIT\Telerik\CS\TestResults\Version.log";
                 using (FileStream aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write))
                 using (StreamWriter sw = new StreamWriter(aFile))
                 {                    
                     sw.WriteLine("\n");
-                    sw.WriteLine("***Base Url: " + url);
+                    sw.WriteLine("***Base Url: " + config.Default.Base_Url);
                     sw.WriteLine("\n");
-                    sw.WriteLine("***File Version: " + FileVersion);                   
-
+                    sw.WriteLine("***File Version: " + FileVersion);
+                    sw.WriteLine("\n");
+                    sw.WriteLine("***Browser Used: " + config.Default.BrowserType);
                 }
                 con.Close_Connection();             
 
