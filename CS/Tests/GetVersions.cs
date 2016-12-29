@@ -186,7 +186,7 @@ namespace CS.Tests
                     sw.WriteLine("\n");
                     sw.WriteLine("***File Version: " + FileVersion);
                     sw.WriteLine("\n");
-                    sw.WriteLine("***Browser Used for the test: " + config.Default.BrowserType);
+                    sw.WriteLine("***Browser Used: " + config.Default.BrowserType);
                 }
                 con.Close_Connection();             
 
