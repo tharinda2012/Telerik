@@ -15,7 +15,7 @@
       <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="DBProvidestringSQL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=10.00.8.00;Initial Catalog=00021693;Integrated Security=SSPI</Value>
+      <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=00021693;Integrated Security=SSPI</Value>
     </Setting>
     <Setting Name="Username" Type="System.String" Scope="User">
       <Value Profile="(Default)">tharindal@0000000.com</Value>

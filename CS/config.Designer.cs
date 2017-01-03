@@ -12,7 +12,7 @@ namespace CS {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
     internal sealed partial class config : global::System.Configuration.ApplicationSettingsBase {
         
         private static config defaultInstance = ((config)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new config())));
@@ -70,7 +70,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.00.8.00;Initial Catalog=00021693;Integrated Secu" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=00021693;Integrated Secu" +
             "rity=SSPI")]
         public string DBProvidestringSQL {
             get {
