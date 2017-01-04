@@ -38,13 +38,13 @@ def send_file_zipped(recipients, sender='tests@automatic.tl'):
         themsg = themsg.as_string()
 
         # send the message
-        smtp = smtplib.SMTP('172.16.94.35')
+        smtp = smtplib.SMTP('SRI-QA-FILESERVER')
         smtp.sendmail(sender, recipients, themsg)
         smtp.close()
 
     except Exception as e:
         print("e-mail sending error occured:  " + str(e))
-        smtp = smtplib.SMTP('172.16.94.35')    
+        smtp = smtplib.SMTP('SRI-QA-FILESERVER')
         smtp.sendmail('tests@automatic.tl', 'tharindal@99x.lk', error_msg(str(e)))
 
 def error_msg(error):
