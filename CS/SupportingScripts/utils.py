@@ -4,7 +4,7 @@ import datetime
 class mailing:  
 
     #Define variables to hold email parameters
-    SMTPServer='172.16.94.35'
+    SMTPServer='SRI-QA-FILESERVER'
     sender = 'tests@automatic.tl'
     receiver = 'tharindal@99x.lk'
         
