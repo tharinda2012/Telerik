@@ -12,37 +12,50 @@ import utils
 
 def send_file_zipped(recipients, sender='tests@automatic.tl'):
 
-    summaryfolder='C:\\GIT\\Telerik\\CS\\TestResults'
-    shutil.make_archive("summary","zip",summaryfolder)
-    zf = tempfile.TemporaryFile(prefix='mail', suffix='.zip')
-    zip = zipfile.ZipFile(zf, 'w')
-    zip.write('summary.zip')
-    zip.close()
-    zf.seek(0)
+    try:
+        summaryfolder='C:\\GIT\\Telerik\\CS\\TestResults'
+        shutil.make_archive("summary","zip",summaryfolder)
+        zf = tempfile.TemporaryFile(prefix='mail', suffix='.zip')
+        zip = zipfile.ZipFile(zf, 'w')
+        zip.write('summary.zip')
+        zip.close()
+        zf.seek(0)
 
-    # Create the message
-    readlog=utils.logging()
-    themsg = MIMEMultipart()
-    themsg['Subject'] = "Subject: Test Execution Summary - " + str(datetime.datetime.today())
-    themsg['To'] = ', '.join(recipients)
-    themsg['From'] = sender
-    themsg.preamble = 'I am not using a MIME-aware mail reader.\n'
-    msg = MIMEBase('application', 'zip')
-    msg.set_payload(zf.read())
-    encoders.encode_base64(msg)
-    fullcontent=MIMEText(readlog.readSummary() + "\n\n" + readlog.readVersion())
-    msg.add_header('Content-Disposition', 'attachment', filename="summary" + '.zip')
+        # Create the message
+        readlog=utils.logging()
+        themsg = MIMEMultipart()
+        themsg['Subject'] = "Subject: Test Execution Summary - " + str(datetime.datetime.today())
+        themsg['To'] = ', '.join(recipients)
+        themsg['From'] = sender
+        themsg.preamble = 'I am not using a MIME-aware mail reader.\n'
+        msg = MIMEBase('application', 'zip')
+        msg.set_payload(zf.read())
+        encoders.encode_base64(msg)
+        fullcontent=MIMEText(readlog.readSummary() + "\n\n" + readlog.readVersion())
+        msg.add_header('Content-Disposition', 'attachment', filename="summary" + '.zip')
+        themsg.attach(fullcontent)
+        themsg.attach(msg)
+        themsg = themsg.as_string()
 
-    themsg.attach(fullcontent)
+        # send the message
+        smtp = smtplib.SMTP('172.16.94.35')
+        smtp.sendmail(sender, recipients, themsg)
+        smtp.close()
 
-    themsg.attach(msg)
-    themsg = themsg.as_string()
+    except Exception as e:
+        print("e-mail sending error occured:  " + str(e))
+        smtp = smtplib.SMTP('172.16.94.35')    
+        smtp.sendmail('tests@automatic.tl', 'tharindal@99x.lk', error_msg(str(e)))
 
-    # send the message
-    smtp = smtplib.SMTP('172.16.94.35')
-    #smtp.connect()
-    smtp.sendmail(sender, recipients, themsg)
-    smtp.close()
+def error_msg(error):
+
+
+        error = "From: Auto Tests <tests@automatic.tl>" + "\n" + \
+                "To: Build downloader <tharindal@99x.lk>" + "\n" + \
+                "Subject: Test Execution Summary - " + error +"\n\n"
+
+
+        return (error)
 
 def main():
     send_file_zipped(['tharindal@99x.lk'])
