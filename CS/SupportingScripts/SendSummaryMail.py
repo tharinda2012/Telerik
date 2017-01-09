@@ -24,7 +24,7 @@ def send_file_zipped(recipients, sender='tests@automatic.tl'):
         # Create the message
         readlog=utils.logging()
         themsg = MIMEMultipart()
-        themsg['Subject'] = "Subject: Test Execution Summary - " + str(datetime.datetime.today())
+        themsg['Subject'] = "Test Execution Summary - " + str(datetime.datetime.today())
         themsg['To'] = ', '.join(recipients)
         themsg['From'] = sender
         themsg.preamble = 'I am not using a MIME-aware mail reader.\n'
