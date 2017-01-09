@@ -24,7 +24,7 @@
       <Value Profile="(Default)">tharindal@00000</Value>
     </Setting>
     <Setting Name="About_Url" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://sod.0000000.com/Cust21661/CS/scripts/ticket.fcgi?action=about</Value>
+      <Value Profile="(Default)">https://sod.0000000.com/00021661/CS/scripts/ticket.fcgi?action=about</Value>
     </Setting>
   </Settings>
 </SettingsFile>
