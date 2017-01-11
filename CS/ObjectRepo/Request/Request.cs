@@ -20,14 +20,7 @@ namespace CS.ObjectRepo.Request
 
                     }
 
-        // Main + add button in the top area of the home screen
-        public Element newItemIcon
-        { get { return _manager.ActiveBrowser.Find.ById("HtmlPage_newItem"); } }
-
-        //quick request 
-        public Element newRequest
-        { get { return _manager.ActiveBrowser.Find.ByXPath("//*[@id='newItem_newTicket']/span"); } }
-
+       
         public Element title
         { get { return _manager.ActiveBrowser.Find.ById("title"); } }
 

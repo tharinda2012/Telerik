@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 
 
-namespace CS.ObjectRepo.Company
+namespace CS.ObjectRepo.Customer
 {
     class Person
     {
@@ -20,12 +20,7 @@ namespace CS.ObjectRepo.Company
             _manager = m;
         }
 
-         // Main + add button in the top area of the home screen
-         public Element newItemIcon { get { return _manager.ActiveBrowser.Find.ById("HtmlPage_newItem"); } }
-
-         //person menu item
-         public Element newPerson { get { return _manager.ActiveBrowser.Find.ByXPath("//*[@id='newItem_newCustomer']/span"); } }
-
+      
         //firstname
          public Element firstname { get { return _manager.ActiveBrowser.Find.ById("firstname"); } }
 

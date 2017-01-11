@@ -37,7 +37,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.00000.com/login")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/login")]
         public string Base_Url {
             get {
                 return ((string)(this["Base_Url"]));
@@ -70,7 +70,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("21693")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -82,7 +82,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=00021661;Integrated Secu" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=crm21693;Integrated Secu" +
             "rity=SSPI")]
         public string DBProvidestringSQL {
             get {
@@ -95,7 +95,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tharindal@00000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("tharindal@superoffice.com")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -107,7 +107,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.0000.com/Cust21661/CS/scripts/ticket.fcgi?action=about")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/Cust21693/CS/scripts/ticket.fcgi?action=about")]
         public string About_Url {
             get {
                 return ((string)(this["About_Url"]));

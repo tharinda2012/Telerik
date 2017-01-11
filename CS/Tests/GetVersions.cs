@@ -13,7 +13,7 @@ using ArtOfTest.WebAii.Win32.Dialogs;
 using ArtOfTest.WebAii.Silverlight;
 using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CS.ObjectRepo.Company;
+using CS.ObjectRepo.Customer;
 using CS.CommonMethods;
 using System.Threading;
 using System.IO;

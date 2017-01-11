@@ -14,9 +14,9 @@ using ArtOfTest.WebAii.Silverlight;
 using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
-using CS.ObjectRepo.Reqeust;
-using CS.ObjectRepo;
+using CS.ObjectRepo.KB;
 using System.Threading;
+using CS.ObjectRepo;
 
 namespace CS.Tests
 {
@@ -26,7 +26,7 @@ namespace CS.Tests
     /// Date: 09.12.2016
     /// </summary>
     [TestClass]
-    public class CreateQuickRequest : BaseTest
+    public class CreateFAQ : BaseTest
     {
         SessionManager login = new SessionManager();
         #region [Setup / TearDown]
@@ -119,7 +119,7 @@ namespace CS.Tests
         }
 
         [TestMethod]
-        public void TestMethod_Create_QuickRequest()
+        public void TestMethod_Create_FAQ()
         {
 
             try
@@ -132,35 +132,63 @@ namespace CS.Tests
                //invoke new quick request screen from main "+" button                
                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
                login.myManager.ActiveBrowser.RefreshDomTree();
-               QReqeust request = new QReqeust(login.myManager);
+               FAQ faq = new FAQ(login.myManager);
                TopMenu tm = new TopMenu(login.myManager);
                tm.newItemIcon.Wait.ForExists();
                login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
-               login.myManager.ActiveBrowser.Actions.Click(tm.newQuickRequest);
+               login.myManager.ActiveBrowser.Actions.Click(tm.newFAQ);
+
+               //Add faq name in properties tab
+                              
+               String title = "FAQ_" + RandomDataGen.Random_String_Generated(10);
+               login.myManager.ActiveBrowser.Actions.SetText(faq.faqname, title);
+
+                //set access to everyone
+               HtmlInputText access = faq.access.As<HtmlInputText>();
+               Utilities.Click_EventFor_Textfield(login.myManager, access);
+               Utilities.Enter_SearchStringFor_TextField(login.myManager, "Accessible to everyone");
+
+               //set keyword
+               login.myManager.ActiveBrowser.Actions.SetText(faq.keyword,title);
+
+                //set work flow to publish
+                HtmlInputText workflow = faq.workflow.As<HtmlInputText>();
+                Utilities.Click_EventFor_Textfield(login.myManager, workflow);
+                Utilities.Enter_SearchStringFor_TextField(login.myManager, "Published");
+
+                
+                //add question to iframe element in question tab
+                login.myManager.ActiveBrowser.Actions.Click(faq.questiontab);
+                login.myManager.ActiveBrowser.RefreshDomTree();
+                ArtOfTest.WebAii.Core.Browser t1_frame = login.myManager.ActiveBrowser.Frames[0];
+                Element questioneditor = t1_frame.Find.ByXPath("/html/body");
+                login.myManager.ActiveBrowser.Actions.SetText(questioneditor, title);
 
 
-                //add title
-                String title = "Quick_" + RandomDataGen.Random_String_Generated(10);
-                login.myManager.ActiveBrowser.Actions.SetText(request.title, title);
+                //add answer to iframe element in answer tab
+                login.myManager.ActiveBrowser.Actions.Click(faq.answertab);
+                login.myManager.ActiveBrowser.RefreshDomTree();
+                ArtOfTest.WebAii.Core.Browser t2_frame = login.myManager.ActiveBrowser.Frames[0];
+                Element answereditor = t2_frame.Find.ByXPath("/html/body");
+                login.myManager.ActiveBrowser.Actions.SetText(answereditor, title);
 
-                //assign category
-                HtmlInputText categorylabel = request.categorylabel.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, categorylabel);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "support");
-               
+                //save the faq
+                Thread.Sleep(config.Default.SleepingTime * 1);
+                login.myManager.ActiveBrowser.Actions.Click(faq.btnOK);    
+                //publish the faq
+                Thread.Sleep(config.Default.SleepingTime * 1);
+                login.myManager.ActiveBrowser.Actions.Click(faq.moveForwardWF); 
 
-                //add message              
-                login.myManager.ActiveBrowser.Actions.SetText(request.message, "Support message");
-
-                //click save button to save the request
-                login.myManager.ActiveBrowser.Actions.Click(request.okButton);
+     
 
                 //verify that the data has been saved to the database using an assert
                 DBAccess con = new DBAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select title, category from crm7.ticket  where title ='" + title + "' ");         
-                Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
-                Assert.AreEqual("1", con.Return_Data_In_Array()[1]); //checking request status is 'support'
+                con.Execute_SQLQuery("select title,keywords,access_level,status from crm7.kb_entry  where title ='" + title + "' ");         
+                Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking faq is saved to the table
+                Assert.AreEqual(title, con.Return_Data_In_Array()[1]); //checking keyword is saved
+                Assert.AreEqual("4", con.Return_Data_In_Array()[2]); //checking access level is 4 = accessible to all
+                Assert.AreEqual("1", con.Return_Data_In_Array()[3]); //checking status is 1 = published
                 con.Close_Connection();
                            
             }

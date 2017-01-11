@@ -14,9 +14,9 @@ using ArtOfTest.WebAii.Silverlight;
 using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
-using CS.ObjectRepo.Reqeust;
-using CS.ObjectRepo;
+using CS.ObjectRepo.Selection;
 using System.Threading;
+using CS.ObjectRepo;
 
 namespace CS.Tests
 {
@@ -26,7 +26,7 @@ namespace CS.Tests
     /// Date: 09.12.2016
     /// </summary>
     [TestClass]
-    public class CreateQuickRequest : BaseTest
+    public class CreateDynamicSelection : BaseTest
     {
         SessionManager login = new SessionManager();
         #region [Setup / TearDown]
@@ -119,7 +119,7 @@ namespace CS.Tests
         }
 
         [TestMethod]
-        public void TestMethod_Create_QuickRequest()
+        public void TestMethod_Create_DynamicSelection()
         {
 
             try
@@ -132,35 +132,46 @@ namespace CS.Tests
                //invoke new quick request screen from main "+" button                
                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
                login.myManager.ActiveBrowser.RefreshDomTree();
-               QReqeust request = new QReqeust(login.myManager);
+               Selection selection = new Selection(login.myManager);
                TopMenu tm = new TopMenu(login.myManager);
                tm.newItemIcon.Wait.ForExists();
                login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
-               login.myManager.ActiveBrowser.Actions.Click(tm.newQuickRequest);
+               login.myManager.ActiveBrowser.Actions.Click(tm.newSelection);
 
 
-                //add title
-                String title = "Quick_" + RandomDataGen.Random_String_Generated(10);
-                login.myManager.ActiveBrowser.Actions.SetText(request.title, title);
+                
 
-                //assign category
-                HtmlInputText categorylabel = request.categorylabel.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, categorylabel);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "support");
+                //select source table as "request"
+                HtmlInputText sourcetable = selection.sourcetable.As<HtmlInputText>();
+                Utilities.Click_EventFor_Textfield(login.myManager, sourcetable);
+                Utilities.Enter_SearchStringFor_TextField(login.myManager, "request");
                
 
-                //add message              
-                login.myManager.ActiveBrowser.Actions.SetText(request.message, "Support message");
+                
 
-                //click save button to save the request
-                login.myManager.ActiveBrowser.Actions.Click(request.okButton);
+                //click continue button
+                login.myManager.ActiveBrowser.Actions.Click(selection.btnContinue);
+
+                //set selection title                
+                String title = "Sel_" + RandomDataGen.Random_String_Generated(10);
+                login.myManager.ActiveBrowser.Actions.SetText(selection.title, title);
+
+                //click execute button                
+                login.myManager.ActiveBrowser.Actions.Click(selection.btnExecute);
+
+                Thread.Sleep(config.Default.SleepingTime*2);
+
+                //save the selection
+                login.myManager.ActiveBrowser.Actions.Click(selection.btnOk);
+
 
                 //verify that the data has been saved to the database using an assert
                 DBAccess con = new DBAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select title, category from crm7.ticket  where title ='" + title + "' ");         
-                Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
-                Assert.AreEqual("1", con.Return_Data_In_Array()[1]); //checking request status is 'support'
+                con.Execute_SQLQuery("select name, ej_table,last_count from crm7.ejselection  where name ='" + title + "' ");         
+                Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking selection is saved to the table
+                Assert.AreEqual("ticket", con.Return_Data_In_Array()[1]); //checking selection source table is Ticket'
+                Assert.IsNotNull(con.Return_Data_In_Array()[2]);// checking if selection has some data
                 con.Close_Connection();
                            
             }

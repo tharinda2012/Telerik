@@ -12,9 +12,10 @@ using ArtOfTest.WebAii.Win32.Dialogs;
 using ArtOfTest.WebAii.Silverlight;
 using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CS.ObjectRepo.Company;
+using CS.ObjectRepo.Customer;
 using CS.CommonMethods;
 using System.Threading;
+using CS.ObjectRepo;
 namespace CS.Tests
 {
     /// <summary>
@@ -130,11 +131,11 @@ namespace CS.Tests
 
                 Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);
                 Company company = new Company(login.myManager);
-
+                TopMenu tm = new TopMenu(login.myManager);
                 //invoke new quick request screen from main "+" button
-                
-                login.myManager.ActiveBrowser.Actions.Click(person.newItemIcon);
-                login.myManager.ActiveBrowser.Actions.Click(person.newPerson);
+
+                login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
+                login.myManager.ActiveBrowser.Actions.Click(tm.newPerson);
 
                 //add first and last names
                 person.firstname.Wait.ForExists();

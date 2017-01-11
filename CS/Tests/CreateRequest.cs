@@ -16,6 +16,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.ObjectRepo.Request;
 using CS.CommonMethods;
 using System.Threading;
+using CS.ObjectRepo;
+
 namespace CS.Tests
 {
     /// <summary>
@@ -131,10 +133,10 @@ namespace CS.Tests
                 //invoke new quick request screen from main "+" buttons
                 Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager); 
                 Request request = new Request(login.myManager);
+                TopMenu tm = new TopMenu(login.myManager);
 
-                
-                login.myManager.ActiveBrowser.Actions.Click(request.newItemIcon);
-                login.myManager.ActiveBrowser.Actions.Click(request.newRequest);
+                login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
+                login.myManager.ActiveBrowser.Actions.Click(tm.newRequest);
 
                 Thread.Sleep(config.Default.SleepingTime*3);
                 //add title

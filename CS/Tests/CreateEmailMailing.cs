@@ -16,6 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.ObjectRepo.Mailing;
 using CS.CommonMethods;
 using System.Threading;
+using CS.ObjectRepo;
 
 namespace CS.Tests
 {
@@ -131,11 +132,11 @@ namespace CS.Tests
                 login.Login_To_CS();
                 Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);
                 email email = new email(login.myManager);
-
+                TopMenu tm = new TopMenu(login.myManager);
                 //invoke new mailing screen from main "+" button
-                login.myManager.ActiveBrowser.Actions.Click(email.newItemIcon);
+                login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
 
-                login.myManager.ActiveBrowser.Actions.Click(email.newmailing);
+                login.myManager.ActiveBrowser.Actions.Click(tm.newmailing);
                
                 //access mailing screen in the iframe
                 

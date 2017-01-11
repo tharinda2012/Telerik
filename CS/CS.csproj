@@ -66,17 +66,20 @@
     <Compile Include="CommonMethods\SessionManager.cs" />
     <Compile Include="CommonMethods\RandomDataGen.cs" />
     <Compile Include="config.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>config.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="ObjectRepo\Company\Company.cs" />
-    <Compile Include="ObjectRepo\Company\Person.cs" />
-    <Compile Include="ObjectRepo\Login\obj_login.cs" />
+    <Compile Include="ObjectRepo\Customer\Company.cs" />
+    <Compile Include="ObjectRepo\Customer\Person.cs" />
+    <Compile Include="ObjectRepo\KB\FAQ.cs" />
+    <Compile Include="ObjectRepo\Login.cs" />
     <Compile Include="ObjectRepo\Mailing\email.cs" />
     <Compile Include="ObjectRepo\Request\Qrequest.cs" />
     <Compile Include="ObjectRepo\Request\Request.cs" />
-    <Compile Include="ObjectRepo\Webtools\WebTools.cs" />
+    <Compile Include="ObjectRepo\Selection\Selection.cs" />
+    <Compile Include="ObjectRepo\TopMenu.cs" />
+    <Compile Include="ObjectRepo\WebTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommonMethods\Utilities.cs" />
     <Compile Include="Tests\CreateCompany.cs">
@@ -85,9 +88,11 @@
     <Compile Include="Tests\CreateEmailMailing.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\CreateNewFAQ.cs" />
     <Compile Include="Tests\CreatePerson.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\CreateNewDynaSelection.cs" />
     <Compile Include="Tests\CreateQuickRequest.cs">
       <SubType>Code</SubType>
     </Compile>

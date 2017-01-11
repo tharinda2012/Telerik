@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CS.ObjectRepo.Login
+namespace CS.ObjectRepo
 {
-    class obj_login
+    class Login
     {
 
         private Manager _manager;
 
-        public obj_login(Manager m)
+        public Login(Manager m)
         {
             _manager = m;
         }

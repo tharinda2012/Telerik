@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CS.ObjectRepo.WebTools
+namespace CS.ObjectRepo
 {
     class WebTools
     {

@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace CS.ObjectRepo.Company
+
+namespace CS.ObjectRepo.Customer
 {
     class Company
     {
@@ -17,14 +18,6 @@ namespace CS.ObjectRepo.Company
         {
             _manager = m;
         }
-
-         // Main + add button in the top area of the home screen
-         public Element newItemIcon
-         { get { return _manager.ActiveBrowser.Find.ById("HtmlPage_newItem"); } }
-
-         //Company menu item
-         public Element newCompany
-         { get { return _manager.ActiveBrowser.Find.ByXPath("//*[@id='newItem_newCompany']/span"); } }
 
          public Element companyName { get { return _manager.ActiveBrowser.Find.ById("name"); } }
          public Element department { get { return _manager.ActiveBrowser.Find.ById("department"); } }

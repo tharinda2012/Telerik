@@ -10,8 +10,8 @@ using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CS.ObjectRepo.Login;
-using CS.ObjectRepo.WebTools;
+using CS.ObjectRepo;
+
 using ArtOfTest.WebAii.Win32.Dialogs;
 
 namespace CS.CommonMethods
@@ -33,7 +33,7 @@ namespace CS.CommonMethods
             Thread.Sleep(config.Default.SleepingTime);
             myManager.ActiveBrowser.ClearCache(ArtOfTest.WebAii.Core.BrowserCacheType.Cookies);
             myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url);
-            obj_login obj = new obj_login(myManager);
+            Login obj = new Login(myManager);
             obj.onlineUsername.Wait.ForExists();
             myManager.ActiveBrowser.Actions.SetText(obj.onlineUsername, config.Default.Username);
             obj.onlinePassword.Wait.ForExists();
@@ -98,7 +98,7 @@ namespace CS.CommonMethods
         {
             try
             {
-                obj_login obj = new obj_login(myManager);
+                Login obj = new Login(myManager);
                 myManager.ActiveBrowser.RefreshDomTree();
                 System.Threading.Thread.Sleep(config.Default.SleepingTime * 3);
                 HtmlDiv logout = obj.logoutDiv.As<HtmlDiv>();

@@ -19,14 +19,7 @@ namespace CS.ObjectRepo.Mailing
         {
             _manager = m;
         }
-
-        // Main + add button in the top area of the home screen
-        public Element newItemIcon
-        { get { return _manager.ActiveBrowser.Find.ById("HtmlPage_newItem"); } }
-
-        //emaili maliling menu item
-        public Element newmailing
-        { get { return _manager.ActiveBrowser.Find.ByXPath("//*[@id='newItem_newEmailMailing']/span"); } }       
+                   
 
 
 
