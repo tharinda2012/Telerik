@@ -70,6 +70,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="ObjectRepo\Admin\MailBox.cs" />
     <Compile Include="ObjectRepo\Customer\Company.cs" />
     <Compile Include="ObjectRepo\Customer\Person.cs" />
     <Compile Include="ObjectRepo\KB\FAQ.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Tests\CreateEmailMailing.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\CreateNewMailBox.cs" />
     <Compile Include="Tests\CreateNewFAQ.cs" />
     <Compile Include="Tests\CreatePerson.cs">
       <SubType>Code</SubType>

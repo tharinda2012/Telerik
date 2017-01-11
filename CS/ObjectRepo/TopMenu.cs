@@ -42,6 +42,14 @@ namespace CS.ObjectRepo
         
         //New FAQ menu item
         public Element newFAQ { get { return _manager.ActiveBrowser.Find.ByXPath("//*[@id='newItem_editKbEntry']/span"); } }
+
+        //admin cogwheel
+        public Element AdmincogWheel { get { return _manager.ActiveBrowser.Find.ById("HtmlPage_adminMenuImage"); } }
+
+        //admin-email
+        public Element adminemail { get { return _manager.ActiveBrowser.Find.ByXPath("//*[@id='area_admin_listFilters']/span"); } }
+
+
     }
 
 }

@@ -14,19 +14,20 @@ using ArtOfTest.WebAii.Silverlight;
 using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
-using CS.ObjectRepo.KB;
+using CS.ObjectRepo.Admin;
 using System.Threading;
 using CS.ObjectRepo;
+using System.Net.Mail;
 
 namespace CS.Tests
 {
     /// <summary>
-    /// This test is used to verify whether user can create a quick new FAQ in CS
+    /// This test is used to verify whether user can create anew mailbox and send a mail to it and verify a request gets created out of it
     /// Author :Tharinda Liyanage..
     /// Date: 11.01.2017
     /// </summary>
     [TestClass]
-    public class CreateFAQ : BaseTest
+    public class CreateMailBox : BaseTest
     {
         SessionManager login = new SessionManager();
         #region [Setup / TearDown]
@@ -119,85 +120,104 @@ namespace CS.Tests
         }
 
         [TestMethod]
-        public void TestMethod_Create_FAQ()
+        public void TestMethod_Create_MailBox()
         {
 
-            try
-            {
+            //try
+            //{
 
                //create a login object to invoke methods related to login/logout.    
-               //login.Login_To_CS_Onsite();
-               login.Login_To_CS();
-
-               //invoke new quick request screen from main "+" button                
+               login.Login_To_CS();       
+            
+               //click the admin cogwheel
                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
                login.myManager.ActiveBrowser.RefreshDomTree();
-               FAQ faq = new FAQ(login.myManager);
                TopMenu tm = new TopMenu(login.myManager);
                tm.newItemIcon.Wait.ForExists();
-               login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
-               login.myManager.ActiveBrowser.Actions.Click(tm.newFAQ);
+               login.myManager.ActiveBrowser.Actions.Click(tm.AdmincogWheel);
 
-               //Add faq name in properties tab
-                              
-               String title = "FAQ_" + RandomDataGen.Random_String_Generated(10);
-               login.myManager.ActiveBrowser.Actions.SetText(faq.faqname, title);
+               //select email from the menu
+               login.myManager.ActiveBrowser.Actions.Click(tm.adminemail);
+               
+               //mailbox creation
+               MailBox mb=new MailBox(login.myManager);
+               login.myManager.ActiveBrowser.Actions.Click(mb.newMailBox);
+               String title = "Mail_" + RandomDataGen.Random_String_Generated(6);
+               
+               //add address name
+               HtmlInputText address = mb.address.As<HtmlInputText>();
+               Utilities.Click_EventFor_Textfield(login.myManager, address);
+               Utilities.Enter_SearchStringFor_TextField(login.myManager, title);
 
-                //set access to everyone
-               HtmlInputText access = faq.access.As<HtmlInputText>();
-               Utilities.Click_EventFor_Textfield(login.myManager, access);
-               Utilities.Enter_SearchStringFor_TextField(login.myManager, "Accessible to everyone");
+               //set category
+               HtmlInputText category = mb.cateogry.As<HtmlInputText>();
+               Utilities.Click_EventFor_Textfield(login.myManager, category);
+               Utilities.Enter_SearchStringFor_TextField(login.myManager, "Support");
+               
+               //set priority
+               HtmlInputText priority = mb.priority.As<HtmlInputText>();
+               //Utilities.Click_EventFor_Textfield(login.myManager, priority);
+               Utilities.Enter_SearchStringFor_TextField(login.myManager, "High");
 
-               //set keyword
-               login.myManager.ActiveBrowser.Actions.SetText(faq.keyword,title);
+                //retrieve email address
+                String fulladdress= address.Text;
 
-                //set work flow to publish
-                HtmlInputText workflow = faq.workflow.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, workflow);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "Published");
-
-                
-                //add question to iframe element in question tab
-                login.myManager.ActiveBrowser.Actions.Click(faq.questiontab);
-                login.myManager.ActiveBrowser.RefreshDomTree();
-                ArtOfTest.WebAii.Core.Browser t1_frame = login.myManager.ActiveBrowser.Frames[0];
-                Element questioneditor = t1_frame.Find.ByXPath("/html/body");
-                login.myManager.ActiveBrowser.Actions.SetText(questioneditor, title);
-
-
-                //add answer to iframe element in answer tab
-                login.myManager.ActiveBrowser.Actions.Click(faq.answertab);
-                login.myManager.ActiveBrowser.RefreshDomTree();
-                ArtOfTest.WebAii.Core.Browser t2_frame = login.myManager.ActiveBrowser.Frames[0];
-                Element answereditor = t2_frame.Find.ByXPath("/html/body");
-                login.myManager.ActiveBrowser.Actions.SetText(answereditor, title);
-
-                //save the faq
-                Thread.Sleep(config.Default.SleepingTime * 1);
-                login.myManager.ActiveBrowser.Actions.Click(faq.btnOK);    
-                //publish the faq
-                Thread.Sleep(config.Default.SleepingTime * 1);
-                login.myManager.ActiveBrowser.Actions.Click(faq.moveForwardWF); 
-
-     
+               // save the mailbox
+               login.myManager.ActiveBrowser.Actions.Click(mb.btnOK);
+               Thread.Sleep(config.Default.SleepingTime * 3); 
 
                 //verify that the data has been saved to the database using an assert
                 DBAccess con = new DBAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select title,keywords,access_level,status from crm7.kb_entry  where title ='" + title + "' ");         
-                Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking faq is saved to the table
-                Assert.AreEqual(title, con.Return_Data_In_Array()[1]); //checking keyword is saved
-                Assert.AreEqual("4", con.Return_Data_In_Array()[2]); //checking access level is 4 = accessible to all
-                Assert.AreEqual("1", con.Return_Data_In_Array()[3]); //checking status is 1 = published
+                con.Execute_SQLQuery("select address,category_id,priority from crm7.MAIL_IN_FILTER where address = '" + fulladdress + "' ");
+                Assert.AreEqual(fulladdress, con.Return_Data_In_Array()[0]);//checking mailbox is saved to the table
+                Assert.AreEqual("1", con.Return_Data_In_Array()[1]); //checking category 1 = support
+                Assert.AreEqual("3", con.Return_Data_In_Array()[2]); //checking priority 3 = high
+
                 con.Close_Connection();
+
+                //send mail to the new address
+
+                MailMessage mail = new MailMessage("tharindal@99x.lk", fulladdress);
+                SmtpClient client = new SmtpClient();
+                client.Port = 25;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Host = "SRI-QA-FILESERVER";
+                mail.Subject = title;
+                mail.Body = "this is my test email body";
+                client.Send(mail);
+
+                //check if the request is sent and generated by CS
+                DBAccess con2 = new DBAccess();
+                con2.Create_DBConnection(config.Default.DBProvidestringSQL);
+                con2.Execute_SQLQuery("select title, author from crm7.ticket where title= '" + title + "'");
+                int counter = 0;
+                while (con2.Return_Data_In_Array()[0].ToString() != title && counter < 10) //this will try upto 10 times before fails
+                {
+                    con2.Create_DBConnection(config.Default.DBProvidestringSQL);
+                    con2.Execute_SQLQuery("select title, author from crm7.ticket where title= '" + title + "'");
+                    Thread.Sleep(config.Default.SleepingTime * 10);
+                    counter += 1;
+                }
+
+                Assert.AreEqual(title, con2.Return_Data_In_Array()[0].ToString());
+
+                con2.Close_Connection();
+
+                //clean the mailbox by deleting the newly added record in the database
+                DBAccess con3 = new DBAccess();
+                con3.Create_DBConnection(config.Default.DBProvidestringSQL);
+                con3.Execute_SQLQuery("delete crm7.MAIL_IN_FILTER where address = '" + fulladdress + "'");                
+                con3.Close_Connection();
                            
-            }
-            catch (Exception error)
-            {
-                //saving error and logging out       
-                Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
-                Assert.Fail();
-            }
+            //}
+            //catch (Exception error)
+            //{
+            //    //saving error and logging out       
+            //    Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+            //    Assert.Fail();
+            //}
 
 
 

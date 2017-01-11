@@ -29,4 +29,3 @@ C:\GIT\Telerik\CS\bin\Debug\CS.pdb
 C:\GIT\Telerik\CS\bin\Debug\Telerik.TestStudio.SourceControl.dll
 C:\GIT\Telerik\CS\obj\Debug\CS.dll
 C:\GIT\Telerik\CS\obj\Debug\CS.pdb
-C:\GIT\Telerik\CS\obj\Debug\CS.csprojResolveAssemblyReference.cache

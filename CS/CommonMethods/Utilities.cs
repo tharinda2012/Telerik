@@ -51,7 +51,7 @@ namespace CS.CommonMethods
                     Thread.Sleep(config.Default.SleepingTime / 4);
                     m.Desktop.KeyBoard.KeyPress((Keys)char.ToUpper(key));
                 }
-                m.Desktop.KeyBoard.KeyPress(Keys.Enter);
+                m.Desktop.KeyBoard.KeyPress(Keys.Tab);
             }
 
 

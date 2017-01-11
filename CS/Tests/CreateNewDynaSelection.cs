@@ -21,9 +21,9 @@ using CS.ObjectRepo;
 namespace CS.Tests
 {
     /// <summary>
-    /// This test is used to verify whether user can create a quick new request in CS
+    /// This test is used to verify whether user can create a dynamic selection in CS
     /// Author :Tharinda Liyanage..
-    /// Date: 09.12.2016
+    /// Date: 11.01.2017
     /// </summary>
     [TestClass]
     public class CreateDynamicSelection : BaseTest
