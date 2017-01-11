@@ -123,8 +123,8 @@ namespace CS.Tests
         public void TestMethod_Create_MailBox()
         {
 
-            //try
-            //{
+            try
+            {
 
                //create a login object to invoke methods related to login/logout.    
                login.Login_To_CS();       
@@ -211,13 +211,13 @@ namespace CS.Tests
                 con3.Execute_SQLQuery("delete crm7.MAIL_IN_FILTER where address = '" + fulladdress + "'");                
                 con3.Close_Connection();
                            
-            //}
-            //catch (Exception error)
-            //{
-            //    //saving error and logging out       
-            //    Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
-            //    Assert.Fail();
-            //}
+            }
+            catch (Exception error)
+            {
+                //saving error and logging out       
+                Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Assert.Fail();
+            }
 
 
 
