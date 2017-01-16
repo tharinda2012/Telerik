@@ -21,7 +21,7 @@ using CS.ObjectRepo;
 namespace CS.Tests
 {
     /// <summary>
-    /// This test is used to verify whether user can create a new company in CS
+    /// This test is used to verify whether user can create a new company in CS.
     /// Author :Tharinda 
     /// Date: 09.12.2016
     /// </summary>
