@@ -3,7 +3,7 @@
 Simple End-To-End UI Test Automation solution (with Telerik, C#, Python etc)
 =====================================================================
 
-Following technologies/ tools were used 
+Following technologies/ tools were used .
 
 1. Telerik Testing Framework from Progress Inc - this is the tool used for writing the UI tests
 2. Visual Studio 2013 or  above with C#
