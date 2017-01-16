@@ -56,7 +56,7 @@ class logging:
          log.close()
 
     def  readGitLog(self):
-        basedir="C:\\GIT\\Telerik"
+        basedir="C:\\GIT\\Telerik\\CS\\SupportingScripts"
         if os.path.exists(basedir):
             log=open(basedir+"\\"+"pull.log", "r")
             if os.stat(basedir+"\\"+"pull.log").st_size!=0:
