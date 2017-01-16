@@ -47,5 +47,5 @@ Temporary Items
 .apdisk
 
 #other files
-config.settings
-app.config
+*.settings
+*.config
