@@ -23,8 +23,7 @@ namespace CS.CommonMethods
             {
                 //create a directory with the methodname to store screenshot and error log
                 String directoryname = testemethodname + "_" + string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
-                String errordumppath = "C:\\GIT\\Telerik\\CS\\TestResults";
-                errordumppath.Replace(@"\", @"\\");
+                String errordumppath = "C:\\GIT\\Telerik\\CS\\TestResults";               
                 System.IO.Directory.CreateDirectory(errordumppath + "\\" + directoryname);
                 //save screenshot
                 browser.RefreshDomTree();
