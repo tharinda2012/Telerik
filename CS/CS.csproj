@@ -89,12 +89,12 @@
     <Compile Include="Tests\CreateEmailMailing.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\CreateNewMailBox.cs" />
+    <Compile Include="Tests\CreateNewDynaSelection.cs" />
     <Compile Include="Tests\CreateNewFAQ.cs" />
+    <Compile Include="Tests\CreateNewMailBox.cs" />
     <Compile Include="Tests\CreatePerson.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\CreateNewDynaSelection.cs" />
     <Compile Include="Tests\CreateQuickRequest.cs">
       <SubType>Code</SubType>
     </Compile>

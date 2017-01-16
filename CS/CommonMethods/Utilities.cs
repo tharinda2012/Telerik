@@ -10,6 +10,8 @@ using CS.CommonMethods;
 using System.Windows.Forms;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using System.Threading;
+using System.Net.Mail;
+
 namespace CS.CommonMethods
 {
     class Utilities
@@ -113,6 +115,21 @@ namespace CS.CommonMethods
                 m.ActiveBrowser.RefreshDomTree();
                 newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
             }
+        }
+
+        public static void sendMail(String fromaddr, String toaddr, String subject, String mailbody, String smtphost)
+        {
+            //send mail to the new address
+
+            MailMessage mail = new MailMessage(fromaddr, toaddr);
+            SmtpClient client = new SmtpClient();
+            client.Port = 25;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Host = smtphost;
+            mail.Subject = subject;
+            mail.Body = mailbody;
+            client.Send(mail);
         }
 
 
