@@ -47,5 +47,5 @@ Temporary Items
 .apdisk
 
 #other files
-cs/*.settings
-cs/*.config
+CS/*.settings
+CS/*.config
