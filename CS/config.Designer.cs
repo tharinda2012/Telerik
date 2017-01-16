@@ -46,8 +46,8 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=ttttt;Integrated Securit" +
-            "y=SSPI")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=jjjj;Integrated Security" +
+            "=SSPI")]
         public string DBProvidestringSQL {
             get {
                 return ((string)(this["DBProvidestringSQL"]));
@@ -71,7 +71,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.tttt.com/login")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.jjjjcom/login")]
         public string Base_Url {
             get {
                 return ((string)(this["Base_Url"]));
@@ -83,7 +83,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("yyyyyy")]
+        [global::System.Configuration.DefaultSettingValueAttribute("jjjjj")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -95,7 +95,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/ttttt/CS/scripts/ticket.fcgi?action=about")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.jjjj.com/jjjj/CS/scripts/ticket.fcgi?action=about")]
         public string About_Url {
             get {
                 return ((string)(this["About_Url"]));
