@@ -54,3 +54,16 @@ class logging:
         else:
          return "empty log file"
          log.close()
+
+    def  readGitLog(self):
+        basedir="C:\\GIT\\Telerik"
+        if os.path.exists(basedir):
+            log=open(basedir+"\\"+"pull.log", "r")
+            if os.stat(basedir+"\\"+"pull.log").st_size!=0:
+                logstr=log.read()
+                return str(logstr)
+                log.close()
+
+        else:
+         return "empty log file"
+         log.close()
