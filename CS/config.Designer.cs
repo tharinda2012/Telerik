@@ -23,18 +23,6 @@ namespace CS {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.yyyyyy.com/login")]
-        public string Base_Url {
-            get {
-                return ((string)(this["Base_Url"]));
-            }
-            set {
-                this["Base_Url"] = value;
-            }
-        }
-        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
@@ -58,19 +46,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("yyyyyy")]
-        public string Password {
-            get {
-                return ((string)(this["Password"]));
-            }
-            set {
-                this["Password"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=xxxxx;Integrated Securit" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=ttttt;Integrated Securit" +
             "y=SSPI")]
         public string DBProvidestringSQL {
             get {
@@ -83,7 +59,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tharindak@yyyyyy.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("tharindak@tttt.com")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -95,7 +71,31 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/yyyyy/CS/scripts/ticket.fcgi?action=about")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.tttt.com/login")]
+        public string Base_Url {
+            get {
+                return ((string)(this["Base_Url"]));
+            }
+            set {
+                this["Base_Url"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("yyyyyy")]
+        public string Password {
+            get {
+                return ((string)(this["Password"]));
+            }
+            set {
+                this["Password"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/ttttt/CS/scripts/ticket.fcgi?action=about")]
         public string About_Url {
             get {
                 return ((string)(this["About_Url"]));
