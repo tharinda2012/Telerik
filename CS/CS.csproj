@@ -120,6 +120,7 @@
     </None>
     <None Include="SupportingScripts\build.bat" />
     <None Include="SupportingScripts\DeleteResults.bat" />
+    <None Include="SupportingScripts\pull.bat" />
     <None Include="SupportingScripts\SendmailBat.bat" />
     <None Include="SupportingTools\ObjRepoAutoGen\element_file.xlsx" />
   </ItemGroup>

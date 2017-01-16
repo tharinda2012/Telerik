@@ -6,7 +6,7 @@
       <Value Profile="(Default)">C:\GIT\Telerik\CS\TestResults</Value>
     </Setting>
     <Setting Name="Base_Url" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://sod.00000.com/login</Value>
+      <Value Profile="(Default)">https://sod.superoffice.com/login</Value>
     </Setting>
     <Setting Name="SleepingTime" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">1000</Value>
@@ -15,16 +15,16 @@
       <Value Profile="(Default)">Chrome</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">00000</Value>
+      <Value Profile="(Default)">21690</Value>
     </Setting>
     <Setting Name="DBProvidestringSQL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=00021661;Integrated Security=SSPI</Value>
+      <Value Profile="(Default)">Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=crm21690;Integrated Security=SSPI</Value>
     </Setting>
     <Setting Name="Username" Type="System.String" Scope="User">
-      <Value Profile="(Default)">tharindal@00000</Value>
+      <Value Profile="(Default)">tharindak@superoffice.com</Value>
     </Setting>
     <Setting Name="About_Url" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://sod.0000000.com/00021661/CS/scripts/ticket.fcgi?action=about</Value>
+      <Value Profile="(Default)">https://sod.superoffice.com/CUST21690/CS/scripts/ticket.fcgi?action=about</Value>
     </Setting>
   </Settings>
 </SettingsFile>
