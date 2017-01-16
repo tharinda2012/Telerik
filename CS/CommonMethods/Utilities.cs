@@ -23,7 +23,7 @@ namespace CS.CommonMethods
             {
                 //create a directory with the methodname to store screenshot and error log
                 String directoryname = testemethodname + "_" + string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
-                String errordumppath = config.Default.errordumppath;
+                String errordumppath = "C:\\GIT\\Telerik\\CS\\TestResults";
                 errordumppath.Replace(@"\", @"\\");
                 System.IO.Directory.CreateDirectory(errordumppath + "\\" + directoryname);
                 //save screenshot
@@ -31,7 +31,7 @@ namespace CS.CommonMethods
                 Bitmap pic = browser.Capture();
                 //pic.Save(config.Default.errordumppath + "\\" + directoryname + "\\" + "Error_" + testemethodname + ".png");            
                 Bitmap pic2 = browser.Capture();
-                pic2.Save(config.Default.errordumppath + "\\" + directoryname + "\\" + "Error_" + testemethodname + ".png");
+                pic2.Save(errordumppath + "\\" + directoryname + "\\" + "Error_" + testemethodname + ".png");
                 File.AppendAllText(errordumppath + "\\" + directoryname + "\\" + "error.txt", "\r\n*************" + DateTime.Now + "---" + testemethodname + "**************\r\n");
                 File.AppendAllText(errordumppath + "\\" + directoryname + "\\" + "error.txt", e.ToString());
             }
