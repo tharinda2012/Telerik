@@ -12,7 +12,7 @@ namespace CS {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class config : global::System.Configuration.ApplicationSettingsBase {
         
         private static config defaultInstance = ((config)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new config())));
@@ -25,7 +25,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/login")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.yyyyyy.com/login")]
         public string Base_Url {
             get {
                 return ((string)(this["Base_Url"]));
@@ -58,7 +58,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("21690")]
+        [global::System.Configuration.DefaultSettingValueAttribute("yyyyyy")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -70,8 +70,8 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=crm21690;Integrated Secu" +
-            "rity=SSPI")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=10.51.8.81;Initial Catalog=xxxxx;Integrated Securit" +
+            "y=SSPI")]
         public string DBProvidestringSQL {
             get {
                 return ((string)(this["DBProvidestringSQL"]));
@@ -83,7 +83,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tharindak@superoffice.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("tharindak@yyyyyy.com")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -95,7 +95,7 @@ namespace CS {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/CUST21690/CS/scripts/ticket.fcgi?action=about")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sod.superoffice.com/yyyyy/CS/scripts/ticket.fcgi?action=about")]
         public string About_Url {
             get {
                 return ((string)(this["About_Url"]));
