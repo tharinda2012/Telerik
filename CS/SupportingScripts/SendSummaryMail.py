@@ -31,7 +31,7 @@ def send_file_zipped(recipients, sender='tests@automatic.tl'):
         msg = MIMEBase('application', 'zip')
         msg.set_payload(zf.read())
         encoders.encode_base64(msg)
-        fullcontent=MIMEText(readlog.readSummary() + "\n\n" + readlog.readVersion())
+        fullcontent=MIMEText(readlog.readSummary() + "\n\n" + readlog.readVersion() + "\n\n" + readlog.readGitLog())
         msg.add_header('Content-Disposition', 'attachment', filename="summary" + '.zip')
         themsg.attach(fullcontent)
         themsg.attach(msg)
