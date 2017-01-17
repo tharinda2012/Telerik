@@ -78,11 +78,6 @@
     <Compile Include="ObjectRepo\WebTools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommonMethods\Utilities.cs" />
-    <Compile Include="config.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>config.settings</DependentUpon>
-    </Compile>
     <Compile Include="Tests\CreateCompany.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,11 +108,6 @@
     <Content Include="SupportingTools\ObjRepoAutoGen\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="config.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>config.Designer.cs</LastGenOutput>
-    </None>
     <None Include="SupportingScripts\build.bat" />
     <None Include="SupportingScripts\DeleteResults.bat" />
     <None Include="SupportingScripts\pull.bat" />
