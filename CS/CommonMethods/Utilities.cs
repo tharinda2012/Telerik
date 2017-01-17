@@ -12,6 +12,7 @@ using ArtOfTest.WebAii.Controls.HtmlControls;
 using System.Threading;
 using System.Net.Mail;
 using System.Linq;
+using CS.ObjectRepo;
 
 namespace CS.CommonMethods
 {
@@ -107,13 +108,15 @@ namespace CS.CommonMethods
         {
             m.ActiveBrowser.RefreshDomTree();
             int counter0 = 0;
-            HtmlDiv newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
-            while (newItemIcon == null && counter0 < 10) //this will try upto 10 times before fails
+            //HtmlDiv newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
+            TopMenu tm = new TopMenu(m);
+            while (tm.newItemIcon == null && counter0 < 10) //this will try upto 10 times before fails
             {
                 Thread.Sleep(config.Default.SleepingTime * 10);
                 counter0 += 1;
                 m.ActiveBrowser.RefreshDomTree();
-                newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
+                //newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
+                tm = new TopMenu(m);
             }
         }
 
