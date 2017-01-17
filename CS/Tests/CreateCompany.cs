@@ -139,7 +139,7 @@ namespace CS.Tests
 
                 //add value for name
                 company.companyName.Wait.ForExists();
-                String compname = RandomDataGen.Random_String_Generated(10);
+                String compname = Utilities.Random_String_Generated(10);
                 login.myManager.ActiveBrowser.Actions.SetText(company.companyName, compname);
 
                 //add value to department

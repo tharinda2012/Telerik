@@ -141,7 +141,7 @@ namespace CS.Tests
                 Thread.Sleep(config.Default.SleepingTime*3);
                 //add title
                 login.myManager.ActiveBrowser.RefreshDomTree();
-                String title = RandomDataGen.Random_String_Generated(10);
+                String title = Utilities.Random_String_Generated(10);
                 request.title.Wait.ForExists();
                 login.myManager.ActiveBrowser.Actions.SetText(request.title, title);
 
