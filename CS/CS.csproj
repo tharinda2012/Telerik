@@ -64,7 +64,6 @@
   <ItemGroup>
     <Compile Include="CommonMethods\DBAccess.cs" />
     <Compile Include="CommonMethods\SessionManager.cs" />
-    <Compile Include="CommonMethods\RandomDataGen.cs" />
     <Compile Include="config.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
