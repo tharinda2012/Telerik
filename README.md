@@ -1,6 +1,6 @@
 # Telerik
 
-Simple End-To-End UI Test Automation solution (with Telerik, C#, Python etc).
+Simple End-To-End UI Test Automation solution (with Telerik, C#, Python etc)...
 =====================================================================
 
 Following technologies/ tools were used .
