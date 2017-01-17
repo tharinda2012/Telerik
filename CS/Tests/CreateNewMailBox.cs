@@ -142,7 +142,7 @@ namespace CS.Tests
                //mailbox creation
                MailBox mb=new MailBox(login.myManager);
                login.myManager.ActiveBrowser.Actions.Click(mb.newMailBox);
-               String title = "Mail_" + RandomDataGen.Random_String_Generated(6);
+               String title = "Mail_" + Utilities.Random_String_Generated(6);
                
                //add address name
                HtmlInputText address = mb.address.As<HtmlInputText>();
