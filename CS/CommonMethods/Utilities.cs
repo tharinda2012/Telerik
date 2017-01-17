@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using System.Threading;
 using System.Net.Mail;
+using System.Linq;
 
 namespace CS.CommonMethods
 {
@@ -130,6 +131,18 @@ namespace CS.CommonMethods
             mail.Body = mailbody;
             client.Send(mail);
         }
+
+
+        public static string Random_String_Generated(int length)
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            String ranstring = new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            return "Auto--" + ranstring;
+        }
+      
 
 
     }
