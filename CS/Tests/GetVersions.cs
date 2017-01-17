@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 namespace CS.Tests
 {
     /// <summary>
-    /// This test is used to verify whether user can create a new company in CS
+    /// This test is used to get the meta data of the system under test
     /// Author :Tharinda 
     /// Date: 09.12.2016
     /// </summary>
