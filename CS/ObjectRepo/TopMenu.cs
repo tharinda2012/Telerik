@@ -49,7 +49,8 @@ namespace CS.ObjectRepo
         //admin-email
         public Element adminemail { get { return _manager.ActiveBrowser.Find.ByXPath("//*[@id='area_admin_listFilters']/span"); } }
 
-
+        //admin-customer center pages
+        public Element admincustcenterpages { get { return _manager.ActiveBrowser.Find.ByXPath("//*[@id='area_admin_listCustomerCenterTemplates']/span"); } }
     }
 
 }
