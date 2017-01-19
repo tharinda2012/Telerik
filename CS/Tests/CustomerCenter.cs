@@ -23,9 +23,9 @@ using CS.ObjectRepo;
 namespace CS.Tests
 {
     /// <summary>
-    /// This test is used to verify whether user can create anew mailbox and send a mail to it and verify a request gets created out of it
+    /// This test is used to verify whether user can invoke 'Customer Center' in a new browser, by clicking the link in 'customer center pages' screen in CS
     /// Author :Tharinda Liyanage..
-    /// Date: 11.01.2017
+    /// Date: 19.01.2017
     /// </summary>
     [TestClass]
     public class CustomerCenter : BaseTest
