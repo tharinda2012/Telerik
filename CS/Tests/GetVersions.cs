@@ -23,9 +23,9 @@ using System.Threading.Tasks;
 namespace CS.Tests
 {
     /// <summary>
-    /// This test is used to get the meta data of the system under test
+    /// This test is used to get the meta data of the system under test- version of SUT, browser used, SUT Url.
     /// Author :Tharinda 
-    /// Date: 09.12.2016....
+    /// Date: 09.12.2016.
     /// </summary>
     [TestClass]
     public class GetVersions : BaseTest
