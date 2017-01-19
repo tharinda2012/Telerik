@@ -69,10 +69,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>config.settings</DependentUpon>
     </Compile>
+    <Compile Include="ObjectRepo\Admin\CCP.cs" />
     <Compile Include="ObjectRepo\Admin\MailBox.cs" />
     <Compile Include="ObjectRepo\Customer\Company.cs" />
     <Compile Include="ObjectRepo\Customer\Person.cs" />
     <Compile Include="ObjectRepo\KB\FAQ.cs" />
+    <Compile Include="ObjectRepo\CCenter.cs" />
     <Compile Include="ObjectRepo\Login.cs" />
     <Compile Include="ObjectRepo\Mailing\email.cs" />
     <Compile Include="ObjectRepo\Request\Qrequest.cs" />
@@ -90,6 +92,7 @@
     </Compile>
     <Compile Include="Tests\CreateNewDynaSelection.cs" />
     <Compile Include="Tests\CreateNewFAQ.cs" />
+    <Compile Include="Tests\CustomerCenter.cs" />
     <Compile Include="Tests\CreateNewMailBox.cs" />
     <Compile Include="Tests\CreatePerson.cs">
       <SubType>Code</SubType>
