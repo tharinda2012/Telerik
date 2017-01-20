@@ -23,7 +23,7 @@ using CS.ObjectRepo;
 namespace CS.Tests
 {
     /// <summary>
-    /// This test is used to verify whether user can invoke 'Customer Center' in a new browser, by clicking the link in 'customer center pages' screen in CS
+    /// This test is used to verify whether user can invoke 'Customer Center' in a new browser, by clicking the link in 'customer center pages' screen in CS and create a request there
     /// Author :Tharinda Liyanage..
     /// Date: 19.01.2017
     /// </summary>
@@ -121,7 +121,7 @@ namespace CS.Tests
         }
 
         [TestMethod]
-        public void TestMethod_ViewCustomerCenter()
+        public void TestMethod_Create_Request_In_CustomerCenter()
         {
 
             try
@@ -156,14 +156,32 @@ namespace CS.Tests
                {
                    login.myManager.Browsers[2].Window.SetFocus();
                    login.myManager.Browsers[2].Window.Maximize();
-                   Thread.Sleep(config.Default.SleepingTime * 2);
+                   Thread.Sleep(config.Default.SleepingTime * 3);
                }
                
                login.myManager.ActiveBrowser.RefreshDomTree();
                CCenter ccenter = new CCenter(login.myManager);  
  
                 //asserting that the 'login' button is available in the page whihc confirms that the test has land on 'Customer Center' page
-               Assert.AreEqual("Login", ccenter.btnLogin.Value.ToString());        
+               Assert.AreEqual("Login", ccenter.btnLogin.Value.ToString()); 
+       
+                //click new request tab and add a new request and save the request
+               ccenter.newRequest.Click();
+               ccenter.yourName.Text = "Tharinda";
+               ccenter.email.Text = "tharindal@99x.lk";
+               ccenter.category.SelectByValue("1");
+               ccenter.subject.Text="Customer Center Request";
+               ccenter.message.Text="CC request message";
+               
+               //ccenter.btnOk.MouseClick();
+               ccenter.submitbutton.MouseClick();
+
+               Thread.Sleep(config.Default.SleepingTime * 2);
+               login.myManager.ActiveBrowser.RefreshDomTree();
+
+               //check if the request is created by verifing that the string "Your inquiry has been registered..." appears in the following screen.
+               Assert.IsTrue(ccenter.success.TextContent.Contains("Your inquiry has been registered with request ID"));
+               
                            
             }
             catch (Exception error)
