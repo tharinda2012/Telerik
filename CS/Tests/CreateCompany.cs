@@ -128,12 +128,14 @@ namespace CS.Tests
 
 
                 // create a login object to invoke methods related to login/logout.    
-                //login.Login_To_CS_Onsite();
+                
                 login.Login_To_CS();
                 Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);
                 Company company = new Company(login.myManager);
                 TopMenu tm = new TopMenu(login.myManager);
                 //invoke new quick request screen from main "+" button
+                login.myManager.ActiveBrowser.RefreshDomTree();
+                tm.newItemIcon.Wait.ForExists();
                 login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
                 login.myManager.ActiveBrowser.Actions.Click(tm.newCompany);
 
