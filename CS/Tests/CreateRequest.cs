@@ -21,7 +21,7 @@ using CS.ObjectRepo;
 namespace CS.Tests
 {
     /// <summary>
-    /// This test is used to verify whether user can create a new request in CS
+    /// This test is used to verify whether user can create a new request in CS and can be deleted 
     /// Author :Tharinda Liyanage.
     /// Date: 09.12.2016
     /// </summary>
@@ -29,6 +29,7 @@ namespace CS.Tests
     public class CreateRequest : BaseTest
     {
         SessionManager login = new SessionManager();
+        
         #region [Setup / TearDown]
 
         private TestContext testContextInstance = null;
@@ -129,10 +130,10 @@ namespace CS.Tests
                 // create a login object to invoke methods related to login/logout.    
                 //login.Login_To_CS_Onsite();
                 login.Login_To_CS();
-
+                
                 //invoke new quick request screen from main "+" buttons
                 Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager); 
-                Request request = new Request(login.myManager);
+                Request  request = new Request(login.myManager);
                 TopMenu tm = new TopMenu(login.myManager);
 
                 login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
@@ -168,6 +169,33 @@ namespace CS.Tests
                 con.Execute_SQLQuery("select title from crm7.ticket where title ='" + title + "'");
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
                 con.Close_Connection();
+
+                // ============================Delete the request=========================
+                login.myManager.ActiveBrowser.RefreshDomTree();
+                HtmlSpan actionmenu = login.myManager.ActiveBrowser.Find.ByAttributes<HtmlSpan>("class=HtmlIconDropDown_contextMenu");
+                actionmenu.Click();
+                HtmlSpan editrequest = login.myManager.ActiveBrowser.Find.ByXPath<HtmlSpan>("//*[@id='HtmlPageDropDown_menuItems']/a[4]/span");
+                editrequest.Click();
+                login.myManager.ActiveBrowser.RefreshDomTree();
+                HtmlButton btnDelete = login.myManager.ActiveBrowser.Find.ById<HtmlButton>("_id_7");
+                
+                //handling javascript delete confirm popup.                
+                ConfirmDialog confirm = ConfirmDialog.CreateConfirmDialog(login.myManager.ActiveBrowser, DialogButton.OK);
+                login.myManager.DialogMonitor.AddDialog(confirm);
+                login.myManager.DialogMonitor.Start();             
+                btnDelete.MouseClick();
+                Manager.DialogMonitor.RemoveDialog(confirm);
+                login.myManager.DialogMonitor.Stop();
+                Thread.Sleep(config.Default.SleepingTime * 3);
+
+                //check if the request is actually deleted 
+                DBAccess con2 = new DBAccess();
+                con2.Create_DBConnection(config.Default.DBProvidestringSQL);
+                con2.Execute_SQLQuery("select status from crm7.ticket where title ='" + title + "'");
+                Assert.AreEqual("4", con2.Return_Data_In_Array()[0].ToString());//checking request status 4 = deleted
+                con2.Close_Connection();
+
+                
             }
 
             catch (Exception e)
@@ -179,7 +207,10 @@ namespace CS.Tests
             }
 
         }
+
         
+
+            
         // Use TestCleanup to run code after each test has run
         [TestCleanup()]
         public void MyTestCleanup()
