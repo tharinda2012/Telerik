@@ -145,7 +145,7 @@ namespace CS.Tests
 
                 //assign category
                 HtmlInputText categorylabel = request.categorylabel.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, categorylabel);
+                Utilities.Click_Event_For_Textfield(login.myManager, categorylabel);
                 Utilities.Enter_SearchStringFor_TextField(login.myManager, "support");
                
 
@@ -167,7 +167,7 @@ namespace CS.Tests
             catch (Exception error)
             {
                 //saving error and logging out       
-                Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
                 Assert.Fail();
             }
 

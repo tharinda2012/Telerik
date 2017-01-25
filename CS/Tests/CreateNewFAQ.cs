@@ -145,7 +145,7 @@ namespace CS.Tests
 
                 //set access to everyone
                HtmlInputText access = faq.access.As<HtmlInputText>();
-               Utilities.Click_EventFor_Textfield(login.myManager, access);
+               Utilities.Click_Event_For_Textfield(login.myManager, access);
                Utilities.Enter_SearchStringFor_TextField(login.myManager, "Accessible to everyone");
 
                //set keyword
@@ -153,7 +153,7 @@ namespace CS.Tests
 
                 //set work flow to publish
                 HtmlInputText workflow = faq.workflow.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, workflow);
+                Utilities.Click_Event_For_Textfield(login.myManager, workflow);
                 Utilities.Enter_SearchStringFor_TextField(login.myManager, "Published");
 
                 
@@ -195,7 +195,7 @@ namespace CS.Tests
             catch (Exception error)
             {
                 //saving error and logging out       
-                Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
                 Assert.Fail();
             }
 

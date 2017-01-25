@@ -143,7 +143,7 @@ namespace CS.Tests
 
                 //select source table as "request"
                 HtmlInputText sourcetable = selection.sourcetable.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, sourcetable);
+                Utilities.Click_Event_For_Textfield(login.myManager, sourcetable);
                 Utilities.Enter_SearchStringFor_TextField(login.myManager, "request");
                
 
@@ -178,7 +178,7 @@ namespace CS.Tests
             catch (Exception error)
             {
                 //saving error and logging out       
-                Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
                 Assert.Fail();
             }
 

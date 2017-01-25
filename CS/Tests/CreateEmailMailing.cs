@@ -162,8 +162,8 @@ namespace CS.Tests
 
                 //enter selection name for archive
                 HtmlInputText archiveSelection_input = t1_frame.Find.ByName<HtmlInputText>("archiveSelection_input");
-                Utilities.Click_EventFor_Textfield(t1_frame, archiveSelection_input);
-                Utilities.Enter_SearchStringFor_TextField(t1_frame, "email selection");
+                Utilities.Click_Event_For_Textfield(t1_frame, archiveSelection_input);
+                Utilities.Enter_SearchString_For_TextField(t1_frame, "email selection");
                 
                 //click to go to next screen
                 Thread.Sleep(config.Default.SleepingTime * 2);
@@ -258,7 +258,7 @@ namespace CS.Tests
             {
 
                 //saving error and failing test       
-                Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, e, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, e, TestContext.TestName, login.myManager);
                 Assert.Fail();
                 
             }

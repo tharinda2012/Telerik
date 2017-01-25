@@ -19,7 +19,7 @@ namespace CS.CommonMethods
     class Utilities
     {
         //screenshot function
-        public static void Save_Screenshot_withlog(ArtOfTest.WebAii.Core.Browser browser, Exception e, string testemethodname, ArtOfTest.WebAii.Core.Manager myManager)
+        public static void Save_Screenshot_with_log(ArtOfTest.WebAii.Core.Browser browser, Exception e, string testemethodname, ArtOfTest.WebAii.Core.Manager myManager)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace CS.CommonMethods
         }
 
 
-        public static void Click_EventFor_Textfield(Manager m, HtmlInputText element)
+        public static void Click_Event_For_Textfield(Manager m, HtmlInputText element)
         {
             m.Desktop.Mouse.Click(MouseClickType.LeftClick, element.GetRectangle());
 
@@ -69,7 +69,7 @@ namespace CS.CommonMethods
 
 
         //keyboard key simulate functions for iFrame dialogs
-        public static void Enter_SearchStringFor_TextField(ArtOfTest.WebAii.Core.Browser browser, string searchText)
+        public static void Enter_SearchString_For_TextField(ArtOfTest.WebAii.Core.Browser browser, string searchText)
         {
             if (!string.IsNullOrEmpty(searchText))
             {
@@ -85,7 +85,7 @@ namespace CS.CommonMethods
 
         }
 
-        public static void Click_EventFor_Textfield(ArtOfTest.WebAii.Core.Browser browser, HtmlInputText element)
+        public static void Click_Event_For_Textfield(ArtOfTest.WebAii.Core.Browser browser, HtmlInputText element)
         {
             browser.Desktop.Mouse.Click(MouseClickType.LeftClick, element.GetRectangle());
 
@@ -120,7 +120,7 @@ namespace CS.CommonMethods
             }
         }
 
-        public static void sendMail(String fromaddr, String toaddr, String subject, String mailbody, String smtphost)
+        public static void Send_Mail(String fromaddr, String toaddr, String subject, String mailbody, String smtphost)
         {
             //send mail to the new address
 

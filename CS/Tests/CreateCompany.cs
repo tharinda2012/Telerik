@@ -159,7 +159,7 @@ namespace CS.Tests
 
                 ////assign country value
                 HtmlInputText countryfield = company.countryfield.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, countryfield);
+                Utilities.Click_Event_For_Textfield(login.myManager, countryfield);
                 Utilities.Enter_SearchStringFor_TextField(login.myManager, "bahamas");
                 
 
@@ -167,19 +167,19 @@ namespace CS.Tests
                 //assign priority  value
 
                 HtmlInputText priorityfield = company.priorityfield.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, priorityfield);
+                Utilities.Click_Event_For_Textfield(login.myManager, priorityfield);
                 Utilities.Enter_SearchStringFor_TextField(login.myManager, "High");
                 
                 //assign category  value
                 HtmlInputText categotyfield = company.categotyfield.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, categotyfield);
+                Utilities.Click_Event_For_Textfield(login.myManager, categotyfield);
                 Utilities.Enter_SearchStringFor_TextField(login.myManager, "Customer");
                 
 
                 //assign business  value
 
                 HtmlInputText businessfield = company.businessfield.As<HtmlInputText>();
-                Utilities.Click_EventFor_Textfield(login.myManager, businessfield);
+                Utilities.Click_Event_For_Textfield(login.myManager, businessfield);
                 Utilities.Enter_SearchStringFor_TextField(login.myManager, "IT");
                 
 
@@ -205,7 +205,7 @@ namespace CS.Tests
             {
 
                 //saving error and logging out       
-                Utilities.Save_Screenshot_withlog(login.myManager.ActiveBrowser, e, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, e, TestContext.TestName, login.myManager);
                 Assert.Fail();
             }
 
