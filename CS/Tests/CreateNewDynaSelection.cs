@@ -144,7 +144,7 @@ namespace CS.Tests
                 //select source table as "request"
                 HtmlInputText sourcetable = selection.sourcetable.As<HtmlInputText>();
                 Utilities.Click_Event_For_Textfield(login.myManager, sourcetable);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "request");
+                Utilities.Enter_SearchString_For_TextField(login.myManager, "request");
                
 
                 

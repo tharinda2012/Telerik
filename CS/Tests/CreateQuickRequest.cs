@@ -146,7 +146,7 @@ namespace CS.Tests
                 //assign category
                 HtmlInputText categorylabel = request.categorylabel.As<HtmlInputText>();
                 Utilities.Click_Event_For_Textfield(login.myManager, categorylabel);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "support");
+                Utilities.Enter_SearchString_For_TextField(login.myManager, "support");
                
 
                 //add message              

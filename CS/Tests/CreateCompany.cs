@@ -160,7 +160,7 @@ namespace CS.Tests
                 ////assign country value
                 HtmlInputText countryfield = company.countryfield.As<HtmlInputText>();
                 Utilities.Click_Event_For_Textfield(login.myManager, countryfield);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "bahamas");
+                Utilities.Enter_SearchString_For_TextField(login.myManager, "bahamas");
                 
 
 
@@ -168,19 +168,19 @@ namespace CS.Tests
 
                 HtmlInputText priorityfield = company.priorityfield.As<HtmlInputText>();
                 Utilities.Click_Event_For_Textfield(login.myManager, priorityfield);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "High");
+                Utilities.Enter_SearchString_For_TextField(login.myManager, "High");
                 
                 //assign category  value
                 HtmlInputText categotyfield = company.categotyfield.As<HtmlInputText>();
                 Utilities.Click_Event_For_Textfield(login.myManager, categotyfield);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "Customer");
+                Utilities.Enter_SearchString_For_TextField(login.myManager, "Customer");
                 
 
                 //assign business  value
 
                 HtmlInputText businessfield = company.businessfield.As<HtmlInputText>();
                 Utilities.Click_Event_For_Textfield(login.myManager, businessfield);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "IT");
+                Utilities.Enter_SearchString_For_TextField(login.myManager, "IT");
                 
 
 

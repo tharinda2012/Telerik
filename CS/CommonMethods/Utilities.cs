@@ -45,7 +45,7 @@ namespace CS.CommonMethods
 
         //keyboard key simulate functions for non iFrame dialogs
 
-        public static void Enter_SearchStringFor_TextField(Manager m, string searchText)
+        public static void Enter_SearchString_For_TextField(Manager m, string searchText)
         {
             if (!string.IsNullOrEmpty(searchText))
             {

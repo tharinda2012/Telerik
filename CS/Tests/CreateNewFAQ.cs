@@ -146,7 +146,7 @@ namespace CS.Tests
                 //set access to everyone
                HtmlInputText access = faq.access.As<HtmlInputText>();
                Utilities.Click_Event_For_Textfield(login.myManager, access);
-               Utilities.Enter_SearchStringFor_TextField(login.myManager, "Accessible to everyone");
+               Utilities.Enter_SearchString_For_TextField(login.myManager, "Accessible to everyone");
 
                //set keyword
                login.myManager.ActiveBrowser.Actions.SetText(faq.keyword,title);
@@ -154,7 +154,7 @@ namespace CS.Tests
                 //set work flow to publish
                 HtmlInputText workflow = faq.workflow.As<HtmlInputText>();
                 Utilities.Click_Event_For_Textfield(login.myManager, workflow);
-                Utilities.Enter_SearchStringFor_TextField(login.myManager, "Published");
+                Utilities.Enter_SearchString_For_TextField(login.myManager, "Published");
 
                 
                 //add question to iframe element in question tab

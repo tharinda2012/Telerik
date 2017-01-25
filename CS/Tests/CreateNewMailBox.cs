@@ -147,17 +147,17 @@ namespace CS.Tests
                //add address name
                HtmlInputText address = mb.address.As<HtmlInputText>();
                Utilities.Click_Event_For_Textfield(login.myManager, address);
-               Utilities.Enter_SearchStringFor_TextField(login.myManager, title);
+               Utilities.Enter_SearchString_For_TextField(login.myManager, title);
 
                //set category
                HtmlInputText category = mb.cateogry.As<HtmlInputText>();
                Utilities.Click_Event_For_Textfield(login.myManager, category);
-               Utilities.Enter_SearchStringFor_TextField(login.myManager, "Support");
+               Utilities.Enter_SearchString_For_TextField(login.myManager, "Support");
                
                //set priority
                HtmlInputText priority = mb.priority.As<HtmlInputText>();
                //Utilities.Click_EventFor_Textfield(login.myManager, priority);
-               Utilities.Enter_SearchStringFor_TextField(login.myManager, "High");
+               Utilities.Enter_SearchString_For_TextField(login.myManager, "High");
 
                 //retrieve email address
                 String fulladdress= address.Text;
