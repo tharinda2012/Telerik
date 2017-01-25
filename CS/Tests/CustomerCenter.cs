@@ -166,6 +166,7 @@ namespace CS.Tests
                //Assert.AreEqual("Login", ccenter.btnLogin.Value.ToString()); 
        
                 //click new request tab and add a new request and save the request
+               ccenter.newRequest.Wait.ForExists();
                ccenter.newRequest.Click();
                ccenter.yourName.Text = "Tharinda";
                ccenter.email.Text = "tharindal@99x.lk";
