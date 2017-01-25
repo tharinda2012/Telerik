@@ -136,7 +136,7 @@ namespace CS.CommonMethods
         }
 
 
-        public static string Random_String_Generated(int length)
+        public static string Generate_Random_String(int length)
         {
             Random random = new Random();
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

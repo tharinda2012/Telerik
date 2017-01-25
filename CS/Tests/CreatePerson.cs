@@ -139,7 +139,7 @@ namespace CS.Tests
 
                 //add first and last names
                 person.firstname.Wait.ForExists();
-                string fname = "Person--" + Utilities.Random_String_Generated(6);
+                string fname = "Person--" + Utilities.Generate_Random_String(6);
                 login.myManager.ActiveBrowser.Actions.SetText(person.firstname, fname);
 
                 login.myManager.ActiveBrowser.Actions.SetText(person.lastname, "LASTNAME");
@@ -157,7 +157,7 @@ namespace CS.Tests
 
                 //add data to the new company
                 HtmlInputText compname = t1_frame.Find.ById<HtmlInputText>("name");
-                String cname = Utilities.Random_String_Generated(10);
+                String cname = Utilities.Generate_Random_String(10);
                 compname.Wait.ForExists();
                 t1_frame.Actions.SetText(compname, cname);
                 HtmlInputText department = t1_frame.Find.ById<HtmlInputText>("department");

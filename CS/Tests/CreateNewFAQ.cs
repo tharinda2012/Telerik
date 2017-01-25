@@ -140,7 +140,7 @@ namespace CS.Tests
 
                //Add faq name in properties tab
                               
-               String title = "FAQ_" + Utilities.Random_String_Generated(10);
+               String title = "FAQ_" + Utilities.Generate_Random_String(10);
                login.myManager.ActiveBrowser.Actions.SetText(faq.faqname, title);
 
                 //set access to everyone

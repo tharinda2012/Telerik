@@ -153,7 +153,7 @@ namespace CS.Tests
                 login.myManager.ActiveBrowser.Actions.Click(selection.btnContinue);
 
                 //set selection title                
-                String title = "Sel_" + Utilities.Random_String_Generated(10);
+                String title = "Sel_" + Utilities.Generate_Random_String(10);
                 login.myManager.ActiveBrowser.Actions.SetText(selection.title, title);
 
                 //click execute button                

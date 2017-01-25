@@ -140,7 +140,7 @@ namespace CS.Tests
 
 
                 //add title
-                String title = "Quick_" + Utilities.Random_String_Generated(10);
+                String title = "Quick_" + Utilities.Generate_Random_String(10);
                 login.myManager.ActiveBrowser.Actions.SetText(request.title, title);
 
                 //assign category

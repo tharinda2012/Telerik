@@ -126,7 +126,7 @@ namespace CS.Tests
             try
             {
 
-                String mailingname = "Mailing--" + Utilities.Random_String_Generated(6);
+                String mailingname = "Mailing--" + Utilities.Generate_Random_String(6);
                 // create a login object to invoke methods related to login/logout.    
                 //login.Login_To_CS_Onsite();
                 login.Login_To_CS();
