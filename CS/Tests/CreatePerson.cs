@@ -133,7 +133,8 @@ namespace CS.Tests
                 Company company = new Company(login.myManager);
                 TopMenu tm = new TopMenu(login.myManager);
                 //invoke new quick request screen from main "+" button
-
+                login.myManager.ActiveBrowser.RefreshDomTree();
+                tm.newItemIcon.Wait.ForExists();
                 login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
                 login.myManager.ActiveBrowser.Actions.Click(tm.newPerson);
 

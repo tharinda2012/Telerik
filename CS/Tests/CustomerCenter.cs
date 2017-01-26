@@ -134,10 +134,9 @@ namespace CS.Tests
                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
                login.myManager.ActiveBrowser.RefreshDomTree();
                TopMenu tm = new TopMenu(login.myManager);
-               tm.newItemIcon.Wait.ForExists();
-               login.myManager.ActiveBrowser.Actions.Click(tm.AdmincogWheel);
-
-                              
+               login.myManager.ActiveBrowser.RefreshDomTree();
+               tm.newItemIcon.Wait.ForExists();               
+               login.myManager.ActiveBrowser.Actions.Click(tm.AdmincogWheel);                              
                //select customer center pages menu
                login.myManager.ActiveBrowser.Actions.Click(tm.admincustcenterpages);
 

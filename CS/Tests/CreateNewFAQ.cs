@@ -134,6 +134,7 @@ namespace CS.Tests
                login.myManager.ActiveBrowser.RefreshDomTree();
                FAQ faq = new FAQ(login.myManager);
                TopMenu tm = new TopMenu(login.myManager);
+               login.myManager.ActiveBrowser.RefreshDomTree();
                tm.newItemIcon.Wait.ForExists();
                login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
                login.myManager.ActiveBrowser.Actions.Click(tm.newFAQ);
