@@ -21,20 +21,25 @@ namespace CS.ObjectRepo.Request
                     }
 
        
-        public Element title
-        { get { return _manager.ActiveBrowser.Find.ById("title"); } }
+        public Element title { get { return _manager.ActiveBrowser.Find.ById("title"); } }
 
         //supportfield
-        public Element supportfield
-        { get { return _manager.ActiveBrowser.Find.ById("category_label"); } }
+        public Element supportfield   { get { return _manager.ActiveBrowser.Find.ById("category_label"); } }
 
         //message tab
-        public Element messageTab
-        { get { return _manager.ActiveBrowser.Find.ById("panes_tab_1"); } }
+        public Element messageTab { get { return _manager.ActiveBrowser.Find.ById("panes_tab_1"); } }
 
+        public Element okBut { get { return _manager.ActiveBrowser.Find.ById("_id_4"); } }
 
+        //delete request elements
+        //action menu
+        public HtmlSpan actionmenu { get { return _manager.ActiveBrowser.Find.ByAttributes<HtmlSpan>("class=HtmlIconDropDown_contextMenu"); } }
 
-        public Element okBut
-        { get { return _manager.ActiveBrowser.Find.ById("_id_4"); } }
+        //edit request menu
+        public HtmlSpan editrequest { get { return _manager.ActiveBrowser.Find.ByXPath<HtmlSpan>("//*[@id='HtmlPageDropDown_menuItems']/a[4]/span"); } }
+
+        //delete button
+        public HtmlButton btnDelete { get { return _manager.ActiveBrowser.Find.ById<HtmlButton>("_id_7"); ; } }
+      
     }
 }

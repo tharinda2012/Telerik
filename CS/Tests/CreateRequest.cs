@@ -120,7 +120,7 @@ namespace CS.Tests
         }
 
         [TestMethod]
-        public void TestMethod_Create_New_Request()
+        public void TestMethod_Create_Delete_Request()
         {
 
             try
@@ -172,23 +172,24 @@ namespace CS.Tests
 
                 // ============================Delete the request=========================
                 login.myManager.ActiveBrowser.RefreshDomTree();
-                HtmlSpan actionmenu = login.myManager.ActiveBrowser.Find.ByAttributes<HtmlSpan>("class=HtmlIconDropDown_contextMenu");
-                actionmenu.Click();
-                HtmlSpan editrequest = login.myManager.ActiveBrowser.Find.ByXPath<HtmlSpan>("//*[@id='HtmlPageDropDown_menuItems']/a[4]/span");
-                editrequest.Click();
-                login.myManager.ActiveBrowser.RefreshDomTree();
-                HtmlButton btnDelete = login.myManager.ActiveBrowser.Find.ById<HtmlButton>("_id_7");
+                Request deleterequest = new Request(login.myManager);
+                deleterequest.actionmenu.Wait.ForExists();
+                deleterequest.actionmenu.Click();
+                deleterequest.editrequest.Wait.ForExists();
+                deleterequest.editrequest.Click();
+                login.myManager.ActiveBrowser.RefreshDomTree();               
                 
                 //handling javascript delete confirm popup.                
                 ConfirmDialog confirm = ConfirmDialog.CreateConfirmDialog(login.myManager.ActiveBrowser, DialogButton.OK);
                 login.myManager.DialogMonitor.AddDialog(confirm);
-                login.myManager.DialogMonitor.Start();             
-                btnDelete.MouseClick();
+                login.myManager.DialogMonitor.Start();
+                deleterequest.btnDelete.Wait.ForExists();
+                deleterequest.btnDelete.MouseClick();
                 Manager.DialogMonitor.RemoveDialog(confirm);
                 login.myManager.DialogMonitor.Stop();
                 Thread.Sleep(config.Default.SleepingTime * 3);
 
-                //check if the request is actually deleted 
+                //check if the request is marked as deleted in database
                 DBAccess con2 = new DBAccess();
                 con2.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con2.Execute_SQLQuery("select status from crm7.ticket where title ='" + title + "'");
