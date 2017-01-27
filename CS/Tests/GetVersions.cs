@@ -61,9 +61,14 @@ namespace CS.Tests
                 string result = await content.ReadAsStringAsync();
                 // ... Display the result.
                 if (result != null)
-                {         
-                    FileVersion = getBetween(result, "File version", "Netserver version");                    
+                {
+                    FileVersion = getBetween(result, "File version", "Netserver version");
                 }
+                else
+                {
+                    FileVersion = "Response not received";
+                }
+
                 if (FileVersion == null)
                 {
                     FileVersion = "Not retrieved";
