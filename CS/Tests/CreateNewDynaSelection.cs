@@ -173,11 +173,9 @@ namespace CS.Tests
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking selection is saved to the table
                 Assert.AreEqual("ticket", con.Return_Data_In_Array()[1]); //checking selection source table is Ticket'
                 int last_count = Int32.Parse(con.Return_Data_In_Array()[2].ToString());
-                //bool result=int.TryParse(con.Return_Data_In_Array()[2].ToString(), out last_count);
-
                 if (last_count<=0)
                 {
-                    Assert.Fail("Selection is empty");
+                    Assert.Fail("Selection is empty"); //checking if selection is empty
                 }
                 
                 
