@@ -142,8 +142,9 @@ namespace CS.CommonMethods
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             String ranstring = new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
+            DateTime date = DateTime.Now;
 
-            return "Auto--" + ranstring;
+            return "Auto--" + date.ToString("yy-MM-dd-HH-mm-ss");
         }
       
 
