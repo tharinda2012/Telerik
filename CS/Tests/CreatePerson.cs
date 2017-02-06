@@ -167,7 +167,7 @@ namespace CS.Tests
                 t1_frame.Actions.SetText(phone, "123456789");
                 HtmlInputText fax = t1_frame.Find.ById<HtmlInputText>("fax");
                 t1_frame.Actions.SetText(fax, "4444444444");
-                HtmlButton okbtn = t1_frame.Find.ById<HtmlButton>("_id_41");
+                HtmlButton okbtn = t1_frame.Find.ById<HtmlButton>("_id_40");
                 //save company
                 okbtn.Wait.ForExists();
                 okbtn.MouseClick();
