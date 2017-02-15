@@ -108,16 +108,15 @@ namespace CS.CommonMethods
         {
             m.ActiveBrowser.RefreshDomTree();
             int counter0 = 0;
-            HtmlDiv newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
-            //TopMenu tm = new TopMenu(m);
-            while (newItemIcon == null && counter0 < 10) //this will try upto 10 times before fails
+            //HtmlDiv newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
+            TopMenu tm = new TopMenu(m);
+            while (tm.newItemIcon == null && counter0 < 10) //this will try upto 10 times before fails
             {
                 Thread.Sleep(config.Default.SleepingTime * 10);
-               
-                m.ActiveBrowser.RefreshDomTree();
-                newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
                 counter0 += 1;
-               // tm = new TopMenu(m);
+                m.ActiveBrowser.RefreshDomTree();
+                //newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
+                tm = new TopMenu(m);
             }
         }
 
