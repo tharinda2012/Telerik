@@ -27,11 +27,5 @@ C:\GIT\Telerik\CS\bin\Debug\CS.dll
 C:\GIT\Telerik\CS\bin\Debug\CS.pdb
 C:\GIT\Telerik\CS\obj\Debug\CS.dll
 C:\GIT\Telerik\CS\obj\Debug\CS.pdb
+C:\GIT\Telerik\CS\bin\Debug\CS.dll.config
 C:\GIT\Telerik\CS\obj\Debug\CS.csprojResolveAssemblyReference.cache
-C:\GIT\telerik\CS\bin\Debug\ArtOfTest.WebAii.dll
-C:\GIT\telerik\CS\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\GIT\telerik\CS\bin\Debug\Telerik.TestStudio.Core.dll
-C:\GIT\telerik\CS\bin\Debug\Telerik.TestingFramework.Json.dll
-C:\GIT\telerik\CS\bin\Debug\Telerik.TestingFramework.Hosts.Common.dll
-C:\GIT\telerik\CS\bin\Debug\ArtOfTest.WebAii.xml
-C:\GIT\telerik\CS\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
