@@ -31,7 +31,7 @@ namespace CS.Tests
     public class GetVersions : BaseTest
     {
 
-        public static string FileVersion;
+        public static string FileVersion,CustId;
         
         public static string getBetween(string strSource, string strStart, string strEnd)
         {
@@ -63,6 +63,7 @@ namespace CS.Tests
                 if (result != null)
                 {
                     FileVersion = getBetween(result, "File version", "Netserver version");
+                    CustId = getBetween(result, "Program: ", "/CS/scripts/ticket.fcgi");
                 }
                 else
                 {
@@ -188,6 +189,8 @@ namespace CS.Tests
                 {                    
                     sw.WriteLine("\n");
                     sw.WriteLine("***Base Url: " + config.Default.Base_Url);
+                    sw.WriteLine("\n");
+                    sw.WriteLine("***Tenant Id: " + CustId);
                     sw.WriteLine("\n");
                     sw.WriteLine("***File Version: " + FileVersion);
                     sw.WriteLine("\n");
