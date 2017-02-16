@@ -30,7 +30,7 @@ namespace CS.ObjectRepo.Customer
         //create new company
          public Element newCompany { get { return _manager.ActiveBrowser.Find.ByAttributes("class=HtmlSelectRelation2_button"); } }
 
-        public Element okBut { get { return _manager.ActiveBrowser.Find.ById("_id_37"); } }
+        public Element okBut { get { return _manager.ActiveBrowser.Find.ById("_id_36"); } }
 
        
         //controls for find person 
