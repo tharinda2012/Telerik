@@ -58,7 +58,7 @@ def error_msg(error):
         return (error)
 
 def main():
-    send_file_zipped(['tharindal@99x.lk'])
+    send_file_zipped(['tharindal@99x.lk','chamathd@99x.lk'])
 
 if __name__ == '__main__':
     main()
