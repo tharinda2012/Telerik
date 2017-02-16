@@ -110,7 +110,7 @@ namespace CS.CommonMethods
             int counter0 = 0;
             //HtmlDiv newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
             TopMenu tm = new TopMenu(m);
-            while (tm.newItemIcon == null && counter0 < 10) //this will try upto 10 times before fails
+            while (tm.newSpan == null && counter0 < 10) //this will try upto 10 times before fails
             {
                 Thread.Sleep(config.Default.SleepingTime * 10);
                 counter0 += 1;

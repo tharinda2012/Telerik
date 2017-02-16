@@ -135,7 +135,7 @@ namespace CS.Tests
                login.myManager.ActiveBrowser.RefreshDomTree();
                TopMenu tm = new TopMenu(login.myManager);
                login.myManager.ActiveBrowser.RefreshDomTree();
-               tm.newItemIcon.Wait.ForExists();               
+               tm.newSpan.Wait.ForExists();               
                login.myManager.ActiveBrowser.Actions.Click(tm.AdmincogWheel);                              
                //select customer center pages menu
                login.myManager.ActiveBrowser.Actions.Click(tm.admincustcenterpages);

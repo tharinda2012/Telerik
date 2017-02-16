@@ -135,8 +135,8 @@ namespace CS.Tests
                 TopMenu tm = new TopMenu(login.myManager);
                 //invoke new quick request screen from main "+" button
                 login.myManager.ActiveBrowser.RefreshDomTree();
-                tm.newItemIcon.Wait.ForExists();
-                login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
+                tm.newSpan.Wait.ForExists();
+                login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
                 login.myManager.ActiveBrowser.Actions.Click(tm.newCompany);
 
                 //add value for name

@@ -135,8 +135,8 @@ namespace CS.Tests
                QReqeust request = new QReqeust(login.myManager);
                TopMenu tm = new TopMenu(login.myManager);
                login.myManager.ActiveBrowser.RefreshDomTree();
-               tm.newItemIcon.Wait.ForExists();
-               login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
+               tm.newSpan.Wait.ForExists();
+               login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
                login.myManager.ActiveBrowser.Actions.Click(tm.newQuickRequest);
 
 

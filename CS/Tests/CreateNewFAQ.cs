@@ -135,8 +135,8 @@ namespace CS.Tests
                FAQ faq = new FAQ(login.myManager);
                TopMenu tm = new TopMenu(login.myManager);
                login.myManager.ActiveBrowser.RefreshDomTree();
-               tm.newItemIcon.Wait.ForExists();
-               login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
+               tm.newSpan.Wait.ForExists();
+               login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
                login.myManager.ActiveBrowser.Actions.Click(tm.newFAQ);
 
                //Add faq name in properties tab

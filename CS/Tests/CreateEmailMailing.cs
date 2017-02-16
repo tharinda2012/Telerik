@@ -134,7 +134,7 @@ namespace CS.Tests
                 email email = new email(login.myManager);
                 TopMenu tm = new TopMenu(login.myManager);
                 //invoke new mailing screen from main "+" button
-                login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
+                login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
 
                 login.myManager.ActiveBrowser.Actions.Click(tm.newmailing);
                

@@ -136,8 +136,8 @@ namespace CS.Tests
                 Request  request = new Request(login.myManager);
                 TopMenu tm = new TopMenu(login.myManager);
                 login.myManager.ActiveBrowser.RefreshDomTree();
-                tm.newItemIcon.Wait.ForExists();
-                login.myManager.ActiveBrowser.Actions.Click(tm.newItemIcon);
+                tm.newSpan.Wait.ForExists();
+                login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
                 login.myManager.ActiveBrowser.Actions.Click(tm.newRequest);
 
                 Thread.Sleep(config.Default.SleepingTime*3);

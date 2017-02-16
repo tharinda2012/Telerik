@@ -20,7 +20,9 @@ namespace CS.ObjectRepo
         }
 
         // Main + add button in the top area of the home screen
-        public Element newItemIcon { get { return _manager.ActiveBrowser.Find.ById("HtmlPage_newItem"); } }
+        public Element newSpan { get { return _manager.ActiveBrowser.Find.ByExpression("InnerText=New"); } }
+
+        //public Element newItemIcon { get { return _manager.ActiveBrowser.Find.ById("HtmlPage_newItem"); } }
 
         //New selection menu item
         public Element newSelection{ get { return _manager.ActiveBrowser.Find.ByXPath("//*[@id='newItem_addSelection']/span"); } }
