@@ -139,8 +139,7 @@ namespace CS.Tests
                 {
                     Thread.Sleep(config.Default.SleepingTime * 10);
                     counter0 += 1;
-                    login.myManager.ActiveBrowser.RefreshDomTree();
-                    //newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
+                    login.myManager.ActiveBrowser.RefreshDomTree();                   
                     m = new Mobile(login.myManager);
                 }
                 m.addNew.Wait.ForExists();
@@ -148,7 +147,7 @@ namespace CS.Tests
                 login.myManager.ActiveBrowser.RefreshDomTree();
                 m.title.Wait.ForExists();
                 Thread.Sleep(config.Default.SleepingTime * 2);
-                login.myManager.ActiveBrowser.Actions.SetText(m.title, "Compact request" + Utilities.Generate_Random_String(6));
+                login.myManager.ActiveBrowser.Actions.SetText(m.title, "Compact request--" + Utilities.Generate_Random_String(6));
                 login.myManager.ActiveBrowser.Actions.SetText(m.message, "Compact request message");
 
                 login.myManager.ActiveBrowser.Actions.Click(m.btnOK);

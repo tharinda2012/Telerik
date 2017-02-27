@@ -25,7 +25,16 @@ namespace CS.CommonMethods
         {
 
             mySettings = new Settings();
-            mySettings.Web.DefaultBrowser = config.Default.BrowserType; ;
+
+            if (isMobile == false)
+            {
+                mySettings.Web.DefaultBrowser = config.Default.BrowserType; ;
+            }
+            else
+            {
+                mySettings.Web.DefaultBrowser = BrowserType.InternetExplorer;
+            }
+            
             myManager = new Manager(mySettings);
             myManager.Start();
             myManager.LaunchNewBrowser();
@@ -37,16 +46,16 @@ namespace CS.CommonMethods
                 myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url);
             }
 
-            else{
+            else
+            {
             myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url + "/" + "MobileService");
 
-            // assert compactmode
+            // assert compactmode is landed
                 Mobile m= new Mobile(myManager);
-
                 Assert.AreEqual("CS Compact Mode",m.compactString.InnerText.ToString());
             }
             
-            
+            //login with credentials
             Login obj = new Login(myManager);
             obj.onlineUsername.Wait.ForExists();
             myManager.ActiveBrowser.Actions.SetText(obj.onlineUsername, config.Default.Username);
