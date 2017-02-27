@@ -129,7 +129,7 @@ namespace CS.Tests
                 String mailingname = "Mailing--" + Utilities.Generate_Random_String(6);
                 // create a login object to invoke methods related to login/logout.    
                 //login.Login_To_CS_Onsite();
-                login.Login_To_CS();
+                login.Login_To_CS(false);
                 Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);
                 email email = new email(login.myManager);
                 TopMenu tm = new TopMenu(login.myManager);

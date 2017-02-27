@@ -21,7 +21,7 @@ namespace CS.CommonMethods
         public Settings mySettings;
         public Manager myManager;
 
-        public void Login_To_CS()
+        public void Login_To_CS(bool isMobile)
         {
 
             mySettings = new Settings();
@@ -32,7 +32,21 @@ namespace CS.CommonMethods
             myManager.Browsers[0].Window.Maximize();
             Thread.Sleep(config.Default.SleepingTime);
             myManager.ActiveBrowser.ClearCache(ArtOfTest.WebAii.Core.BrowserCacheType.Cookies);
-            myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url);
+            if (isMobile == false)
+            {
+                myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url);
+            }
+
+            else{
+            myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url + "/" + "MobileService");
+
+            // assert compactmode
+                Mobile m= new Mobile(myManager);
+
+                Assert.AreEqual("CS Compact Mode",m.compactString.InnerText.ToString());
+            }
+            
+            
             Login obj = new Login(myManager);
             obj.onlineUsername.Wait.ForExists();
             myManager.ActiveBrowser.Actions.SetText(obj.onlineUsername, config.Default.Username);
@@ -41,59 +55,69 @@ namespace CS.CommonMethods
             obj.onlineLoginButton.Wait.ForExists();
             myManager.ActiveBrowser.Actions.Click(obj.onlineLoginButton);
 
-            //try to handle webtools wizard
-            WebTools wt = new WebTools(myManager);
-            HtmlSpan sharedtext = myManager.ActiveBrowser.Find.ById<HtmlSpan>("_ctl0__ctl0_MasterMessageBoxPlaceHolder_MessageBoxPlaceHolder_TheFirstLoadDialog_Page1SharedComputerText");
-            int counter0 = 0;
-            while (sharedtext == null && counter0 < 10) //this will try upto 10 times before fails
+
+            if (isMobile == false)
             {
-                Thread.Sleep(config.Default.SleepingTime * 10);
-                counter0 += 1;
+                //try to handle webtools wizard
+                WebTools wt = new WebTools(myManager);
+                HtmlSpan sharedtext = myManager.ActiveBrowser.Find.ById<HtmlSpan>("_ctl0__ctl0_MasterMessageBoxPlaceHolder_MessageBoxPlaceHolder_TheFirstLoadDialog_Page1SharedComputerText");
+                int counter0 = 0;
+                while (sharedtext == null && counter0 < 10) //this will try upto 10 times before fails
+                {
+                    Thread.Sleep(config.Default.SleepingTime * 10);
+                    counter0 += 1;
+                    myManager.ActiveBrowser.RefreshDomTree();
+                    sharedtext = myManager.ActiveBrowser.Find.ById<HtmlSpan>("_ctl0__ctl0_MasterMessageBoxPlaceHolder_MessageBoxPlaceHolder_TheFirstLoadDialog_Page1SharedComputerText");
+                }
+
                 myManager.ActiveBrowser.RefreshDomTree();
-                sharedtext = myManager.ActiveBrowser.Find.ById<HtmlSpan>("_ctl0__ctl0_MasterMessageBoxPlaceHolder_MessageBoxPlaceHolder_TheFirstLoadDialog_Page1SharedComputerText");
-            }
+                if (wt.SharedComputer.InnerText != null)
+                {
+                    Thread.Sleep(config.Default.SleepingTime * 5);
+                    wt.SharedComputer.Wait.ForExists();
+                    myManager.ActiveBrowser.Actions.Click(wt.SharedComputer);
+                    Thread.Sleep(config.Default.SleepingTime * 3);
+                    myManager.ActiveBrowser.Actions.Click(wt.WTNextBtn);
+                    Thread.Sleep(config.Default.SleepingTime * 3);
+                    myManager.ActiveBrowser.Actions.Click(wt.WTCloseBtn);
+                    Thread.Sleep(config.Default.SleepingTime * 2);
+                }
 
-            myManager.ActiveBrowser.RefreshDomTree();
-            if (wt.SharedComputer.InnerText != null)
-            {
-                Thread.Sleep(config.Default.SleepingTime * 5);
-                wt.SharedComputer.Wait.ForExists();
-                myManager.ActiveBrowser.Actions.Click(wt.SharedComputer);
-                Thread.Sleep(config.Default.SleepingTime * 3);
-                myManager.ActiveBrowser.Actions.Click(wt.WTNextBtn);
-                Thread.Sleep(config.Default.SleepingTime * 3);
-                myManager.ActiveBrowser.Actions.Click(wt.WTCloseBtn);
                 Thread.Sleep(config.Default.SleepingTime * 2);
+                myManager.SetNewBrowserTracking(true);
+
+                //launch CS from web navigator
+                myManager.ActiveBrowser.Actions.Click(obj.anchrorCS);
+                myManager.SetNewBrowserTracking(false);
+                //myManager.WaitForNewBrowserConnect("https://sod.superoffice.com/Cust21693/CS/scripts/ticket.fcgi?action=mainMenu&login_language=en-US", true, 10000);
+                Thread.Sleep(config.Default.SleepingTime * 5);
+                int browsercount = myManager.Browsers.Count;
+
+                //try to maximise browser if its not maximised.
+                if (browsercount == 2)
+                {
+                    myManager.Browsers[1].Window.SetFocus();
+                    myManager.Browsers[1].Window.Maximize();
+                    Thread.Sleep(config.Default.SleepingTime * 3);
+                }
+
+                else
+                {
+                    myManager.Browsers[0].Window.SetFocus();
+                    myManager.Browsers[0].Window.Maximize();
+                }
+
+
+
             }
-
-            Thread.Sleep(config.Default.SleepingTime * 2);
-            myManager.SetNewBrowserTracking(true);
-
-            //launch CS from web navigator
-            myManager.ActiveBrowser.Actions.Click(obj.anchrorCS);
-            myManager.SetNewBrowserTracking(false);
-            //myManager.WaitForNewBrowserConnect("https://sod.superoffice.com/Cust21693/CS/scripts/ticket.fcgi?action=mainMenu&login_language=en-US", true, 10000);
-            Thread.Sleep(config.Default.SleepingTime * 5);
-            int browsercount = myManager.Browsers.Count;
-
-            //try to maximise browser if its not maximised.
-            if (browsercount == 2)
-            {
-                myManager.Browsers[1].Window.SetFocus();
-                myManager.Browsers[1].Window.Maximize();
-                Thread.Sleep(config.Default.SleepingTime * 3);
-            }
-
-            else
-            {
-                myManager.Browsers[0].Window.SetFocus();
-                myManager.Browsers[0].Window.Maximize();
-            }
-
-
-
-
         }
+
+
+          /// <summary>
+          /// Login to Mobile version
+          /// </summary>
+
+     
         public void Logout_From_CS(Manager myManager)
         {
             try

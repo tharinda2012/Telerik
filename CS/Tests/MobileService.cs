@@ -14,19 +14,19 @@ using ArtOfTest.WebAii.Silverlight;
 using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
-using CS.ObjectRepo.Selection;
-using System.Threading;
+using CS.ObjectRepo.Reqeust;
 using CS.ObjectRepo;
+using System.Threading;
 
 namespace CS.Tests
 {
     /// <summary>
-    /// This test is used to verify whether user can create a dynamic selection in CS
+    /// This test is used to verify whether user can create a request in Mobile mode of CS
     /// Author :Tharinda Liyanage..
-    /// Date: 11.01.2017
+    /// Date: 27.02.2017
     /// </summary>
     [TestClass]
-    public class CreateDynamicSelection : BaseTest
+    public class MobileService : BaseTest
     {
         SessionManager login = new SessionManager();
         #region [Setup / TearDown]
@@ -119,68 +119,43 @@ namespace CS.Tests
         }
 
         [TestMethod]
-        public void TestMethod_Create_DynamicSelection()
+        public void TestMethod_MobileService()
         {
 
             try
             {
 
                //create a login object to invoke methods related to login/logout.    
-               //login.Login_To_CS_Onsite();
-                login.Login_To_CS(false);
+              
+                login.Login_To_CS(true);
 
-               //invoke new quick request screen from main "+" button                
-               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
-               login.myManager.ActiveBrowser.RefreshDomTree();
-               Selection selection = new Selection(login.myManager);
-               TopMenu tm = new TopMenu(login.myManager);
-               login.myManager.ActiveBrowser.RefreshDomTree();
-               tm.newSpan.Wait.ForExists();
-               login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
-               login.myManager.ActiveBrowser.Actions.Click(tm.newSelection);
-
-
-                
-
-                //select source table as "request"
-                HtmlInputText sourcetable = selection.sourcetable.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.myManager, sourcetable);
-                Utilities.Enter_SearchString_For_TextField(login.myManager, "request");
+              //create a new request
                
-
+                Mobile m = new Mobile(login.myManager);
+                int counter0 = 0;
                 
-
-                //click continue button
-                login.myManager.ActiveBrowser.Actions.Click(selection.btnContinue);
-
-                //set selection title                
-                String title = "Sel_" + Utilities.Generate_Random_String(10);
-                login.myManager.ActiveBrowser.Actions.SetText(selection.title, title);
-
-                //click execute button                
-                login.myManager.ActiveBrowser.Actions.Click(selection.btnExecute);
-
-                Thread.Sleep(config.Default.SleepingTime*2);
-
-                //save the selection
-                login.myManager.ActiveBrowser.Actions.Click(selection.btnOk);
-
-
-                //verify that the data has been saved to the database using an assert
-                DBAccess con = new DBAccess();
-                con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select name, ej_table,last_count from crm7.ejselection  where name ='" + title + "' ");         
-                Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking selection is saved to the table
-                Assert.AreEqual("ticket", con.Return_Data_In_Array()[1]); //checking selection source table is Ticket'
-                int last_count = Int32.Parse(con.Return_Data_In_Array()[2].ToString());
-                if (last_count<=0)
+                
+                while (m.addNew == null && counter0 < 10) //this will try upto 10 times before fails
                 {
-                    Assert.Fail("Selection is empty"); //checking if selection is empty
+                    Thread.Sleep(config.Default.SleepingTime * 10);
+                    counter0 += 1;
+                    login.myManager.ActiveBrowser.RefreshDomTree();
+                    //newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
+                    m = new Mobile(login.myManager);
                 }
-                
-                
-                con.Close_Connection();
-                           
+                m.addNew.Wait.ForExists();
+                login.myManager.ActiveBrowser.Actions.Click(m.addNew);
+                login.myManager.ActiveBrowser.RefreshDomTree();
+                m.title.Wait.ForExists();
+                Thread.Sleep(config.Default.SleepingTime * 2);
+                login.myManager.ActiveBrowser.Actions.SetText(m.title, "Compact request" + Utilities.Generate_Random_String(6));
+                login.myManager.ActiveBrowser.Actions.SetText(m.message, "Compact request message");
+
+                login.myManager.ActiveBrowser.Actions.Click(m.btnOK);
+                Thread.Sleep(config.Default.SleepingTime * 2);
+                login.myManager.ActiveBrowser.RefreshDomTree();
+
+                Assert.IsTrue(m.verifyTitle.InnerText.Contains("Compact request"));
             }
             catch (Exception error)
             {

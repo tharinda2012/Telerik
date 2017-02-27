@@ -128,8 +128,8 @@ namespace CS.Tests
 
 
                 // create a login object to invoke methods related to login/logout.    
-                
-                login.Login_To_CS();
+
+                login.Login_To_CS(false);
                 Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);
                 Company company = new Company(login.myManager);
                 TopMenu tm = new TopMenu(login.myManager);

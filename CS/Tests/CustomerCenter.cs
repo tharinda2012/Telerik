@@ -128,7 +128,7 @@ namespace CS.Tests
             {
 
                //create a login object to invoke methods related to login/logout.    
-               login.Login_To_CS();       
+                login.Login_To_CS(false);       
             
                //click the admin cogwheel
                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      

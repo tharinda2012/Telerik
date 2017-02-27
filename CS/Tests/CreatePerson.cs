@@ -126,7 +126,7 @@ namespace CS.Tests
 
                 // create a login object to invoke methods related to login/logout.    
                 //login.Login_To_CS_Onsite();
-                login.Login_To_CS();
+                login.Login_To_CS(false);
                 Person person = new Person(login.myManager);
 
                 Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);
