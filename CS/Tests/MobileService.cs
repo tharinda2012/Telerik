@@ -1,20 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
-using CS.ObjectRepo.Reqeust;
 using CS.ObjectRepo;
 using System.Threading;
 
@@ -28,7 +15,7 @@ namespace CS.Tests
     [TestClass]
     public class MobileService : BaseTest
     {
-        SessionManager login = new SessionManager();
+        readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
         private TestContext testContextInstance = null;
@@ -127,39 +114,42 @@ namespace CS.Tests
 
                //create a login object to invoke methods related to login/logout.    
               
-                login.Login_To_CS(true);
+                _login.Login_To_CS(true);
 
               //create a new request
                
-                Mobile m = new Mobile(login.myManager);
-                int counter0 = 0;
+                var m = new Mobile(_login.MyManager);
+                var counter0 = 0;
                 
                 
                 while (m.addNew == null && counter0 < 10) //this will try upto 10 times before fails
                 {
                     Thread.Sleep(config.Default.SleepingTime * 10);
                     counter0 += 1;
-                    login.myManager.ActiveBrowser.RefreshDomTree();                   
-                    m = new Mobile(login.myManager);
+                    _login.MyManager.ActiveBrowser.RefreshDomTree();                   
+                    m = new Mobile(_login.MyManager);
                 }
-                m.addNew.Wait.ForExists();
-                login.myManager.ActiveBrowser.Actions.Click(m.addNew);
-                login.myManager.ActiveBrowser.RefreshDomTree();
+                if (m.addNew != null)
+                {
+                    m.addNew.Wait.ForExists();
+                    _login.MyManager.ActiveBrowser.Actions.Click(m.addNew);
+                }
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
                 m.title.Wait.ForExists();
                 Thread.Sleep(config.Default.SleepingTime * 2);
-                login.myManager.ActiveBrowser.Actions.SetText(m.title, "Compact request--" + Utilities.Generate_Random_String(6));
-                login.myManager.ActiveBrowser.Actions.SetText(m.message, "Compact request message");
+                _login.MyManager.ActiveBrowser.Actions.SetText(m.title, "Compact request--" + Utilities.Generate_Random_String(6));
+                _login.MyManager.ActiveBrowser.Actions.SetText(m.message, "Compact request message");
 
-                login.myManager.ActiveBrowser.Actions.Click(m.btnOK);
+                _login.MyManager.ActiveBrowser.Actions.Click(m.btnOK);
                 Thread.Sleep(config.Default.SleepingTime * 2);
-                login.myManager.ActiveBrowser.RefreshDomTree();
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
 
                 Assert.IsTrue(m.verifyTitle.InnerText.Contains("Compact request"));
             }
             catch (Exception error)
             {
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(_login.MyManager.ActiveBrowser, error, TestContext.TestName);
                 Assert.Fail();
             }
 
@@ -175,8 +165,7 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+           
 
             #region WebAii CleanUp
 

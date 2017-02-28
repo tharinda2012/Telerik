@@ -1,17 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
 using CS.ObjectRepo.Admin;
@@ -30,7 +18,7 @@ namespace CS.Tests
     [TestClass]
     public class CustomerCenter : BaseTest
     {
-        SessionManager login = new SessionManager();
+        readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
         private TestContext testContextInstance = null;
@@ -128,38 +116,38 @@ namespace CS.Tests
             {
 
                //create a login object to invoke methods related to login/logout.    
-                login.Login_To_CS(false);       
+                _login.Login_To_CS(false);       
             
                //click the admin cogwheel
-               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
-               login.myManager.ActiveBrowser.RefreshDomTree();
-               TopMenu tm = new TopMenu(login.myManager);
-               login.myManager.ActiveBrowser.RefreshDomTree();
+               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(_login.MyManager);      
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
+               var tm = new TopMenu(_login.MyManager);
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
                tm.newSpan.Wait.ForExists();               
-               login.myManager.ActiveBrowser.Actions.Click(tm.AdmincogWheel);                              
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.AdmincogWheel);                              
                //select customer center pages menu
-               login.myManager.ActiveBrowser.Actions.Click(tm.admincustcenterpages);
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.admincustcenterpages);
 
                 //click CC link
-               CCP cc = new CCP(login.myManager);
+               var cc = new CCP(_login.MyManager);
 
                //handle new browser window for CC
-               login.myManager.SetNewBrowserTracking(true);
-               login.myManager.ActiveBrowser.Actions.Click(cc.linktoCC);
-               login.myManager.SetNewBrowserTracking(false);
+               _login.MyManager.SetNewBrowserTracking(true);
+               _login.MyManager.ActiveBrowser.Actions.Click(cc.linktoCC);
+               _login.MyManager.SetNewBrowserTracking(false);
 
-               int browsercount = login.myManager.Browsers.Count;
+               var browsercount = _login.MyManager.Browsers.Count;
 
                //try to maximise browser if its not maximised.
                if (browsercount == 3)
                {
-                   login.myManager.Browsers[2].Window.SetFocus();
-                   login.myManager.Browsers[2].Window.Maximize();
+                   _login.MyManager.Browsers[2].Window.SetFocus();
+                   _login.MyManager.Browsers[2].Window.Maximize();
                    Thread.Sleep(config.Default.SleepingTime * 3);
                }
                
-               login.myManager.ActiveBrowser.RefreshDomTree();
-               CCenter ccenter = new CCenter(login.myManager);  
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
+               var ccenter = new CCenter(_login.MyManager);  
  
                 //asserting that the 'login' button is available in the page whihc confirms that the test has land on 'Customer Center' page
                //Assert.AreEqual("Login", ccenter.btnLogin.Value.ToString()); 
@@ -177,7 +165,7 @@ namespace CS.Tests
                ccenter.submitbutton.MouseClick();
 
                Thread.Sleep(config.Default.SleepingTime * 2);
-               login.myManager.ActiveBrowser.RefreshDomTree();
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
 
                //check if the request is created by verifing that the string "Your inquiry has been registered..." appears in the following screen.
                Assert.IsTrue(ccenter.success.TextContent.Contains("Your inquiry has been registered with request ID"));
@@ -187,7 +175,7 @@ namespace CS.Tests
             catch (Exception error)
             {
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(_login.MyManager.ActiveBrowser, error, TestContext.TestName);
                 Assert.Fail();
             }
 
@@ -203,8 +191,8 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+            
+            SessionManager.Logout_From_CS(_login.MyManager);
 
             #region WebAii CleanUp
 

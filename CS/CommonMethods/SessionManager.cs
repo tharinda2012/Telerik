@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
 using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
-using ArtOfTest.WebAii.TestTemplates;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.ObjectRepo;
@@ -16,137 +9,131 @@ using ArtOfTest.WebAii.Win32.Dialogs;
 
 namespace CS.CommonMethods
 {
-      class SessionManager
+    internal class SessionManager
     {
-        public Settings mySettings;
-        public Manager myManager;
+        private Settings _mySettings;
+        public Manager MyManager;
 
         public void Login_To_CS(bool isMobile)
         {
 
-            mySettings = new Settings();
+            _mySettings = new Settings
+            {
+                Web = {DefaultBrowser = isMobile ? BrowserType.InternetExplorer : config.Default.BrowserType}
+            };
             //assign different browsers based on CS client (desktop or mobile)
-            mySettings.Web.DefaultBrowser = isMobile ? BrowserType.InternetExplorer : config.Default.BrowserType;    
 
-            myManager = new Manager(mySettings);
-            myManager.Start();
-            myManager.LaunchNewBrowser();
-            myManager.Browsers[0].Window.Maximize();
+
+            MyManager = new Manager(_mySettings);
+            MyManager.Start();
+            MyManager.LaunchNewBrowser();
+            MyManager.Browsers[0].Window.Maximize();
             Thread.Sleep(config.Default.SleepingTime);
-            myManager.ActiveBrowser.ClearCache(ArtOfTest.WebAii.Core.BrowserCacheType.Cookies);
+            MyManager.ActiveBrowser.ClearCache(BrowserCacheType.Cookies);
 
             //assign different urls based on CS client (desktop or mobile)
             if (!isMobile)
             {
-                myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url);
+                MyManager.ActiveBrowser.NavigateTo(config.Default.Base_Url);
             }
 
             else
             {
-                myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url + "/" + "MobileService");
+                MyManager.ActiveBrowser.NavigateTo(config.Default.Base_Url + "/" + "MobileService");
                 // assert compactmode is landed
-                Mobile m= new Mobile(myManager);
-                Assert.AreEqual("CS Compact Mode",m.compactString.InnerText.ToString());
+                var m= new Mobile(MyManager);
+                Assert.AreEqual("CS Compact Mode",m.compactString.InnerText);
             }
             
             //login with credentials
-            Login obj = new Login(myManager);
+            var obj = new Login(MyManager);
             obj.onlineUsername.Wait.ForExists();
-            myManager.ActiveBrowser.Actions.SetText(obj.onlineUsername, config.Default.Username);
+            MyManager.ActiveBrowser.Actions.SetText(obj.onlineUsername, config.Default.Username);
             obj.onlinePassword.Wait.ForExists();
-            myManager.ActiveBrowser.Actions.SetText(obj.onlinePassword, config.Default.Password);
+            MyManager.ActiveBrowser.Actions.SetText(obj.onlinePassword, config.Default.Password);
             obj.onlineLoginButton.Wait.ForExists();
-            myManager.ActiveBrowser.Actions.Click(obj.onlineLoginButton);
+            MyManager.ActiveBrowser.Actions.Click(obj.onlineLoginButton);
 
 
-            if (!isMobile)
+            if (isMobile) return;
+            //try to handle webtools wizard
+            var wt = new WebTools(MyManager);
+            var sharedtext = MyManager.ActiveBrowser.Find.ById<HtmlSpan>("_ctl0__ctl0_MasterMessageBoxPlaceHolder_MessageBoxPlaceHolder_TheFirstLoadDialog_Page1SharedComputerText");
+            var counter0 = 0;
+            while (sharedtext == null && counter0 < 10) //this will try upto 10 times before fails
             {
-                //try to handle webtools wizard
-                WebTools wt = new WebTools(myManager);
-                HtmlSpan sharedtext = myManager.ActiveBrowser.Find.ById<HtmlSpan>("_ctl0__ctl0_MasterMessageBoxPlaceHolder_MessageBoxPlaceHolder_TheFirstLoadDialog_Page1SharedComputerText");
-                int counter0 = 0;
-                while (sharedtext == null && counter0 < 10) //this will try upto 10 times before fails
-                {
-                    Thread.Sleep(config.Default.SleepingTime * 10);
-                    counter0 += 1;
-                    myManager.ActiveBrowser.RefreshDomTree();
-                    sharedtext = myManager.ActiveBrowser.Find.ById<HtmlSpan>("_ctl0__ctl0_MasterMessageBoxPlaceHolder_MessageBoxPlaceHolder_TheFirstLoadDialog_Page1SharedComputerText");
-                }
+                Thread.Sleep(config.Default.SleepingTime * 10);
+                counter0 += 1;
+                MyManager.ActiveBrowser.RefreshDomTree();
+                sharedtext = MyManager.ActiveBrowser.Find.ById<HtmlSpan>("_ctl0__ctl0_MasterMessageBoxPlaceHolder_MessageBoxPlaceHolder_TheFirstLoadDialog_Page1SharedComputerText");
+            }
 
-                myManager.ActiveBrowser.RefreshDomTree();
-                if (wt.SharedComputer.InnerText != null)
-                {
-                    Thread.Sleep(config.Default.SleepingTime * 5);
-                    wt.SharedComputer.Wait.ForExists();
-                    myManager.ActiveBrowser.Actions.Click(wt.SharedComputer);
-                    Thread.Sleep(config.Default.SleepingTime * 3);
-                    myManager.ActiveBrowser.Actions.Click(wt.WTNextBtn);
-                    Thread.Sleep(config.Default.SleepingTime * 3);
-                    myManager.ActiveBrowser.Actions.Click(wt.WTCloseBtn);
-                    Thread.Sleep(config.Default.SleepingTime * 2);
-                }
-
-                Thread.Sleep(config.Default.SleepingTime * 2);
-                myManager.SetNewBrowserTracking(true);
-
-                //launch CS from web navigator
-                myManager.ActiveBrowser.Actions.Click(obj.anchrorCS);
-                myManager.SetNewBrowserTracking(false);
-                
+            MyManager.ActiveBrowser.RefreshDomTree();
+            if (wt.SharedComputer.InnerText != null)
+            {
                 Thread.Sleep(config.Default.SleepingTime * 5);
-                int browsercount = myManager.Browsers.Count;
+                wt.SharedComputer.Wait.ForExists();
+                MyManager.ActiveBrowser.Actions.Click(wt.SharedComputer);
+                Thread.Sleep(config.Default.SleepingTime * 3);
+                MyManager.ActiveBrowser.Actions.Click(wt.WTNextBtn);
+                Thread.Sleep(config.Default.SleepingTime * 3);
+                MyManager.ActiveBrowser.Actions.Click(wt.WTCloseBtn);
+                Thread.Sleep(config.Default.SleepingTime * 2);
+            }
 
-                //try to maximise browser if its not maximised.
-                if (browsercount == 2)
-                {
-                    myManager.Browsers[1].Window.SetFocus();
-                    myManager.Browsers[1].Window.Maximize();
-                    Thread.Sleep(config.Default.SleepingTime * 3);
-                }
+            Thread.Sleep(config.Default.SleepingTime * 2);
+            MyManager.SetNewBrowserTracking(true);
 
-                else
-                {
-                    myManager.Browsers[0].Window.SetFocus();
-                    myManager.Browsers[0].Window.Maximize();
-                }
+            //launch CS from web navigator
+            MyManager.ActiveBrowser.Actions.Click(obj.anchrorCS);
+            MyManager.SetNewBrowserTracking(false);
+                
+            Thread.Sleep(config.Default.SleepingTime * 5);
+            var browsercount = MyManager.Browsers.Count;
 
+            //try to maximise browser if its not maximised.
+            if (browsercount == 2)
+            {
+                MyManager.Browsers[1].Window.SetFocus();
+                MyManager.Browsers[1].Window.Maximize();
+                Thread.Sleep(config.Default.SleepingTime * 3);
+            }
 
-
+            else
+            {
+                MyManager.Browsers[0].Window.SetFocus();
+                MyManager.Browsers[0].Window.Maximize();
             }
         }
 
 
-          /// <summary>
-          /// Login to Mobile version
-          /// </summary>
-
-     
-        public void Logout_From_CS(Manager myManager)
+        
+        public static void Logout_From_CS(Manager myManager)
         {
             try
             {
-                Login obj = new Login(myManager);
+                var obj = new Login(myManager);
                 myManager.ActiveBrowser.RefreshDomTree();
-                System.Threading.Thread.Sleep(config.Default.SleepingTime * 3);
-                HtmlDiv logout = obj.logoutDiv.As<HtmlDiv>();
+                Thread.Sleep(config.Default.SleepingTime * 3);
+                var logout = obj.logoutDiv.As<HtmlDiv>();
                 logout.Wait.ForExists();
                 logout.MouseClick();
 
-                System.Threading.Thread.Sleep(config.Default.SleepingTime);
+                Thread.Sleep(config.Default.SleepingTime);
                 myManager.ActiveBrowser.RefreshDomTree();
-                HtmlDiv logouttags = myManager.ActiveBrowser.Find.ById("HtmlPageDropDown_menuItems").As<HtmlDiv>();
+                var logouttags = myManager.ActiveBrowser.Find.ById("HtmlPageDropDown_menuItems").As<HtmlDiv>();
 
-                HtmlAnchor logoutspan = logouttags.ChildNodes[1].As<HtmlAnchor>();
+                var logoutspan = logouttags.ChildNodes[1].As<HtmlAnchor>();
                 logoutspan.Wait.ForExists();
 
                 //handling javascript window popups. Ex: the navigate away dialog appears from browser
-                OnBeforeUnloadDialog dialog = OnBeforeUnloadDialog.CreateOnBeforeUnloadDialog(myManager.ActiveBrowser, DialogButton.CLOSE);
+                var dialog = OnBeforeUnloadDialog.CreateOnBeforeUnloadDialog(myManager.ActiveBrowser, DialogButton.CLOSE);
                 myManager.DialogMonitor.AddDialog(dialog);
                 myManager.DialogMonitor.Start();
                 logoutspan.Click();
 
                 //If more than one browser instalance are invoked then we handle them seperately. 
-                int browsercount = myManager.Browsers.Count;
+                var browsercount = myManager.Browsers.Count;
                 if (browsercount == 2)
                 {
                     myManager.Browsers[1].Window.Close();

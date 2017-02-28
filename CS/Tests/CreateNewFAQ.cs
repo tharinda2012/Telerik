@@ -1,17 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
 using CS.ObjectRepo.KB;
@@ -28,7 +18,7 @@ namespace CS.Tests
     [TestClass]
     public class CreateFAQ : BaseTest
     {
-        SessionManager login = new SessionManager();
+        readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
         private TestContext testContextInstance = null;
@@ -127,63 +117,63 @@ namespace CS.Tests
 
                //create a login object to invoke methods related to login/logout.    
                //login.Login_To_CS_Onsite();
-                login.Login_To_CS(false);
+                _login.Login_To_CS(false);
 
                //invoke new quick request screen from main "+" button                
-               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
-               login.myManager.ActiveBrowser.RefreshDomTree();
-               FAQ faq = new FAQ(login.myManager);
-               TopMenu tm = new TopMenu(login.myManager);
-               login.myManager.ActiveBrowser.RefreshDomTree();
+               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(_login.MyManager);      
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
+               var faq = new FAQ(_login.MyManager);
+               var tm = new TopMenu(_login.MyManager);
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
                tm.newSpan.Wait.ForExists();
-               login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
-               login.myManager.ActiveBrowser.Actions.Click(tm.newFAQ);
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.newFAQ);
 
                //Add faq name in properties tab
                               
                String title = "FAQ_" + Utilities.Generate_Random_String(10);
-               login.myManager.ActiveBrowser.Actions.SetText(faq.faqname, title);
+               _login.MyManager.ActiveBrowser.Actions.SetText(faq.faqname, title);
 
                 //set access to everyone
-               HtmlInputText access = faq.access.As<HtmlInputText>();
-               Utilities.Click_Event_For_Textfield(login.myManager, access);
-               Utilities.Enter_SearchString_For_TextField(login.myManager, "Accessible to everyone");
+               var access = faq.access.As<HtmlInputText>();
+               Utilities.Click_Event_For_Textfield(_login.MyManager, access);
+               Utilities.Enter_SearchString_For_TextField(_login.MyManager, "Accessible to everyone");
 
                //set keyword
-               login.myManager.ActiveBrowser.Actions.SetText(faq.keyword,title);
+               _login.MyManager.ActiveBrowser.Actions.SetText(faq.keyword,title);
 
                 //set work flow to publish
-                HtmlInputText workflow = faq.workflow.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.myManager, workflow);
-                Utilities.Enter_SearchString_For_TextField(login.myManager, "Published");
+                var workflow = faq.workflow.As<HtmlInputText>();
+                Utilities.Click_Event_For_Textfield(_login.MyManager, workflow);
+                Utilities.Enter_SearchString_For_TextField(_login.MyManager, "Published");
 
                 
                 //add question to iframe element in question tab
-                login.myManager.ActiveBrowser.Actions.Click(faq.questiontab);
-                login.myManager.ActiveBrowser.RefreshDomTree();
-                ArtOfTest.WebAii.Core.Browser t1_frame = login.myManager.ActiveBrowser.Frames[0];
-                Element questioneditor = t1_frame.Find.ByXPath("/html/body");
-                login.myManager.ActiveBrowser.Actions.SetText(questioneditor, title);
+                _login.MyManager.ActiveBrowser.Actions.Click(faq.questiontab);
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
+                var t1Frame = _login.MyManager.ActiveBrowser.Frames[0];
+                var questioneditor = t1Frame.Find.ByXPath("/html/body");
+                _login.MyManager.ActiveBrowser.Actions.SetText(questioneditor, title);
 
 
                 //add answer to iframe element in answer tab
-                login.myManager.ActiveBrowser.Actions.Click(faq.answertab);
-                login.myManager.ActiveBrowser.RefreshDomTree();
-                ArtOfTest.WebAii.Core.Browser t2_frame = login.myManager.ActiveBrowser.Frames[0];
-                Element answereditor = t2_frame.Find.ByXPath("/html/body");
-                login.myManager.ActiveBrowser.Actions.SetText(answereditor, title);
+                _login.MyManager.ActiveBrowser.Actions.Click(faq.answertab);
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
+                var t2Frame = _login.MyManager.ActiveBrowser.Frames[0];
+                var answereditor = t2Frame.Find.ByXPath("/html/body");
+                _login.MyManager.ActiveBrowser.Actions.SetText(answereditor, title);
 
                 //save the faq
                 Thread.Sleep(config.Default.SleepingTime * 1);
-                login.myManager.ActiveBrowser.Actions.Click(faq.btnOK);    
+                _login.MyManager.ActiveBrowser.Actions.Click(faq.btnOK);    
                 //publish the faq
                 Thread.Sleep(config.Default.SleepingTime * 1);
-                login.myManager.ActiveBrowser.Actions.Click(faq.moveForwardWF); 
+                _login.MyManager.ActiveBrowser.Actions.Click(faq.moveForwardWF); 
 
      
 
                 //verify that the data has been saved to the database using an assert
-                DBAccess con = new DBAccess();
+                var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select title,keywords,access_level,status from crm7.kb_entry  where title ='" + title + "' ");         
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking faq is saved to the table
@@ -196,7 +186,7 @@ namespace CS.Tests
             catch (Exception error)
             {
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(_login.MyManager.ActiveBrowser, error, TestContext.TestName);
                 Assert.Fail();
             }
 
@@ -212,8 +202,8 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+           
+            SessionManager.Logout_From_CS(_login.MyManager);
 
             #region WebAii CleanUp
 

@@ -1,22 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
 using CS.ObjectRepo.Reqeust;
 using CS.ObjectRepo;
-using System.Threading;
+
 
 namespace CS.Tests
 {
@@ -28,7 +17,7 @@ namespace CS.Tests
     [TestClass]
     public class CreateQuickRequest : BaseTest
     {
-        SessionManager login = new SessionManager();
+        readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
         private TestContext testContextInstance = null;
@@ -127,37 +116,37 @@ namespace CS.Tests
 
                //create a login object to invoke methods related to login/logout.    
                //login.Login_To_CS_Onsite();
-               login.Login_To_CS(false);
+               _login.Login_To_CS(false);
 
                //invoke new quick request screen from main "+" button                
-               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
-               login.myManager.ActiveBrowser.RefreshDomTree();
-               QReqeust request = new QReqeust(login.myManager);
-               TopMenu tm = new TopMenu(login.myManager);
-               login.myManager.ActiveBrowser.RefreshDomTree();
+               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(_login.MyManager);      
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
+               var request = new QReqeust(_login.MyManager);
+               var tm = new TopMenu(_login.MyManager);
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
                tm.newSpan.Wait.ForExists();
-               login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
-               login.myManager.ActiveBrowser.Actions.Click(tm.newQuickRequest);
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.newQuickRequest);
 
 
                 //add title
-                String title = "Quick_" + Utilities.Generate_Random_String(10);
-                login.myManager.ActiveBrowser.Actions.SetText(request.title, title);
+                var title = "Quick_" + Utilities.Generate_Random_String(10);
+                _login.MyManager.ActiveBrowser.Actions.SetText(request.title, title);
 
                 //assign category
-                HtmlInputText categorylabel = request.categorylabel.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.myManager, categorylabel);
-                Utilities.Enter_SearchString_For_TextField(login.myManager, "support");
+                var categorylabel = request.categorylabel.As<HtmlInputText>();
+                Utilities.Click_Event_For_Textfield(_login.MyManager, categorylabel);
+                Utilities.Enter_SearchString_For_TextField(_login.MyManager, "support");
                
 
                 //add message              
-                login.myManager.ActiveBrowser.Actions.SetText(request.message, "Support message");
+                _login.MyManager.ActiveBrowser.Actions.SetText(request.message, "Support message");
 
                 //click save button to save the request
-                login.myManager.ActiveBrowser.Actions.Click(request.okButton);
+                _login.MyManager.ActiveBrowser.Actions.Click(request.okButton);
 
                 //verify that the data has been saved to the database using an assert
-                DBAccess con = new DBAccess();
+                var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select title, category from crm7.ticket  where title ='" + title + "' ");         
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
@@ -168,7 +157,7 @@ namespace CS.Tests
             catch (Exception error)
             {
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(_login.MyManager.ActiveBrowser, error, TestContext.TestName);
                 Assert.Fail();
             }
 
@@ -184,8 +173,8 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+            
+            SessionManager.Logout_From_CS(_login.MyManager);
 
             #region WebAii CleanUp
 

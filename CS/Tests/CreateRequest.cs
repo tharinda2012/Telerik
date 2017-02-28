@@ -1,17 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
 using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
 using ArtOfTest.WebAii.Win32.Dialogs;
-using System.Windows.Forms;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.ObjectRepo.Request;
 using CS.CommonMethods;
@@ -28,7 +19,7 @@ namespace CS.Tests
     [TestClass]
     public class CreateRequest : BaseTest
     {
-        SessionManager login = new SessionManager();
+        readonly SessionManager _login = new SessionManager();
         
         #region [Setup / TearDown]
 
@@ -129,69 +120,69 @@ namespace CS.Tests
 
                 // create a login object to invoke methods related to login/logout.    
                 //login.Login_To_CS_Onsite();
-                login.Login_To_CS(false);
+                _login.Login_To_CS(false);
                 
                 //invoke new quick request screen from main "+" buttons
-                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager); 
-                Request  request = new Request(login.myManager);
-                TopMenu tm = new TopMenu(login.myManager);
-                login.myManager.ActiveBrowser.RefreshDomTree();
+                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(_login.MyManager); 
+                var  request = new Request(_login.MyManager);
+                var tm = new TopMenu(_login.MyManager);
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
                 tm.newSpan.Wait.ForExists();
-                login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
-                login.myManager.ActiveBrowser.Actions.Click(tm.newRequest);
+                _login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
+                _login.MyManager.ActiveBrowser.Actions.Click(tm.newRequest);
 
                 Thread.Sleep(config.Default.SleepingTime*3);
                 //add title
-                login.myManager.ActiveBrowser.RefreshDomTree();
-                String title = Utilities.Generate_Random_String(10);
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
+                var title = Utilities.Generate_Random_String(10);
                 request.title.Wait.ForExists();
-                login.myManager.ActiveBrowser.Actions.SetText(request.title, title);
+                _login.MyManager.ActiveBrowser.Actions.SetText(request.title, title);
 
                 //assign category
-                HtmlInputText supportfield = request.supportfield.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.myManager, supportfield);
-                Utilities.Enter_SearchString_For_TextField(login.myManager,"support");
+                var supportfield = request.supportfield.As<HtmlInputText>();
+                Utilities.Click_Event_For_Textfield(_login.MyManager, supportfield);
+                Utilities.Enter_SearchString_For_TextField(_login.MyManager,"support");
                
 
                 //add message to iframe element
-                login.myManager.ActiveBrowser.Actions.Click(request.messageTab);
-                login.myManager.ActiveBrowser.RefreshDomTree();
-                ArtOfTest.WebAii.Core.Browser t1_frame = login.myManager.ActiveBrowser.Frames[0];
-                Element msgeditor = t1_frame.Find.ByXPath("/html/body");
-                login.myManager.ActiveBrowser.Actions.SetText(msgeditor, "iframe message text");
+                _login.MyManager.ActiveBrowser.Actions.Click(request.messageTab);
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
+                var t1Frame = _login.MyManager.ActiveBrowser.Frames[0];
+                var msgeditor = t1Frame.Find.ByXPath("/html/body");
+                _login.MyManager.ActiveBrowser.Actions.SetText(msgeditor, "iframe message text");
 
                 //click save button to save the request
-                login.myManager.ActiveBrowser.Actions.Click(request.okBut);
+                _login.MyManager.ActiveBrowser.Actions.Click(request.okBut);
 
 
                 //verify that the data has been saved to the database using an assert
-                DBAccess con = new DBAccess();
+                var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select title from crm7.ticket where title ='" + title + "'");
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
                 con.Close_Connection();
 
                 // ============================Delete the request=========================
-                login.myManager.ActiveBrowser.RefreshDomTree();
-                Request deleterequest = new Request(login.myManager);
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
+                var deleterequest = new Request(_login.MyManager);
                 deleterequest.actionmenu.Wait.ForExists();
                 deleterequest.actionmenu.Click();
                 deleterequest.editrequest.Wait.ForExists();
                 deleterequest.editrequest.Click();
-                login.myManager.ActiveBrowser.RefreshDomTree();               
+                _login.MyManager.ActiveBrowser.RefreshDomTree();               
                 
                 //handling javascript delete confirm popup.                
-                ConfirmDialog confirm = ConfirmDialog.CreateConfirmDialog(login.myManager.ActiveBrowser, DialogButton.OK);
-                login.myManager.DialogMonitor.AddDialog(confirm);
-                login.myManager.DialogMonitor.Start();
+                var confirm = ConfirmDialog.CreateConfirmDialog(_login.MyManager.ActiveBrowser, DialogButton.OK);
+                _login.MyManager.DialogMonitor.AddDialog(confirm);
+                _login.MyManager.DialogMonitor.Start();
                 deleterequest.btnDelete.Wait.ForExists();
                 deleterequest.btnDelete.MouseClick();
                 Manager.DialogMonitor.RemoveDialog(confirm);
-                login.myManager.DialogMonitor.Stop();
+                _login.MyManager.DialogMonitor.Stop();
                 Thread.Sleep(config.Default.SleepingTime * 3);
 
                 //check if the request is marked as deleted in database
-                DBAccess con2 = new DBAccess();
+                var con2 = new DbAccess();
                 con2.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con2.Execute_SQLQuery("select status from crm7.ticket where title ='" + title + "'");
                 Assert.AreEqual("4", con2.Return_Data_In_Array()[0].ToString());//checking request status 4 = deleted
@@ -204,7 +195,7 @@ namespace CS.Tests
             {
 
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, e, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(_login.MyManager.ActiveBrowser, e, TestContext.TestName);
                 Assert.Fail();
             }
 
@@ -221,8 +212,8 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+           
+            SessionManager.Logout_From_CS(_login.MyManager);
             
             #region WebAii CleanUp
 

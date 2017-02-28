@@ -1,16 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.ObjectRepo.Customer;
 using CS.CommonMethods;
@@ -26,8 +16,7 @@ namespace CS.Tests
     [TestClass]
     public class CreatePerson : BaseTest
     {
-        
-        SessionManager login = new SessionManager();
+        readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
         private TestContext testContextInstance = null;
@@ -126,58 +115,58 @@ namespace CS.Tests
 
                 // create a login object to invoke methods related to login/logout.    
                 //login.Login_To_CS_Onsite();
-                login.Login_To_CS(false);
-                Person person = new Person(login.myManager);
+                _login.Login_To_CS(false);
+                var person = new Person(_login.MyManager);
 
-                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);
-                Company company = new Company(login.myManager);
-                TopMenu tm = new TopMenu(login.myManager);
+                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(_login.MyManager);
+                var company = new Company(_login.MyManager);
+                var tm = new TopMenu(_login.MyManager);
                 //invoke new quick request screen from main "+" button
-                login.myManager.ActiveBrowser.RefreshDomTree();
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
                 tm.newSpan.Wait.ForExists();
-                login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
-                login.myManager.ActiveBrowser.Actions.Click(tm.newPerson);
+                _login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
+                _login.MyManager.ActiveBrowser.Actions.Click(tm.newPerson);
 
                 //add first and last names
                 person.firstname.Wait.ForExists();
-                string fname = "Person--" + Utilities.Generate_Random_String(6);
-                login.myManager.ActiveBrowser.Actions.SetText(person.firstname, fname);
+                var fname = "Person--" + Utilities.Generate_Random_String(6);
+                _login.MyManager.ActiveBrowser.Actions.SetText(person.firstname, fname);
 
-                login.myManager.ActiveBrowser.Actions.SetText(person.lastname, "LASTNAME");
+                _login.MyManager.ActiveBrowser.Actions.SetText(person.lastname, "LASTNAME");
 
                 Thread.Sleep(config.Default.SleepingTime*2);
                 //create a company to accomodate the contact
-                HtmlImage newcomp = person.newCompany.As<HtmlImage>();
+                var newcomp = person.newCompany.As<HtmlImage>();
                 newcomp.Wait.ForExists();
                 newcomp.MouseClick();
 
                 //new company screen opnes in an iFrame
-                login.myManager.ActiveBrowser.RefreshDomTree();
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
                 Thread.Sleep(config.Default.SleepingTime*3);
-                ArtOfTest.WebAii.Core.Browser t1_frame = login.myManager.ActiveBrowser.Frames[0];
+                var t1Frame = _login.MyManager.ActiveBrowser.Frames[0];
 
                 //add data to the new company
-                HtmlInputText compname = t1_frame.Find.ById<HtmlInputText>("name");
-                String cname = Utilities.Generate_Random_String(10);
+                var compname = t1Frame.Find.ById<HtmlInputText>("name");
+                var cname = Utilities.Generate_Random_String(10);
                 compname.Wait.ForExists();
-                t1_frame.Actions.SetText(compname, cname);
-                HtmlInputText department = t1_frame.Find.ById<HtmlInputText>("department");
-                t1_frame.Actions.SetText(department, "DEPT-QA");
-                HtmlInputText phone = t1_frame.Find.ById<HtmlInputText>("phone");
-                t1_frame.Actions.SetText(phone, "123456789");
-                HtmlInputText fax = t1_frame.Find.ById<HtmlInputText>("fax");
-                t1_frame.Actions.SetText(fax, "4444444444");
-                HtmlButton okbtn = t1_frame.Find.ById<HtmlButton>("_id_41");
+                t1Frame.Actions.SetText(compname, cname);
+                var department = t1Frame.Find.ById<HtmlInputText>("department");
+                t1Frame.Actions.SetText(department, "DEPT-QA");
+                var phone = t1Frame.Find.ById<HtmlInputText>("phone");
+                t1Frame.Actions.SetText(phone, "123456789");
+                var fax = t1Frame.Find.ById<HtmlInputText>("fax");
+                t1Frame.Actions.SetText(fax, "4444444444");
+                var okbtn = t1Frame.Find.ById<HtmlButton>("_id_41");
                 //save company
                 okbtn.Wait.ForExists();
                 okbtn.MouseClick();
                 Thread.Sleep(config.Default.SleepingTime*4);
 
                 //finally saving person
-                login.myManager.ActiveBrowser.RefreshDomTree();
-                login.myManager.ActiveBrowser.Actions.Click(person.okBut);
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
+                _login.MyManager.ActiveBrowser.Actions.Click(person.okBut);
                 //verify that the data has been saved to the database using an assert
-                DBAccess con = new DBAccess();
+                var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select person.firstname, contact.name from crm7.person inner join crm7.contact on person.contact_id=contact.contact_id where person.firstname='" + fname + "'");
                 Assert.AreEqual(fname, con.Return_Data_In_Array()[0]);//checking person issaved
@@ -189,7 +178,7 @@ namespace CS.Tests
             {
 
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, e, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(_login.MyManager.ActiveBrowser, e, TestContext.TestName);
                 Assert.Fail();
 
             }
@@ -206,8 +195,7 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+           SessionManager.Logout_From_CS(_login.MyManager);
             
             #region WebAii CleanUp
 

@@ -1,17 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
 using CS.ObjectRepo.Admin;
@@ -29,7 +18,7 @@ namespace CS.Tests
     [TestClass]
     public class CreateMailBox : BaseTest
     {
-        SessionManager login = new SessionManager();
+        readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
         private TestContext testContextInstance = null;
@@ -127,48 +116,48 @@ namespace CS.Tests
             {
 
                //create a login object to invoke methods related to login/logout.    
-                login.Login_To_CS(false);       
+                _login.Login_To_CS(false);       
             
                //click the admin cogwheel
-               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
-               login.myManager.ActiveBrowser.RefreshDomTree();
-               TopMenu tm = new TopMenu(login.myManager);
-               login.myManager.ActiveBrowser.RefreshDomTree();
+               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(_login.MyManager);      
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
+               var tm = new TopMenu(_login.MyManager);
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
                tm.newSpan.Wait.ForExists();
-               login.myManager.ActiveBrowser.Actions.Click(tm.AdmincogWheel);
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.AdmincogWheel);
 
                //select email from the menu
-               login.myManager.ActiveBrowser.Actions.Click(tm.adminemail);
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.adminemail);
                
                //mailbox creation
-               MailBox mb=new MailBox(login.myManager);
-               login.myManager.ActiveBrowser.Actions.Click(mb.newMailBox);
-               String title = "Mail_" + Utilities.Generate_Random_String(6);
+               var mb=new MailBox(_login.MyManager);
+               _login.MyManager.ActiveBrowser.Actions.Click(mb.newMailBox);
+               var title = "Mail_" + Utilities.Generate_Random_String(6);
                
                //add address name
-               HtmlInputText address = mb.address.As<HtmlInputText>();
-               Utilities.Click_Event_For_Textfield(login.myManager, address);
-               Utilities.Enter_SearchString_For_TextField(login.myManager, title);
+               var address = mb.address.As<HtmlInputText>();
+               Utilities.Click_Event_For_Textfield(_login.MyManager, address);
+               Utilities.Enter_SearchString_For_TextField(_login.MyManager, title);
 
                //set category
-               HtmlInputText category = mb.cateogry.As<HtmlInputText>();
-               Utilities.Click_Event_For_Textfield(login.myManager, category);
-               Utilities.Enter_SearchString_For_TextField(login.myManager, "Support");
+               var category = mb.cateogry.As<HtmlInputText>();
+               Utilities.Click_Event_For_Textfield(_login.MyManager, category);
+               Utilities.Enter_SearchString_For_TextField(_login.MyManager, "Support");
                
                //set priority
-               HtmlInputText priority = mb.priority.As<HtmlInputText>();
+               var priority = mb.priority.As<HtmlInputText>();
                //Utilities.Click_EventFor_Textfield(login.myManager, priority);
-               Utilities.Enter_SearchString_For_TextField(login.myManager, "High");
+               Utilities.Enter_SearchString_For_TextField(_login.MyManager, "High");
 
                 //retrieve email address
-                String fulladdress= address.Text;
+                var fulladdress= address.Text;
 
                // save the mailbox
-               login.myManager.ActiveBrowser.Actions.Click(mb.btnOK);
+               _login.MyManager.ActiveBrowser.Actions.Click(mb.btnOK);
                Thread.Sleep(config.Default.SleepingTime * 3); 
 
                 //verify that the data has been saved to the database using an assert
-                DBAccess con = new DBAccess();
+                var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select address,category_id,priority from crm7.MAIL_IN_FILTER where address = '" + fulladdress + "' ");
                 Assert.AreEqual(fulladdress, con.Return_Data_In_Array()[0]);//checking mailbox is saved to the table
@@ -181,10 +170,10 @@ namespace CS.Tests
                 Utilities.Send_Mail("tharindal@99x.lk", fulladdress, title, "this is my test email body", "SRI-QA-FILESERVER");
 
                 //check if the request is generated by CS from the mail sent above
-                DBAccess con2 = new DBAccess();
+                var con2 = new DbAccess();
                 con2.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con2.Execute_SQLQuery("select title, author from crm7.ticket where title= '" + title + "'");
-                int counter = 0;
+                var counter = 0;
                 while (con2.Return_Data_In_Array()[0].ToString() != title && counter < 10) //this will try upto 10 times before fails
                 {
                     con2.Create_DBConnection(config.Default.DBProvidestringSQL);
@@ -198,7 +187,7 @@ namespace CS.Tests
                 con2.Close_Connection();
 
                 //clean the mailbox by deleting the newly added record in the database
-                DBAccess con3 = new DBAccess();
+                var con3 = new DbAccess();
                 con3.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con3.Execute_SQLQuery("delete crm7.MAIL_IN_FILTER where address = '" + fulladdress + "'");                
                 con3.Close_Connection();
@@ -207,7 +196,7 @@ namespace CS.Tests
             catch (Exception error)
             {
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(_login.MyManager.ActiveBrowser, error, TestContext.TestName);
                 Assert.Fail();
             }
 
@@ -223,8 +212,8 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+            
+            SessionManager.Logout_From_CS(_login.MyManager);
 
             #region WebAii CleanUp
 

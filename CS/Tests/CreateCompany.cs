@@ -1,17 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.ObjectRepo.Customer;
 using CS.CommonMethods;
@@ -130,71 +119,71 @@ namespace CS.Tests
                 // create a login object to invoke methods related to login/logout.    
 
                 login.Login_To_CS(false);
-                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);
-                Company company = new Company(login.myManager);
-                TopMenu tm = new TopMenu(login.myManager);
+                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.MyManager);
+                var company = new Company(login.MyManager);
+                var tm = new TopMenu(login.MyManager);
                 //invoke new quick request screen from main "+" button
-                login.myManager.ActiveBrowser.RefreshDomTree();
+                login.MyManager.ActiveBrowser.RefreshDomTree();
                 tm.newSpan.Wait.ForExists();
-                login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
-                login.myManager.ActiveBrowser.Actions.Click(tm.newCompany);
+                login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
+                login.MyManager.ActiveBrowser.Actions.Click(tm.newCompany);
 
                 //add value for name
                 company.companyName.Wait.ForExists();
-                String compname = Utilities.Generate_Random_String(10);
-                login.myManager.ActiveBrowser.Actions.SetText(company.companyName, compname);
+                var compname = Utilities.Generate_Random_String(10);
+                login.MyManager.ActiveBrowser.Actions.SetText(company.companyName, compname);
 
                 //add value to department
-                login.myManager.ActiveBrowser.Actions.SetText(company.department, "Dept-QA");
+                login.MyManager.ActiveBrowser.Actions.SetText(company.department, "Dept-QA");
 
                 //add value for Phone
-                login.myManager.ActiveBrowser.Actions.SetText(company.phone, "123456789");
+                login.MyManager.ActiveBrowser.Actions.SetText(company.phone, "123456789");
 
                 // add value for Fax
-                login.myManager.ActiveBrowser.Actions.SetText(company.fax, "2222222");
+                login.MyManager.ActiveBrowser.Actions.SetText(company.fax, "2222222");
 
                 //add value for address field 0
-                login.myManager.ActiveBrowser.Actions.SetText(company.add0, "ADDR0");
+                login.MyManager.ActiveBrowser.Actions.SetText(company.add0, "ADDR0");
 
 
                 ////assign country value
-                HtmlInputText countryfield = company.countryfield.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.myManager, countryfield);
-                Utilities.Enter_SearchString_For_TextField(login.myManager, "bahamas");
+                var countryfield = company.countryfield.As<HtmlInputText>();
+                Utilities.Click_Event_For_Textfield(login.MyManager, countryfield);
+                Utilities.Enter_SearchString_For_TextField(login.MyManager, "bahamas");
                 
 
 
                 //assign priority  value
 
-                HtmlInputText priorityfield = company.priorityfield.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.myManager, priorityfield);
-                Utilities.Enter_SearchString_For_TextField(login.myManager, "High");
+                var priorityfield = company.priorityfield.As<HtmlInputText>();
+                Utilities.Click_Event_For_Textfield(login.MyManager, priorityfield);
+                Utilities.Enter_SearchString_For_TextField(login.MyManager, "High");
                 
                 //assign category  value
-                HtmlInputText categotyfield = company.categotyfield.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.myManager, categotyfield);
-                Utilities.Enter_SearchString_For_TextField(login.myManager, "Customer");
+                var categotyfield = company.categotyfield.As<HtmlInputText>();
+                Utilities.Click_Event_For_Textfield(login.MyManager, categotyfield);
+                Utilities.Enter_SearchString_For_TextField(login.MyManager, "Customer");
                 
 
                 //assign business  value
 
-                HtmlInputText businessfield = company.businessfield.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.myManager, businessfield);
-                Utilities.Enter_SearchString_For_TextField(login.myManager, "IT");
+                var businessfield = company.businessfield.As<HtmlInputText>();
+                Utilities.Click_Event_For_Textfield(login.MyManager, businessfield);
+                Utilities.Enter_SearchString_For_TextField(login.MyManager, "IT");
                 
 
 
                 //add a note
-                login.myManager.ActiveBrowser.Actions.SetText(company.note, "TEST NOTE");
+                login.MyManager.ActiveBrowser.Actions.SetText(company.note, "TEST NOTE");
                 Thread.Sleep(config.Default.SleepingTime*2);
 
 
                 //save company 
-                login.myManager.ActiveBrowser.Actions.Click(company.okBut);
+                login.MyManager.ActiveBrowser.Actions.Click(company.okBut);
                 Thread.Sleep(config.Default.SleepingTime*2);
 
                 //verify that the data has been saved to the database using an assert
-                DBAccess con = new DBAccess();
+                var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select name from crm7.contact where name ='" + compname + "'");
                 Assert.AreEqual(compname, con.Return_Data_In_Array()[0]);//checking company is saved to the table
@@ -205,7 +194,7 @@ namespace CS.Tests
             {
 
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, e, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(login.MyManager.ActiveBrowser, e, TestContext.TestName);
                 Assert.Fail();
             }
 
@@ -219,8 +208,8 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+            
+            SessionManager.Logout_From_CS(login.MyManager);
             
             #region WebAii CleanUp
 

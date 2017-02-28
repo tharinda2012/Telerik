@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Windows.Input;
 using ArtOfTest.WebAii.Core;
-using System.Drawing;
-using ArtOfTest.WebAii.ObjectModel;
 using System.IO;
-using CS.CommonMethods;
 using System.Windows.Forms;
 using ArtOfTest.WebAii.Controls.HtmlControls;
 using System.Threading;
@@ -16,22 +10,22 @@ using CS.ObjectRepo;
 
 namespace CS.CommonMethods
 {
-    class Utilities
+    internal static class Utilities
     {
         //screenshot function
-        public static void Save_Screenshot_with_log(ArtOfTest.WebAii.Core.Browser browser, Exception e, string testemethodname, ArtOfTest.WebAii.Core.Manager myManager)
+        public static void Save_Screenshot_with_log(Browser browser, Exception e, string testemethodname)
         {
             try
             {
                 //create a directory with the methodname to store screenshot and error log
-                String directoryname = testemethodname + "_" + string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
-                String errordumppath = "C:\\GIT\\Telerik\\CS\\TestResults";               
-                System.IO.Directory.CreateDirectory(errordumppath + "\\" + directoryname);
+                var directoryname = testemethodname + "_" + string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
+                const string errordumppath = "C:\\GIT\\Telerik\\CS\\TestResults";               
+                Directory.CreateDirectory(errordumppath + "\\" + directoryname);
                 //save screenshot
                 browser.RefreshDomTree();
-                Bitmap pic = browser.Capture();
+                var pic = browser.Capture();
                 //pic.Save(config.Default.errordumppath + "\\" + directoryname + "\\" + "Error_" + testemethodname + ".png");            
-                Bitmap pic2 = browser.Capture();
+                var pic2 = browser.Capture();
                 pic2.Save(errordumppath + "\\" + directoryname + "\\" + "Error_" + testemethodname + ".png");
                 File.AppendAllText(errordumppath + "\\" + directoryname + "\\" + "error.txt", "\r\n*************" + DateTime.Now + "---" + testemethodname + "**************\r\n");
                 File.AppendAllText(errordumppath + "\\" + directoryname + "\\" + "error.txt", e.ToString());
@@ -47,17 +41,14 @@ namespace CS.CommonMethods
 
         public static void Enter_SearchString_For_TextField(Manager m, string searchText)
         {
-            if (!string.IsNullOrEmpty(searchText))
+            if (string.IsNullOrEmpty(searchText)) return;
+
+            foreach (var key in searchText)
             {
-                foreach (char key in searchText)
-                {
-                    Thread.Sleep(config.Default.SleepingTime / 4);
-                    m.Desktop.KeyBoard.KeyPress((Keys)char.ToUpper(key));
-                }
-                m.Desktop.KeyBoard.KeyPress(Keys.Tab);
+                Thread.Sleep(config.Default.SleepingTime / 4);
+                m.Desktop.KeyBoard.KeyPress((Keys)char.ToUpper(key));
             }
-
-
+            m.Desktop.KeyBoard.KeyPress(Keys.Tab);
         }
 
 
@@ -69,23 +60,18 @@ namespace CS.CommonMethods
 
 
         //keyboard key simulate functions for iFrame dialogs
-        public static void Enter_SearchString_For_TextField(ArtOfTest.WebAii.Core.Browser browser, string searchText)
+        public static void Enter_SearchString_For_TextField(Browser browser, string searchText)
         {
-            if (!string.IsNullOrEmpty(searchText))
+            if (string.IsNullOrEmpty(searchText)) return;
+            foreach (var key in searchText)
             {
-                foreach (char key in searchText)
-                {
-                    Thread.Sleep(config.Default.SleepingTime / 4);
-                    browser.Desktop.KeyBoard.KeyPress((Keys)char.ToUpper(key));
-                }
-                browser.Desktop.KeyBoard.KeyPress(Keys.Tab);
+                Thread.Sleep(config.Default.SleepingTime / 4);
+                browser.Desktop.KeyBoard.KeyPress((Keys)char.ToUpper(key));
             }
-
-
-
+            browser.Desktop.KeyBoard.KeyPress(Keys.Tab);
         }
 
-        public static void Click_Event_For_Textfield(ArtOfTest.WebAii.Core.Browser browser, HtmlInputText element)
+        public static void Click_Event_For_Textfield(Browser browser, HtmlInputText element)
         {
             browser.Desktop.Mouse.Click(MouseClickType.LeftClick, element.GetRectangle());
 
@@ -107,9 +93,9 @@ namespace CS.CommonMethods
         public static void Wait_CS_to_Load_Then_Invoke_NewItem(Manager m)
         {
             m.ActiveBrowser.RefreshDomTree();
-            int counter0 = 0;
+            var counter0 = 0;
             //HtmlDiv newItemIcon = m.ActiveBrowser.Find.ById<HtmlDiv>("HtmlPage_newItem");
-            TopMenu tm = new TopMenu(m);
+            var tm = new TopMenu(m);
             while (tm.newSpan == null && counter0 < 10) //this will try upto 10 times before fails
             {
                 Thread.Sleep(config.Default.SleepingTime * 10);
@@ -120,16 +106,18 @@ namespace CS.CommonMethods
             }
         }
 
-        public static void Send_Mail(String fromaddr, String toaddr, String subject, String mailbody, String smtphost)
+        public static void Send_Mail(string fromaddr, string toaddr, string subject, string mailbody, string smtphost)
         {
             //send mail to the new address
 
-            MailMessage mail = new MailMessage(fromaddr, toaddr);
-            SmtpClient client = new SmtpClient();
-            client.Port = 25;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Host = smtphost;
+            var mail = new MailMessage(fromaddr, toaddr);
+            var client = new SmtpClient
+            {
+                Port = 25,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Host = smtphost
+            };
             mail.Subject = subject;
             mail.Body = mailbody;
             client.Send(mail);
@@ -138,11 +126,11 @@ namespace CS.CommonMethods
 
         public static string Generate_Random_String(int length)
         {
-            Random random = new Random();
+            var random = new Random();
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            String ranstring = new string(Enumerable.Repeat(chars, length)
+            var ranstring = new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
-            DateTime date = DateTime.Now;
+            var date = DateTime.Now;
 
             return "Auto--" + date.ToString("yy-MM-dd-HH-mm-ss");
         }

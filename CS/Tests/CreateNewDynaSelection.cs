@@ -1,17 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.CommonMethods;
 using CS.ObjectRepo.Selection;
@@ -28,7 +17,7 @@ namespace CS.Tests
     [TestClass]
     public class CreateDynamicSelection : BaseTest
     {
-        SessionManager login = new SessionManager();
+        readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
         private TestContext testContextInstance = null;
@@ -127,52 +116,52 @@ namespace CS.Tests
 
                //create a login object to invoke methods related to login/logout.    
                //login.Login_To_CS_Onsite();
-                login.Login_To_CS(false);
+                _login.Login_To_CS(false);
 
                //invoke new quick request screen from main "+" button                
-               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.myManager);      
-               login.myManager.ActiveBrowser.RefreshDomTree();
-               Selection selection = new Selection(login.myManager);
-               TopMenu tm = new TopMenu(login.myManager);
-               login.myManager.ActiveBrowser.RefreshDomTree();
+               Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(_login.MyManager);      
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
+               var selection = new Selection(_login.MyManager);
+               var tm = new TopMenu(_login.MyManager);
+               _login.MyManager.ActiveBrowser.RefreshDomTree();
                tm.newSpan.Wait.ForExists();
-               login.myManager.ActiveBrowser.Actions.Click(tm.newSpan);
-               login.myManager.ActiveBrowser.Actions.Click(tm.newSelection);
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
+               _login.MyManager.ActiveBrowser.Actions.Click(tm.newSelection);
 
 
                 
 
                 //select source table as "request"
-                HtmlInputText sourcetable = selection.sourcetable.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.myManager, sourcetable);
-                Utilities.Enter_SearchString_For_TextField(login.myManager, "request");
+                var sourcetable = selection.sourcetable.As<HtmlInputText>();
+                Utilities.Click_Event_For_Textfield(_login.MyManager, sourcetable);
+                Utilities.Enter_SearchString_For_TextField(_login.MyManager, "request");
                
 
                 
 
                 //click continue button
-                login.myManager.ActiveBrowser.Actions.Click(selection.btnContinue);
+                _login.MyManager.ActiveBrowser.Actions.Click(selection.btnContinue);
 
                 //set selection title                
-                String title = "Sel_" + Utilities.Generate_Random_String(10);
-                login.myManager.ActiveBrowser.Actions.SetText(selection.title, title);
+                var title = "Sel_" + Utilities.Generate_Random_String(10);
+                _login.MyManager.ActiveBrowser.Actions.SetText(selection.title, title);
 
                 //click execute button                
-                login.myManager.ActiveBrowser.Actions.Click(selection.btnExecute);
+                _login.MyManager.ActiveBrowser.Actions.Click(selection.btnExecute);
 
                 Thread.Sleep(config.Default.SleepingTime*2);
 
                 //save the selection
-                login.myManager.ActiveBrowser.Actions.Click(selection.btnOk);
+                _login.MyManager.ActiveBrowser.Actions.Click(selection.btnOk);
 
 
                 //verify that the data has been saved to the database using an assert
-                DBAccess con = new DBAccess();
+                var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select name, ej_table,last_count from crm7.ejselection  where name ='" + title + "' ");         
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking selection is saved to the table
                 Assert.AreEqual("ticket", con.Return_Data_In_Array()[1]); //checking selection source table is Ticket'
-                int last_count = Int32.Parse(con.Return_Data_In_Array()[2].ToString());
+                var last_count = Int32.Parse(con.Return_Data_In_Array()[2].ToString());
                 if (last_count<=0)
                 {
                     Assert.Fail("Selection is empty"); //checking if selection is empty
@@ -185,7 +174,7 @@ namespace CS.Tests
             catch (Exception error)
             {
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.myManager.ActiveBrowser, error, TestContext.TestName, login.myManager);
+                Utilities.Save_Screenshot_with_log(_login.MyManager.ActiveBrowser, error, TestContext.TestName);
                 Assert.Fail();
             }
 
@@ -201,8 +190,8 @@ namespace CS.Tests
             //
             // Place any additional cleanup here
             //
-            SessionManager logout = new SessionManager();
-            logout.Logout_From_CS(login.myManager);
+            
+            SessionManager.Logout_From_CS(_login.MyManager);
 
             #region WebAii CleanUp
 

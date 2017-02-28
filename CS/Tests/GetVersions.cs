@@ -1,19 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.Controls.HtmlControls.HtmlAsserts;
-using ArtOfTest.WebAii.Core;
-using ArtOfTest.WebAii.ObjectModel;
-using ArtOfTest.WebAii.TestAttributes;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
-using ArtOfTest.WebAii.Silverlight;
-using ArtOfTest.WebAii.Silverlight.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CS.ObjectRepo.Customer;
 using CS.CommonMethods;
 using System.Threading;
 using System.IO;
@@ -30,17 +17,16 @@ namespace CS.Tests
     [TestClass]
     public class GetVersions : BaseTest
     {
+        private static string _fileVersion;
+        private static string _custId;
 
-        public static string FileVersion,CustId;
-        
-        public static string getBetween(string strSource, string strStart, string strEnd)
+        private static string GetBetween(string strSource, string strStart, string strEnd)
         {
-            int Start, End;
             if (strSource.Contains(strStart) && strSource.Contains(strEnd))
             {
-                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
-                End = strSource.IndexOf(strEnd, Start);
-                return strSource.Substring(Start, End - Start);
+                var start = strSource.IndexOf(strStart, 0, StringComparison.Ordinal) + strStart.Length;
+                var end = strSource.IndexOf(strEnd, start, StringComparison.Ordinal);
+                return strSource.Substring(start, end - start);
             }
             else
             {
@@ -48,36 +34,36 @@ namespace CS.Tests
             }
         }
 
-        static async void DownloadPageAsync()
+        private static async void DownloadPageAsync()
         {
             // ... Target page.
-            string page = config.Default.About_Url;
+            var page = config.Default.About_Url;
             // ... Use HttpClient.
-            using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage response = await client.GetAsync(page))
-            using (HttpContent content = response.Content)
+            using (var client = new HttpClient())
+            using (var response = await client.GetAsync(page))
+            using (var content = response.Content)
             {
                 // ... Read the string.
-                string result = await content.ReadAsStringAsync();
+                var result = await content.ReadAsStringAsync();
                 // ... Display the result.
                 if (result != null)
                 {
-                    FileVersion = getBetween(result, "File version", "Netserver version");
-                    CustId = getBetween(result, "Program: ", "/CS/scripts/ticket.fcgi");
+                    _fileVersion = GetBetween(result, "File version", "Netserver version");
+                    _custId = GetBetween(result, "Program: ", "/CS/scripts/ticket.fcgi");
                 }
                 else
                 {
-                    FileVersion = "Response not received";
+                    _fileVersion = "Response not received";
                 }
 
-                if (FileVersion == null)
+                if (_fileVersion == null)
                 {
-                    FileVersion = "Not retrieved";
+                    _fileVersion = "Not retrieved";
                 }   
             }
         }
         
-        SessionManager login = new SessionManager();
+        
         #region [Setup / TearDown]
 
         private TestContext testContextInstance = null;
@@ -174,25 +160,25 @@ namespace CS.Tests
             try
             {
                 //create an async task to download the html page
-                Task t = new Task(DownloadPageAsync);
+                var t = new Task(DownloadPageAsync);
                 t.Start();
                 Thread.Sleep(config.Default.SleepingTime* 10);                
-                DBAccess con = new DBAccess();
+                var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select prefvalue from crm7.userpreference where prefkey='CRMBaseURL'");                
                 //string url = con.Return_Data_In_Array()[0].ToString();
                 
                 //write application version/url info to a file
-                string filePath = @"C:\GIT\Telerik\CS\TestResults\Version.log";
-                using (FileStream aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write))
-                using (StreamWriter sw = new StreamWriter(aFile))
+                const string filePath = @"C:\GIT\Telerik\CS\TestResults\Version.log";
+                using (var aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write))
+                using (var sw = new StreamWriter(aFile))
                 {                    
                     sw.WriteLine("\n");
                     sw.WriteLine("***Base Url: " + config.Default.Base_Url);
                     sw.WriteLine("\n");
-                    sw.WriteLine("***Tenant Id: " + CustId);
+                    sw.WriteLine("***Tenant Id: " + _custId);
                     sw.WriteLine("\n");
-                    sw.WriteLine("***File Version: " + FileVersion);
+                    sw.WriteLine("***File Version: " + _fileVersion);
                     sw.WriteLine("\n");
                     sw.WriteLine("***Browser Used...: " + config.Default.BrowserType);
                 }
