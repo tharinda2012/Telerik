@@ -1,4 +1,5 @@
 ﻿using System.Data.OleDb;
+using System;
 
 
 namespace CS.CommonMethods
@@ -49,7 +50,9 @@ namespace CS.CommonMethods
                 _myreader.GetValues(_resultArray); 
             }
             //converting all objects (int,decimal,date etc.) in array to 'string' objects and return         
-             return _resultArray ?? new object[] { "No Data returned from SQL query..." };
+            return _resultArray != null
+                ? Array.ConvertAll(_resultArray, x => x.ToString())
+                : new object[] {"No Data returned from SQL query..."};
 
         }
 
