@@ -25,32 +25,26 @@ namespace CS.CommonMethods
         {
 
             mySettings = new Settings();
+            //assign different browsers based on CS client (desktop or mobile)
+            mySettings.Web.DefaultBrowser = isMobile ? BrowserType.InternetExplorer : config.Default.BrowserType;    
 
-            if (isMobile == false)
-            {
-                mySettings.Web.DefaultBrowser = config.Default.BrowserType; ;
-            }
-            else
-            {
-                mySettings.Web.DefaultBrowser = BrowserType.InternetExplorer;
-            }
-            
             myManager = new Manager(mySettings);
             myManager.Start();
             myManager.LaunchNewBrowser();
             myManager.Browsers[0].Window.Maximize();
             Thread.Sleep(config.Default.SleepingTime);
             myManager.ActiveBrowser.ClearCache(ArtOfTest.WebAii.Core.BrowserCacheType.Cookies);
-            if (isMobile == false)
+
+            //assign different urls based on CS client (desktop or mobile)
+            if (!isMobile)
             {
                 myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url);
             }
 
             else
             {
-            myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url + "/" + "MobileService");
-
-            // assert compactmode is landed
+                myManager.ActiveBrowser.NavigateTo(config.Default.Base_Url + "/" + "MobileService");
+                // assert compactmode is landed
                 Mobile m= new Mobile(myManager);
                 Assert.AreEqual("CS Compact Mode",m.compactString.InnerText.ToString());
             }
@@ -65,7 +59,7 @@ namespace CS.CommonMethods
             myManager.ActiveBrowser.Actions.Click(obj.onlineLoginButton);
 
 
-            if (isMobile == false)
+            if (!isMobile)
             {
                 //try to handle webtools wizard
                 WebTools wt = new WebTools(myManager);
@@ -98,7 +92,7 @@ namespace CS.CommonMethods
                 //launch CS from web navigator
                 myManager.ActiveBrowser.Actions.Click(obj.anchrorCS);
                 myManager.SetNewBrowserTracking(false);
-                //myManager.WaitForNewBrowserConnect("https://sod.superoffice.com/Cust21693/CS/scripts/ticket.fcgi?action=mainMenu&login_language=en-US", true, 10000);
+                
                 Thread.Sleep(config.Default.SleepingTime * 5);
                 int browsercount = myManager.Browsers.Count;
 
