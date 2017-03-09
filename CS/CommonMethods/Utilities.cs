@@ -50,7 +50,7 @@ namespace CS.CommonMethods
                 m.Desktop.KeyBoard.KeyPress((Keys) char.ToUpper(key));
             }
 
-            m.Desktop.KeyBoard.KeyPress(Keys.Enter);
+            m.Desktop.KeyBoard.KeyPress(Keys.Tab);
 
         }
 
