@@ -18,7 +18,7 @@ namespace CS.Tests
     /// Date: 09.12.2016
     /// </summary>
     [TestClass]
-    public class CreateRequest : BaseTest
+    public class SendEmail : BaseTest
     {
         readonly SessionManager _login = new SessionManager();
         
@@ -112,7 +112,7 @@ namespace CS.Tests
         }
 
         [TestMethod]
-        public void TestMethod_Create_Delete_Request()
+        public void TestMethod_SendEmail()
         {
 
             try
@@ -133,7 +133,14 @@ namespace CS.Tests
                 _login.MyManager.ActiveBrowser.Actions.Click(tm.newRequest);
 
                 Thread.Sleep(config.Default.SleepingTime*3);
-                
+                //add a recipient
+               
+                Utilities.Click_Event_For_Textfield(_login.MyManager,request.recipient);
+                Utilities.Enter_emailAddress_as_keystrokes(_login.MyManager,"soqatester@gmail.com");
+                Utilities.Click_Event_For_Textfield(_login.MyManager, request.recipient);
+                _login.MyManager.Desktop.KeyBoard.KeyPress((Keys.Enter));
+               
+            
                 //add title
                 _login.MyManager.ActiveBrowser.RefreshDomTree();
                 var title = Utilities.Generate_Random_String(10);
@@ -165,32 +172,22 @@ namespace CS.Tests
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
                 con.Close_Connection();
 
-                                // ============================Delete the request=========================
-                _login.MyManager.ActiveBrowser.RefreshDomTree();
-                var deleterequest = new Request(_login.MyManager);
-                deleterequest.actionmenu.Wait.ForExists();
-                deleterequest.actionmenu.Click();
-                deleterequest.editrequest.Wait.ForExists();
-                deleterequest.editrequest.Click();
-                _login.MyManager.ActiveBrowser.RefreshDomTree();               
+                //verify that an email is sent out 
+                var con3 = new DbAccess();
+                con3.Create_DBConnection(config.Default.DBProvidestringSQL);
+                con3.Execute_SQLQuery("select T.id, T.title ,O.status from crm7.TICKET T  join crm7.OUTBOX O on T.id=O.ticket_id where T.title='" + title + "'");
                 
-                //handling javascript delete confirm popup.                
-                var confirm = ConfirmDialog.CreateConfirmDialog(_login.MyManager.ActiveBrowser, DialogButton.OK);
-                _login.MyManager.DialogMonitor.AddDialog(confirm);
-                _login.MyManager.DialogMonitor.Start();
-                deleterequest.btnDelete.Wait.ForExists();
-                deleterequest.btnDelete.MouseClick();
-                Manager.DialogMonitor.RemoveDialog(confirm);
-                _login.MyManager.DialogMonitor.Stop();
-                Thread.Sleep(config.Default.SleepingTime * 3);
+                var counter = 0;
+                while (con3.Return_Data_In_Array()[2].ToString() != "3" && counter < 10) //this will try upto 10 times before fails
+                {
+                    con3.Create_DBConnection(config.Default.DBProvidestringSQL);
+                    con3.Execute_SQLQuery("select T.id, T.title ,O.status from crm7.TICKET T  join crm7.OUTBOX O on T.id=O.ticket_id where T.title='" + title + "'");
+                    Thread.Sleep(config.Default.SleepingTime * 10);
+                    counter += 1;
+                }
 
-                //check if the request is marked as deleted in database
-                var con2 = new DbAccess();
-                con2.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con2.Execute_SQLQuery("select status from crm7.ticket where title ='" + title + "'");
-                Assert.AreEqual("4", con2.Return_Data_In_Array()[0].ToString());//checking request status 4 = deleted
-                con2.Close_Connection();
-
+                Assert.AreEqual("3", con3.Return_Data_In_Array()[2]);//checking email is sent out for the request created
+                con3.Close_Connection();
                 
             }
 

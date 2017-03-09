@@ -19,7 +19,7 @@ namespace CS.CommonMethods
             {
                 //create a directory with the methodname to store screenshot and error log
                 var directoryname = testemethodname + "_" + string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now);
-                const string errordumppath = "C:\\GIT\\Telerik\\CS\\TestResults";               
+                const string errordumppath = "C:\\GIT\\Telerik\\CS\\TestResults";
                 Directory.CreateDirectory(errordumppath + "\\" + directoryname);
                 //save screenshot
                 browser.RefreshDomTree();
@@ -27,7 +27,8 @@ namespace CS.CommonMethods
                 //pic.Save(config.Default.errordumppath + "\\" + directoryname + "\\" + "Error_" + testemethodname + ".png");            
                 var pic2 = browser.Capture();
                 pic2.Save(errordumppath + "\\" + directoryname + "\\" + "Error_" + testemethodname + ".png");
-                File.AppendAllText(errordumppath + "\\" + directoryname + "\\" + "error.txt", "\r\n*************" + DateTime.Now + "---" + testemethodname + "**************\r\n");
+                File.AppendAllText(errordumppath + "\\" + directoryname + "\\" + "error.txt",
+                    "\r\n*************" + DateTime.Now + "---" + testemethodname + "**************\r\n");
                 File.AppendAllText(errordumppath + "\\" + directoryname + "\\" + "error.txt", e.ToString());
             }
             catch (Exception error)
@@ -46,9 +47,11 @@ namespace CS.CommonMethods
             foreach (var key in searchText)
             {
                 Thread.Sleep(config.Default.SleepingTime / 4);
-                m.Desktop.KeyBoard.KeyPress((Keys)char.ToUpper(key));
+                m.Desktop.KeyBoard.KeyPress((Keys) char.ToUpper(key));
             }
-            m.Desktop.KeyBoard.KeyPress(Keys.Tab);
+
+            m.Desktop.KeyBoard.KeyPress(Keys.Enter);
+
         }
 
 
@@ -66,7 +69,7 @@ namespace CS.CommonMethods
             foreach (var key in searchText)
             {
                 Thread.Sleep(config.Default.SleepingTime / 4);
-                browser.Desktop.KeyBoard.KeyPress((Keys)char.ToUpper(key));
+                browser.Desktop.KeyBoard.KeyPress((Keys) char.ToUpper(key));
             }
             browser.Desktop.KeyBoard.KeyPress(Keys.Tab);
         }
@@ -129,13 +132,40 @@ namespace CS.CommonMethods
             var random = new Random();
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var ranstring = new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+                .Select(s => s[random.Next(s.Length)]).ToArray());
             var date = DateTime.Now;
 
             return "Auto--" + date.ToString("yy-MM-dd-HH-mm-ss");
         }
-      
 
 
+
+        //send email address as key strokes
+        public static void Enter_emailAddress_as_keystrokes(Manager m, string searchText)
+        {
+            if (string.IsNullOrEmpty(searchText)) return;
+
+            foreach (var key in searchText)
+            {
+                if (key.ToString() == ".")
+                {
+                    m.Desktop.KeyBoard.KeyPress(Keys.OemPeriod);
+
+                }
+
+                if (key.ToString() == "@")
+                {
+                    m.Desktop.KeyBoard.KeyDown(Keys.LShiftKey);
+                    m.Desktop.KeyBoard.KeyPress(Keys.D2);
+                    m.Desktop.KeyBoard.KeyUp((Keys.LShiftKey));
+                }
+
+                Thread.Sleep(config.Default.SleepingTime / 4);
+                m.Desktop.KeyBoard.KeyPress((Keys) char.ToUpper(key));
+
+            }
+            m.Desktop.KeyBoard.KeyPress(Keys.Enter);
+
+        }
     }
 }

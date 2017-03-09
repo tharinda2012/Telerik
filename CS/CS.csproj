@@ -106,6 +106,7 @@
     <Compile Include="Tests\CreateQuickRequest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\CreateRequesSendEmail.cs" />
     <Compile Include="Tests\CreateRequest.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -40,6 +40,12 @@ namespace CS.ObjectRepo.Request
 
         //delete button
         public HtmlButton btnDelete { get { return _manager.ActiveBrowser.Find.ById<HtmlButton>("_id_7"); ; } }
-      
+
+        //recipient
+
+        public HtmlInputText recipient
+        {
+            get { return _manager.ActiveBrowser.Find.ByExpression<HtmlInputText>("TabIndex=5"); }
+        }
     }
 }
