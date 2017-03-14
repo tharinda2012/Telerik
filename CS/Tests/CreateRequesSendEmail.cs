@@ -169,7 +169,7 @@ namespace CS.Tests
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select title from crm7.ticket where title ='" + title + "'");
-                Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
+                Assert.AreEqual(title, con.Return_Data_In_Array()[0],"Request is not saved");//checking request is saved to the table
                 con.Close_Connection();
 
                 //verify that an email is sent out 
@@ -186,7 +186,7 @@ namespace CS.Tests
                     counter += 1;
                 }
 
-                Assert.AreEqual("3", con3.Return_Data_In_Array()[2]);//checking email is sent out for the request created
+                Assert.AreEqual("3", con3.Return_Data_In_Array()[2],"Email was not sent out");//checking email is sent out for the request created
                 con3.Close_Connection();
                 
             }

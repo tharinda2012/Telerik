@@ -162,7 +162,7 @@ namespace CS.Tests
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select title from crm7.ticket where title ='" + title + "'");
-                Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
+                Assert.AreEqual(title, con.Return_Data_In_Array()[0],"Request is not saved to the table");//checking request is saved to the table
                 con.Close_Connection();
 
                                 // ============================Delete the request=========================
@@ -188,7 +188,7 @@ namespace CS.Tests
                 var con2 = new DbAccess();
                 con2.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con2.Execute_SQLQuery("select status from crm7.ticket where title ='" + title + "'");
-                Assert.AreEqual("4", con2.Return_Data_In_Array()[0].ToString());//checking request status 4 = deleted
+                Assert.AreEqual("4", con2.Return_Data_In_Array()[0].ToString(),"Request ss not in Deleted state");//checking request status 4 = deleted
                 con2.Close_Connection();
 
                 

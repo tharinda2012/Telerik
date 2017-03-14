@@ -160,9 +160,9 @@ namespace CS.Tests
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select address,category_id,priority from crm7.MAIL_IN_FILTER where address = '" + fulladdress + "' ");
-                Assert.AreEqual(fulladdress, con.Return_Data_In_Array()[0]);//checking mailbox is saved to the table
-                Assert.AreEqual("1", con.Return_Data_In_Array()[1]); //checking category 1 = support
-                Assert.AreEqual("3", con.Return_Data_In_Array()[2]); //checking priority 3 = high
+                Assert.AreEqual(fulladdress, con.Return_Data_In_Array()[0],"MailBox is not saved");//checking mailbox is saved to the table
+                Assert.AreEqual("1", con.Return_Data_In_Array()[1],"Category is not Support"); //checking category 1 = support
+                Assert.AreEqual("3", con.Return_Data_In_Array()[2],"Priority is set to High"); //checking priority 3 = high
 
                 con.Close_Connection();
 
@@ -182,7 +182,7 @@ namespace CS.Tests
                     counter += 1;
                 }
 
-                Assert.AreEqual(title, con2.Return_Data_In_Array()[0].ToString());
+                Assert.AreEqual(title, con2.Return_Data_In_Array()[0].ToString(),"Request was not generated to the mail sent");
 
                 con2.Close_Connection();
 

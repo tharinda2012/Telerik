@@ -247,8 +247,8 @@ namespace CS.Tests
                     counter2 += 1;
                 }
 
-                Assert.AreEqual(mailingname, con.Return_Data_In_Array()[0]); //checking mailing has been saved with the given name
-                Assert.AreEqual("1", con.Return_Data_In_Array()[1]); // checking mailing status is 'finished' and complete
+                Assert.AreEqual(mailingname, con.Return_Data_In_Array()[0],"Mailing was not saved"); //checking mailing has been saved with the given name
+                Assert.AreEqual("1", con.Return_Data_In_Array()[1],"mailing is not finished"); // checking mailing status is 'finished' and complete
                 con.Close_Connection();
             }
 

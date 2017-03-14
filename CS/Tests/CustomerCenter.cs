@@ -168,7 +168,7 @@ namespace CS.Tests
                _login.MyManager.ActiveBrowser.RefreshDomTree();
 
                //check if the request is created by verifing that the string "Your inquiry has been registered..." appears in the following screen.
-               Assert.IsTrue(ccenter.success.TextContent.Contains("Your inquiry has been registered with request ID"));
+               Assert.IsTrue(ccenter.success.TextContent.Contains("Your inquiry has been registered with request ID"),"Request in Customer Center was not created successfully");
                
                            
             }

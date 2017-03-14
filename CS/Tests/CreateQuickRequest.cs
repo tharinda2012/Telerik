@@ -149,8 +149,8 @@ namespace CS.Tests
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select title, category from crm7.ticket  where title ='" + title + "' ");         
-                Assert.AreEqual(title, con.Return_Data_In_Array()[0]);//checking request is saved to the table
-                Assert.AreEqual("1", con.Return_Data_In_Array()[1]); //checking request status is 'support'
+                Assert.AreEqual(title, con.Return_Data_In_Array()[0],"Request is not saved to table");//checking request is saved to the table
+                Assert.AreEqual("1", con.Return_Data_In_Array()[1],"Request status is not Support"); //checking request status is 'support'
                 con.Close_Connection();
                            
             }

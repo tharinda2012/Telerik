@@ -186,7 +186,7 @@ namespace CS.Tests
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
                 con.Execute_SQLQuery("select name from crm7.contact where name ='" + compname + "'");
-                Assert.AreEqual(compname, con.Return_Data_In_Array()[0]);//checking company is saved to the table
+                Assert.AreEqual(compname, con.Return_Data_In_Array()[0],"COmpany is not saved");//checking company is saved to the table
                 con.Close_Connection();
             }
 

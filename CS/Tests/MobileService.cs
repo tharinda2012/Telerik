@@ -144,7 +144,7 @@ namespace CS.Tests
                 Thread.Sleep(config.Default.SleepingTime * 2);
                 _login.MyManager.ActiveBrowser.RefreshDomTree();
 
-                Assert.IsTrue(m.verifyTitle.InnerText.Contains("Compact request"));
+                Assert.IsTrue(m.verifyTitle.InnerText.Contains("Compact request"),"Did not land in Compact Mode page");
             }
             catch (Exception error)
             {
