@@ -108,7 +108,7 @@ namespace CS.Tests
 
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void TestMethod_Create_MailBox()
         {
 
