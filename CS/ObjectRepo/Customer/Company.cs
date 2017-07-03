@@ -37,7 +37,7 @@ namespace CS.ObjectRepo.Customer
         
         
         public Element note { get { return _manager.ActiveBrowser.Find.ById("note"); } }
-        public Element okBut { get { return _manager.ActiveBrowser.Find.ById("_id_41"); } } 
+        public Element okBut { get { return _manager.ActiveBrowser.Find.ById("_id_40"); } } 
 
         //dropdown hidden fields
         //public Element country { get { return _manager.ActiveBrowser.Find.ById("country"); } }

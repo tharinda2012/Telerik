@@ -39,7 +39,7 @@ namespace CS.CommonMethods
 
             else
             {
-                MyManager.ActiveBrowser.NavigateTo(config.Default.Base_Url + "/" + "MobileService");
+                MyManager.ActiveBrowser.NavigateTo("http://support.81onsitecd.com/scripts/rms.fcgi/compactMode");
                 // assert compactmode is landed
                 var m= new Mobile(MyManager);
                 Assert.AreEqual("CS Compact Mode",m.compactString.InnerText);

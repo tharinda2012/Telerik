@@ -153,6 +153,7 @@ namespace CS.Tests
                //Assert.AreEqual("Login", ccenter.btnLogin.Value.ToString()); 
        
                 //click new request tab and add a new request and save the request
+               Thread.Sleep(config.Default.SleepingTime * 4);
                ccenter.newRequest.Wait.ForExists();
                ccenter.newRequest.Click();
                ccenter.yourName.Text = "Tharinda";
