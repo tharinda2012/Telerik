@@ -31,9 +31,9 @@ namespace CS.ObjectRepo
 
         //elemets for Online - Access crm.web first and then launch CS from Navigator
 
-        public Element onlineUsername { get { return _manager.ActiveBrowser.Find.ById("Username"); } }
-        public Element onlinePassword { get { return _manager.ActiveBrowser.Find.ById("Password"); } }
-        public Element onlineLoginButton { get { return _manager.ActiveBrowser.Find.ById("loginButton"); } }
+        public Element onlineUsername { get { return _manager.ActiveBrowser.Find.ById("txtUsername"); } }
+        public Element onlinePassword { get { return _manager.ActiveBrowser.Find.ById("txtPassword"); } }
+        public Element onlineLoginButton { get { return _manager.ActiveBrowser.Find.ById("lblLoginBtn"); } }
 
         //crm.23b navigator elements to find and launch CS
 
