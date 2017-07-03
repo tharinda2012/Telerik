@@ -168,20 +168,20 @@ namespace CS.Tests
                 //verify that the data has been saved to the database using an assert
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select title from crm7.ticket where title ='" + title + "'");
+                con.Execute_SQLQuery("select title from ticket where title ='" + title + "'");
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0],"Request is not saved");//checking request is saved to the table
                 con.Close_Connection();
 
                 //verify that an email is sent out 
                 var con3 = new DbAccess();
                 con3.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con3.Execute_SQLQuery("select T.id, T.title ,O.status from crm7.TICKET T  join crm7.OUTBOX O on T.id=O.ticket_id where T.title='" + title + "'");
+                con3.Execute_SQLQuery("select T.id, T.title ,O.status from TICKET T  join crm7.OUTBOX O on T.id=O.ticket_id where T.title='" + title + "'");
                 
                 var counter = 0;
                 while (con3.Return_Data_In_Array()[2].ToString() != "3" && counter < 10) //this will try upto 10 times before fails
                 {
                     con3.Create_DBConnection(config.Default.DBProvidestringSQL);
-                    con3.Execute_SQLQuery("select T.id, T.title ,O.status from crm7.TICKET T  join crm7.OUTBOX O on T.id=O.ticket_id where T.title='" + title + "'");
+                    con3.Execute_SQLQuery("select T.id, T.title ,O.status from TICKET T  join crm7.OUTBOX O on T.id=O.ticket_id where T.title='" + title + "'");
                     Thread.Sleep(config.Default.SleepingTime * 10);
                     counter += 1;
                 }

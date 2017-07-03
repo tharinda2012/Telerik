@@ -168,7 +168,7 @@ namespace CS.Tests
                 //verify that the data has been saved to the database using an assert
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select person.firstname, contact.name from crm7.person inner join crm7.contact on person.contact_id=contact.contact_id where person.firstname='" + fname + "'");
+                con.Execute_SQLQuery("select person.firstname, contact.name from person inner join crm7.contact on person.contact_id=contact.contact_id where person.firstname='" + fname + "'");
                 Assert.AreEqual(fname, con.Return_Data_In_Array()[0],"Person is not saved");//checking person issaved
                 Assert.AreEqual(cname, con.Return_Data_In_Array()[1],"Company is not saved");//checking company is saved
                 con.Close_Connection();

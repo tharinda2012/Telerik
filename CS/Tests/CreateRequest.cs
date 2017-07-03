@@ -161,7 +161,7 @@ namespace CS.Tests
                 //verify that the data has been saved to the database using an assert
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select title from crm7.ticket where title ='" + title + "'");
+                con.Execute_SQLQuery("select title from ticket where title ='" + title + "'");
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0],"Request is not saved to the table");//checking request is saved to the table
                 con.Close_Connection();
 

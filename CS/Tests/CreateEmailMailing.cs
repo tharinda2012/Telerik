@@ -237,12 +237,12 @@ namespace CS.Tests
                 
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select description,status from crm7.s_shipment where description ='" + mailingname + "'");
+                con.Execute_SQLQuery("select description,status from s_shipment where description ='" + mailingname + "'");
                 var counter2 = 0;
                 while (con.Return_Data_In_Array()[1].ToString() != "1" && counter2 < 10) //this will try upto 10 times before fails
                 {
                     con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                    con.Execute_SQLQuery("select description,status from crm7.s_shipment where description ='" + mailingname + "'");           
+                    con.Execute_SQLQuery("select description,status from s_shipment where description ='" + mailingname + "'");           
                     Thread.Sleep(config.Default.SleepingTime * 10);
                     counter2 += 1;
                 }

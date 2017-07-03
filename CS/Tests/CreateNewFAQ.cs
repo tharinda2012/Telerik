@@ -175,7 +175,7 @@ namespace CS.Tests
                 //verify that the data has been saved to the database using an assert
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select title,keywords,access_level,status from crm7.kb_entry  where title ='" + title + "' ");         
+                con.Execute_SQLQuery("select title,keywords,access_level,status from kb_entry  where title ='" + title + "' ");         
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0],"FAQ is not saved to table");//checking faq is saved to the table
                 Assert.AreEqual(title, con.Return_Data_In_Array()[1],"Keyword was not saved"); //checking keyword is saved
                 Assert.AreEqual("4", con.Return_Data_In_Array()[2],"Accessible level not set to all"); //checking access level is 4 = accessible to all

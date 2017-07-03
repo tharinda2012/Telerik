@@ -165,7 +165,7 @@ namespace CS.Tests
                 Thread.Sleep(config.Default.SleepingTime* 10);                
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select prefvalue from crm7.userpreference where prefkey='CRMBaseURL'");                
+                con.Execute_SQLQuery("select prefvalue from userpreference where prefkey='CRMBaseURL'");                
                 //string url = con.Return_Data_In_Array()[0].ToString();
                 
                 //write application version/url info to a file
