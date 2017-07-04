@@ -158,7 +158,7 @@ namespace CS.Tests
                 //verify that the data has been saved to the database using an assert
                 var con = new DbAccess();
                 con.Create_DBConnection(config.Default.DBProvidestringSQL);
-                con.Execute_SQLQuery("select name, ej_table,last_count from ejselection  where name ='" + title + "' ");         
+                con.Execute_SQLQuery("select name, ej_table,last_count from crm7.ejselection  where name ='" + title + "' ");         
                 Assert.AreEqual(title, con.Return_Data_In_Array()[0],"Selection was not saved");//checking selection is saved to the table
                 Assert.AreEqual("ticket", con.Return_Data_In_Array()[1],"selection source table is not Ticket"); //checking selection source table is Ticket'
                 var lastCount = Int32.Parse(con.Return_Data_In_Array()[2].ToString());
