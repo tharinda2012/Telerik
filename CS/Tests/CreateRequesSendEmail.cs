@@ -1,8 +1,6 @@
 using System;
 using ArtOfTest.WebAii.Controls.HtmlControls;
-using ArtOfTest.WebAii.ObjectModel;
 using ArtOfTest.WebAii.TestTemplates;
-using ArtOfTest.WebAii.Win32.Dialogs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS.ObjectRepo.Request;
 using CS.CommonMethods;
@@ -24,21 +22,21 @@ namespace CS.Tests
         
         #region [Setup / TearDown]
 
-        private TestContext testContextInstance = null;
+        private TestContext _testContextInstance = null;
         /// <summary>
         ///Gets or sets the VS test context which provides
         ///information about and functionality for the
         ///current test run.
         ///</summary>
-        public TestContext TestContext
+        private TestContext TestContext
         {
             get
             {
-                return testContextInstance;
+                return _testContextInstance;
             }
             set
             {
-                testContextInstance = value;
+                _testContextInstance = value;
             }
         }
 

@@ -16,26 +16,26 @@ namespace CS.Tests
     /// Date: 11.01.2017
     /// </summary>
     [TestClass]
-    public class CreateFAQ : BaseTest
+    public class CreateFaq : BaseTest
     {
         readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
-        private TestContext testContextInstance = null;
+        private TestContext _testContextInstance = null;
         /// <summary>
         ///Gets or sets the VS test context which provides
         ///information about and functionality for the
         ///current test run.
         ///</summary>
-        public TestContext TestContext
+        private TestContext TestContext
         {
             get
             {
-                return testContextInstance;
+                return _testContextInstance;
             }
             set
             {
-                testContextInstance = value;
+                _testContextInstance = value;
             }
         }
 

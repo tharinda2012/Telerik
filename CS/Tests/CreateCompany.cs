@@ -17,26 +17,24 @@ namespace CS.Tests
     [TestClass]
     public class CreateCompany : BaseTest
     {
-
-        
-        SessionManager login = new SessionManager();
+        readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
-        private TestContext testContextInstance = null;
+        private TestContext _testContextInstance = null;
         /// <summary>
         ///Gets or sets the VS test context which provides
         ///information about and functionality for the
         ///current test run.
         ///</summary>
-        public TestContext TestContext
+        private TestContext TestContext
         {
             get
             {
-                return testContextInstance;
+                return _testContextInstance;
             }
             set
             {
-                testContextInstance = value;
+                _testContextInstance = value;
             }
         }
 
@@ -118,68 +116,68 @@ namespace CS.Tests
 
                 // create a login object to invoke methods related to login/logout.    
 
-                login.Login_To_CS(false);
-                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(login.MyManager);
-                var company = new Company(login.MyManager);
-                var tm = new TopMenu(login.MyManager);
+                _login.Login_To_CS(false);
+                Utilities.Wait_CS_to_Load_Then_Invoke_NewItem(_login.MyManager);
+                var company = new Company(_login.MyManager);
+                var tm = new TopMenu(_login.MyManager);
                 //invoke new quick request screen from main "+" button
-                login.MyManager.ActiveBrowser.RefreshDomTree();
+                _login.MyManager.ActiveBrowser.RefreshDomTree();
                 tm.newSpan.Wait.ForExists();
-                login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
-                login.MyManager.ActiveBrowser.Actions.Click(tm.newCompany);
+                _login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
+                _login.MyManager.ActiveBrowser.Actions.Click(tm.newCompany);
 
                 //add value for name
                 company.companyName.Wait.ForExists();
                 var compname = Utilities.Generate_Random_String(10);
-                login.MyManager.ActiveBrowser.Actions.SetText(company.companyName, compname);
+                _login.MyManager.ActiveBrowser.Actions.SetText(company.companyName, compname);
 
                 //add value to department
-                login.MyManager.ActiveBrowser.Actions.SetText(company.department, "Dept-QA");
+                _login.MyManager.ActiveBrowser.Actions.SetText(company.department, "Dept-QA");
 
                 //add value for Phone
-                login.MyManager.ActiveBrowser.Actions.SetText(company.phone, "123456789");
+                _login.MyManager.ActiveBrowser.Actions.SetText(company.phone, "123456789");
 
                 // add value for Fax
-                login.MyManager.ActiveBrowser.Actions.SetText(company.fax, "2222222");
+                _login.MyManager.ActiveBrowser.Actions.SetText(company.fax, "2222222");
 
                 //add value for address field 0
-                login.MyManager.ActiveBrowser.Actions.SetText(company.add0, "ADDR0");
+                _login.MyManager.ActiveBrowser.Actions.SetText(company.add0, "ADDR0");
 
 
                 ////assign country value
                 var countryfield = company.countryfield.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.MyManager, countryfield);
-                Utilities.Enter_SearchString_For_TextField(login.MyManager, "bahamas");
+                Utilities.Click_Event_For_Textfield(_login.MyManager, countryfield);
+                Utilities.Enter_SearchString_For_TextField(_login.MyManager, "bahamas");
                 
 
 
                 //assign priority  value
 
                 var priorityfield = company.priorityfield.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.MyManager, priorityfield);
-                Utilities.Enter_SearchString_For_TextField(login.MyManager, "High");
+                Utilities.Click_Event_For_Textfield(_login.MyManager, priorityfield);
+                Utilities.Enter_SearchString_For_TextField(_login.MyManager, "High");
                 
                 //assign category  value
                 var categotyfield = company.categotyfield.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.MyManager, categotyfield);
-                Utilities.Enter_SearchString_For_TextField(login.MyManager, "Customer");
+                Utilities.Click_Event_For_Textfield(_login.MyManager, categotyfield);
+                Utilities.Enter_SearchString_For_TextField(_login.MyManager, "Customer");
                 
 
                 //assign business  value
 
                 var businessfield = company.businessfield.As<HtmlInputText>();
-                Utilities.Click_Event_For_Textfield(login.MyManager, businessfield);
-                Utilities.Enter_SearchString_For_TextField(login.MyManager, "IT");
+                Utilities.Click_Event_For_Textfield(_login.MyManager, businessfield);
+                Utilities.Enter_SearchString_For_TextField(_login.MyManager, "IT");
                 
 
 
                 //add a note
-                login.MyManager.ActiveBrowser.Actions.SetText(company.note, "TEST NOTE");
+                _login.MyManager.ActiveBrowser.Actions.SetText(company.note, "TEST NOTE");
                 Thread.Sleep(config.Default.SleepingTime*2);
 
 
                 //save company 
-                login.MyManager.ActiveBrowser.Actions.Click(company.okBut);
+                _login.MyManager.ActiveBrowser.Actions.Click(company.okBut);
                 Thread.Sleep(config.Default.SleepingTime*2);
 
                 //verify that the data has been saved to the database using an assert
@@ -194,7 +192,7 @@ namespace CS.Tests
             {
 
                 //saving error and logging out       
-                Utilities.Save_Screenshot_with_log(login.MyManager.ActiveBrowser, e, TestContext.TestName);
+                Utilities.Save_Screenshot_with_log(_login.MyManager.ActiveBrowser, e, TestContext.TestName);
                 Assert.Fail();
             }
 
@@ -209,7 +207,7 @@ namespace CS.Tests
             // Place any additional cleanup here
             //
             
-            SessionManager.Logout_From_CS(login.MyManager);
+            SessionManager.Logout_From_CS(_login.MyManager);
             
             #region WebAii CleanUp
 
