@@ -31,21 +31,21 @@ namespace CS.Tests
         readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
-        private TestContext _testContextInstance = null;
+        private TestContext testContextInstance = null;
         /// <summary>
         ///Gets or sets the VS test context which provides
         ///information about and functionality for the
         ///current test run.
         ///</summary>
-        private TestContext TestContext
+        public TestContext TestContext
         {
             get
             {
-                return _testContextInstance;
+                return testContextInstance;
             }
             set
             {
-                _testContextInstance = value;
+                testContextInstance = value;
             }
         }
 
@@ -142,7 +142,7 @@ namespace CS.Tests
                 Thread.Sleep(config.Default.SleepingTime*3);
                 var t1Frame = _login.MyManager.ActiveBrowser.Frames[0];
 
-                //setup stage=======================
+                ///setup stage=======================
                 
                 //set mailing name
                 var mName = t1Frame.Find.ById<HtmlInputText>("mailingName");
@@ -159,8 +159,8 @@ namespace CS.Tests
 
 
                 //enter selection name for archive
-                var archiveSelectionInput = t1Frame.Find.ByName<HtmlInputText>("archiveSelection_input");
-                Utilities.Click_Event_For_Textfield(t1Frame, archiveSelectionInput);
+                var archiveSelection_input = t1Frame.Find.ByName<HtmlInputText>("archiveSelection_input");
+                Utilities.Click_Event_For_Textfield(t1Frame, archiveSelection_input);
                 Utilities.Enter_SearchString_For_TextField(t1Frame, "email selection");
                 
                 //click to go to next screen
@@ -172,9 +172,9 @@ namespace CS.Tests
                 //template stage=========================
                 
                 //select a templates
-                var alltemplates = t1Frame.Find.ById<HtmlDiv>("HtmlSectionBar_templateExplorer_section_section_all");
-                alltemplates.Wait.ForExists();
-                alltemplates.Click();
+                var Alltemplates = t1Frame.Find.ById<HtmlDiv>("HtmlSectionBar_templateExplorer_section_section_all");
+                Alltemplates.Wait.ForExists();
+                Alltemplates.Click();
 
                 var templatefolder = t1Frame.Find.ByAttributes<HtmlDiv>("class=HtmlThumbnailList_icon");
                 templatefolder.Wait.ForExists();
@@ -210,19 +210,16 @@ namespace CS.Tests
                 }
                 
                 //checking if the recipient list is populated
-                if (recipienttable != null)
-                {
-                    IList<HtmlTableRow> list = recipienttable.Find.AllByTagName<HtmlTableRow>("tr");
-                    var celltext = list[0].InnerText.ToString();
-                    var counter1 = 0;
-                    while (string.IsNullOrEmpty(celltext) && counter1 < 10) //this will try upto 10 times before fails
-                    {        
+                IList<HtmlTableRow> list = recipienttable.Find.AllByTagName<HtmlTableRow>("tr");
+                var celltext = list[0].InnerText.ToString();
+                var counter1 = 0;
+                while (string.IsNullOrEmpty(celltext) && counter1 < 10) //this will try upto 10 times before fails
+                {        
                                 
-                        Thread.Sleep(config.Default.SleepingTime * 10);
-                        list = recipienttable.Find.AllByTagName<HtmlTableRow>("tr");
-                        celltext = list[0].InnerText.ToString();
-                        counter1 += 1;                
-                    }
+                    Thread.Sleep(config.Default.SleepingTime * 10);
+                    list = recipienttable.Find.AllByTagName<HtmlTableRow>("tr");
+                    celltext = list[0].InnerText.ToString();
+                    counter1 += 1;                
                 }
 
                 var btnNextRecipients = t1Frame.Find.ById<HtmlButton>("_id_116");

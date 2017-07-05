@@ -19,21 +19,21 @@ namespace CS.Tests
         readonly SessionManager _login = new SessionManager();
         #region [Setup / TearDown]
 
-        private TestContext _testContextInstance = null;
+        private TestContext testContextInstance = null;
         /// <summary>
         ///Gets or sets the VS test context which provides
         ///information about and functionality for the
         ///current test run.
         ///</summary>
-        private TestContext TestContext
+        public TestContext TestContext
         {
             get
             {
-                return _testContextInstance;
+                return testContextInstance;
             }
             set
             {
-                _testContextInstance = value;
+                testContextInstance = value;
             }
         }
 
