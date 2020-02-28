@@ -49,3 +49,6 @@ Temporary Items
 #other files
 CS/*.settings
 CS/*.config
+*.cache
+*.suo
+/.vs/CS/v16/Server/sqlite3

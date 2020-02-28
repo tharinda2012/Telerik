@@ -128,6 +128,8 @@ namespace CS.Tests
                 login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
                 login.MyManager.ActiveBrowser.Actions.Click(tm.newCompany);
 
+
+
                 //add value for name
                 company.companyName.Wait.ForExists();
                 var compname = Utilities.Generate_Random_String(10);
