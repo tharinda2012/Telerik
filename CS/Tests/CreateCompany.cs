@@ -127,6 +127,7 @@ namespace CS.Tests
                 tm.newSpan.Wait.ForExists();
                 login.MyManager.ActiveBrowser.Actions.Click(tm.newSpan);
                 login.MyManager.ActiveBrowser.Actions.Click(tm.newCompany);
+                //test comment
 
                 //add value for name
                 company.companyName.Wait.ForExists();

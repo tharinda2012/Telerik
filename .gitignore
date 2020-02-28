@@ -49,3 +49,5 @@ Temporary Items
 #other files
 CS/*.settings
 CS/*.config
+/CS/obj/Debug
+/.vs/CS/v16
