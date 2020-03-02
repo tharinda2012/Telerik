@@ -122,6 +122,9 @@
     <Folder Include="TestResults\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\jquery-1.11.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.11.3.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
     <Content Include="SupportingScripts\SendSummaryMail.py" />
     <Content Include="SupportingScripts\utils.py" />
     <Content Include="SupportingTools\ObjRepoAutoGen\auto_gen.py" />
@@ -133,6 +136,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>config.Designer.cs</LastGenOutput>
     </None>
+    <None Include="packages.config" />
+    <None Include="Scripts\jquery-1.11.3.min.map" />
     <None Include="SupportingScripts\build.bat" />
     <None Include="SupportingScripts\DeleteResults.bat" />
     <None Include="SupportingScripts\pull.bat" />
